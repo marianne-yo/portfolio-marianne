@@ -4,6 +4,15 @@ import { GraduationCap, UserStar, MailIcon } from "lucide-react";
 import { Montserrat } from "next/font/google";
 import { Button } from "@/components/ui/button";
 import { IconBrandGithub, IconBrandLinkedin } from "@tabler/icons-react";
+import { Moon, Sun } from "lucide-react"
+import { useTheme } from "next-themes"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
 import {
   Navbar,
   NavBody,
@@ -37,6 +46,7 @@ function lerp(a: number, b: number, t: number) {
 }
 
 export default function Home() {
+  const { setTheme, resolvedTheme } = useTheme();
   const svgRef = useRef<SVGSVGElement>(null);
 
   const cur = useRef({ lx: LEFT_EYE.cx, ly: LEFT_EYE.cy, rx: RIGHT_EYE.cx, ry: RIGHT_EYE.cy });
@@ -124,18 +134,48 @@ export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className={`flex flex-col flex-1 items-center justify-start font-sans bg-amber-50 ${montserrat.className}`}>
-      <main className="flex flex-1 w-full max-w-6xl flex-col items-center justify-start py-10 px-10 sm:items-start bg-[#F8F2E8]">
+    <div className={`flex flex-col flex-1 items-center justify-start font-sans bg-background ${montserrat.className}`}>
+      <main className="flex flex-1 w-full max-w-6xl flex-col items-center justify-start py-10 px-10 sm:items-start bg-background">
+        {/* <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="icon">
+                      <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+                      <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+                      <span className="sr-only">Toggle theme</span>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem onClick={() => setTheme("light")}>
+                      Light
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setTheme("dark")}>
+                      Dark
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setTheme("system")}>
+                      System
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu> */}
 
         <div className="relative w-full">
           <Navbar>
             <NavBody>
-              <NavbarLogo />
-              <NavItems items={navItems} />
-              <div className="flex items-center gap-4">
-                <NavbarButton variant="primary">English</NavbarButton>
-              </div>
-            </NavBody>
+            <NavbarLogo />
+            <NavItems items={navItems} />
+            <div className="flex items-center gap-4">
+              <NavbarButton variant="primary">English</NavbarButton>
+              <NavbarButton
+                as="button"
+                variant="primary"
+                onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+                className="relative flex items-center justify-center w-9 h-9 p-0"
+              >
+                <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+                <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+                <span className="sr-only">Toggle theme</span>
+              </NavbarButton>
+            </div>
+          </NavBody>
             <MobileNav>
               <MobileNavHeader>
                 <NavbarLogo />
@@ -159,16 +199,27 @@ export default function Home() {
               </MobileNavMenu>
             </MobileNav>
           </Navbar>
+           <div className="absolute top-2 right-0 z-[9999] flex items-center gap-4">
+              {/* <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+              >
+                <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+                <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+                <span className="sr-only">Toggle theme</span>
+              </Button> */}
+            </div>
         </div>
 
-        <section className="grid grid-cols-3 gap-8 mt-16 w-full items-center justify-center bg-amber-300">
+        <section className="grid grid-cols-3 gap-8 mt-16 w-full items-center justify-center ">
           <div className="col-span-2 flex flex-col gap-6">
             <h1 className="text-6xl font-medium tracking-tight text-pretty leading-tight">
               Hi, my name <br /> is{" "}
               <span className="text-primary font-bold">Marianne</span>
             </h1>
 
-            <p className="text-2xl text-neutral-600">
+            <p className="text-2xl text-neutral-600 dark:text-neutral-300">
               Explore my projects, skills, and experience in web development.
             </p>
 
