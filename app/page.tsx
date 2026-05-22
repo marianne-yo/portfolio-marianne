@@ -35,6 +35,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -298,25 +299,36 @@ export default function Home() {
           </div>
 
           <div className="grid w-full grid-cols-2 gap-3 max-w-5xl">
-            <Card className="relative w-full pt-0 col-span-2">
+            {/* card 1 */}
+            <Card className="relative w-full pt-0 col-span-2 bg-card border-2 border-ring ">
               <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
               <img
                 src="https://avatar.vercel.sh/shadcn1"
                 alt="Event cover"
                 className="relative z-20 aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40"
               />
-              <CardHeader>
+              <CardHeader className="grid grid-cols-2">
+                <CardTitle className="font-bold text-pretty tracking-sm text-lg w-[90%]">Revio: A Review Material Generator Using Natural Language Processing with Acronym Mnemonic, Leitner, and Pomodoro Techniques </CardTitle>
+                
                 <CardAction>
-                  <Badge variant="default">Featured</Badge>
+                  <Badge variant="secondary" className="bg-slate-600/30">2025</Badge>
                 </CardAction>
-                <CardTitle>Design systems meetup</CardTitle>
-                <CardDescription>
-                  A practical talk on component APIs, accessibility, and shipping
-                  faster.
-                </CardDescription>
+                <p className="font-light text-md text-secondary-foreground tracking-wider">Mobile App Developer | UI/UX Designer - Capstone Project</p>         
               </CardHeader>
-              <CardFooter>
-                <Button className="w-full">View Event</Button>
+              <CardContent>
+                <CardDescription>
+                  A reviewer generator that makes flashcards and summarization of the study materials.
+                </CardDescription>
+              </CardContent>
+              
+              <CardContent className="flex flex-row gap-1">
+                  <Badge variant="outline" className="bg-blue-600/30">React</Badge>
+                  <Badge variant="outline" className="bg-green-400/20">Supabase</Badge>
+                  <Badge variant="outline" className="bg-orange-500/30">Firebase</Badge>
+              </CardContent>
+              <CardFooter className="flex flex-row gap-2">
+                <Button variant={'outline'} className="w-[50%] rounded-md cursor-pointer">Github</Button>
+                <Button className="w-[50%] rounded-md cursor-pointer bg-primary">Website</Button>
               </CardFooter>
             </Card>
 
@@ -328,18 +340,29 @@ export default function Home() {
                 alt="Event cover"
                 className="relative z-20 aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40"
               />
-              <CardHeader>
+              <CardHeader className="grid grid-cols-2">
+                <CardTitle className="font-bold text-pretty tracking-sm text-lg w-[90%]">Family Assistance Card in Emergencies and Disasters</CardTitle>
+
                 <CardAction>
-                  <Badge variant="default">Featured</Badge>
+                  <Badge variant="secondary" className="bg-slate-600/30">2026</Badge>
                 </CardAction>
-                <CardTitle>Design systems meetup</CardTitle>
-                <CardDescription>
-                  A practical talk on component APIs, accessibility, and shipping
-                  faster.
-                </CardDescription>
+                <p className="font-light text-md text-secondary-foreground tracking-wider">Full-Stack Developer | UI/UX Designer - Internship Project</p>         
               </CardHeader>
-              <CardFooter>
-                <Button className="w-full">View Event</Button>
+              <CardContent>
+                <CardDescription>
+                  A public survey form for DSWD assistance with an admin dashboard.
+                </CardDescription>
+              </CardContent>
+              
+              <CardContent className="flex flex-row gap-1">
+                  <Badge variant="outline" className="bg-blue-600/30">React</Badge>
+                  <Badge variant="outline" className="bg-blue-500/30">Typescript</Badge>
+                  <Badge variant="outline" className="bg-slate-400/10">Next.js</Badge>
+                  <Badge variant="outline" className="bg-green-400/20">Supabase</Badge>
+              </CardContent>
+              <CardFooter className="flex flex-row gap-2">
+                <Button variant={'outline'} className="w-[50%] rounded-md cursor-pointer">Github</Button>
+                <Button className="w-[50%] rounded-md cursor-pointer bg-primary">Website</Button>
               </CardFooter>
             </Card>
 
@@ -351,18 +374,29 @@ export default function Home() {
                 alt="Event cover"
                 className="relative z-20 aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40"
               />
-              <CardHeader>
+              <CardHeader className="grid grid-cols-2">
+                <CardTitle className="font-bold text-pretty tracking-sm text-lg w-[90%]">Family Risk Assessment and Vulnerability Assessment</CardTitle>
+
                 <CardAction>
-                  <Badge variant="default">Featured</Badge>
+                  <Badge variant="secondary" className="bg-slate-600/30">2026</Badge>
                 </CardAction>
-                <CardTitle>Design systems meetup</CardTitle>
-                <CardDescription>
-                  A practical talk on component APIs, accessibility, and shipping
-                  faster.
-                </CardDescription>
+                <p className="font-light text-md text-secondary-foreground tracking-wider">Full-Stack Developer | UI/UX Designer - Internship Project</p>         
               </CardHeader>
-              <CardFooter>
-                <Button className="w-full">View Event</Button>
+              <CardContent>
+                <CardDescription>
+                  A public survey form for surveying the risk of each households with an admin dashboard that monitors the responses of each barangay.
+                </CardDescription>
+              </CardContent>
+              
+              <CardContent className="flex flex-row gap-1">
+                  <Badge variant="outline" className="bg-blue-600/30">React</Badge>
+                  <Badge variant="outline" className="bg-blue-500/30">Typescript</Badge>
+                  <Badge variant="outline" className="bg-slate-400/10">Next.js</Badge>
+                  <Badge variant="outline" className="bg-green-400/20">Supabase</Badge>
+              </CardContent>
+              <CardFooter className="flex flex-row gap-2">
+                <Button variant={'outline'} className="w-[50%] rounded-md cursor-pointer">Github</Button>
+                <Button className="w-[50%] rounded-md cursor-pointer bg-primary">Website</Button>
               </CardFooter>
             </Card>
 
@@ -374,23 +408,124 @@ export default function Home() {
                 alt="Event cover"
                 className="relative z-20 aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40"
               />
-              <CardHeader>
+              <CardHeader className="grid grid-cols-2">
+                <CardTitle className="font-bold text-pretty tracking-sm text-lg w-[90%]">Festverse</CardTitle>
                 <CardAction>
-                  <Badge variant="default">Featured</Badge>
+                  <Badge variant="secondary" className="bg-slate-600/30">2025</Badge>
                 </CardAction>
-                <CardTitle>Design systems meetup</CardTitle>
-                <CardDescription>
-                  A practical talk on component APIs, accessibility, and shipping
-                  faster.
-                </CardDescription>
+                <p className="font-light text-md text-secondary-foreground tracking-wider">Front-End Developer | UI/UX Designer - School Project</p>         
               </CardHeader>
-              <CardFooter>
-                <Button className="w-full">View Event</Button>
+              <CardContent>
+                <CardDescription>
+                  FestVerse is a website designed to promote music festivals, specifically Coachella 2025. It serves as a centralized, interactive website providing information about the festival, such as schedules, artist lineups, maps, and travel guides, to enhance the user experience for festival-goers.
+                </CardDescription>
+              </CardContent>
+              
+              <CardContent className="flex flex-row gap-1">
+                  <Badge variant="outline" className="bg-orange-700/30">HTML</Badge>
+                  <Badge variant="outline" className="bg-sky-500/30">Tailwind CSS</Badge>
+                  <Badge variant="outline" className="bg-yellow-500/30">Javascript</Badge>
+                  <Badge variant="outline" className="bg-purple-400/20">PHP</Badge>
+              </CardContent>
+              <CardFooter className="flex flex-row gap-2">
+                <Button variant={'outline'} className="w-[50%] rounded-md cursor-pointer">Github</Button>
+                <Button className="w-[50%] rounded-md cursor-pointer bg-primary">Website</Button>
+              </CardFooter>
+            </Card>
+
+            {/* card 5 */}
+            <Card className="relative w-full pt-0">
+              <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
+              <img
+                src="https://avatar.vercel.sh/shadcn1"
+                alt="Event cover"
+                className="relative z-20 aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40"
+              />
+              <CardHeader className="grid grid-cols-2">
+                <CardTitle className="font-bold text-pretty tracking-sm text-lg w-[90%]">Cafe Ka Dito</CardTitle>
+                <CardAction>
+                  <Badge variant="secondary" className="bg-slate-600/30">2023</Badge>
+                </CardAction>
+                <p className="font-light text-md text-secondary-foreground tracking-wider">Front-End Developer | UI/UX Designer - School Project</p>         
+              </CardHeader>
+              <CardContent>
+                <CardDescription>
+                  Cafe Ka Dito is a simple ordering system made with Java and Java Swing.
+                </CardDescription>
+              </CardContent>
+              
+              <CardContent className="flex flex-row gap-1">
+                  <Badge variant="outline" className="bg-red-700/30">Java</Badge>
+                  <Badge variant="outline" className="bg-red-400/30">Java Swing</Badge>
+                  
+              </CardContent>
+              <CardFooter className="flex flex-row gap-2">
+                <Button variant={'outline'} className="w-[50%] rounded-md cursor-pointer">Github</Button>
+                <Button disabled className="w-[50%] rounded-md cursor-pointer bg-primary">Website</Button>
               </CardFooter>
             </Card>
           </div>
         </section>
 
+        {/* skills and tools section */}
+        <section className="flex flex-col justify-center mt-100 w-full">
+          <div className="w-full max-w-5xl">
+            <p className="font-light tracking-wider text-pretty">MY STACK</p>
+
+            <h2 className="text-6xl font-bold tracking-tight text-pretty leading-tight">
+              Skills and Tools
+            </h2>
+
+            <p className="font-normal tracking-wide text-pretty pb-5">
+              Things I use in development and designing.
+            </p>
+          </div>
+        </section>
+
+        {/* experience and education section */}
+        <section className="flex flex-col justify-center mt-100 w-full">
+          <div className="w-full max-w-5xl">
+            <p className="font-light tracking-wider text-pretty">MY EXPERIENCES</p>
+
+            <h2 className="text-6xl font-bold tracking-tight text-pretty leading-tight">
+              Experience and Education
+            </h2>
+
+            <p className="font-normal tracking-wide text-pretty pb-5">
+              My timeline of experiences and education.
+            </p>
+          </div>
+        </section>
+
+        {/* Services */}
+        <section className="flex flex-col justify-center mt-100 w-full bg-green-400">
+          <div className="w-full max-w-5xl">
+            <p className="font-light tracking-wider text-pretty">MY SERVICES</p>
+
+            <h2 className="text-6xl font-bold tracking-tight text-pretty leading-tight">
+              Services
+            </h2>
+
+            <p className="font-normal tracking-wide text-pretty pb-5">
+              Here&apos;s the services I offer.
+            </p>
+          </div>
+        </section>
+
+        {/* Contact */}
+        <section className="flex flex-col justify-center mt-100 w-full bg-amber-200">
+          <div className="w-full max-w-5xl">
+            <p className="font-light tracking-wider text-pretty">MY CONTACT</p>
+
+            <h2 className="text-6xl font-bold tracking-tight text-pretty leading-tight">
+              Contact
+            </h2>
+
+            <p className="font-normal tracking-wide text-pretty pb-5">
+              Let&apos;s connect!
+            </p>
+          </div>
+        </section>
       </main>
     </div>
   );
