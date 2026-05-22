@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { IconBrandGithub, IconBrandLinkedin } from "@tabler/icons-react";
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
+import { Badge } from "@/components/ui/badge"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -283,7 +284,7 @@ export default function Home() {
           <p>scroll</p>
         </section>
 
-        <section className="flex flex-col justify-center mt-100">
+        <section className="flex flex-col justify-center mt-100 w-full">
           <div className="w-full max-w-5xl">
             <p className="font-light tracking-wider text-pretty">MY WORKS</p>
 
@@ -295,70 +296,96 @@ export default function Home() {
               Things I&apos;ve designed, built, and shipped.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-5xl">
-            <Card className="rounded-2xl w-full md:col-span-2 min-h-[300px]">
+
+          <div className="grid w-full grid-cols-2 gap-3 max-w-5xl">
+            <Card className="relative w-full pt-0 col-span-2">
+              <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
+              <img
+                src="https://avatar.vercel.sh/shadcn1"
+                alt="Event cover"
+                className="relative z-20 aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40"
+              />
               <CardHeader>
-                <CardTitle>Project 1</CardTitle>
-                <CardDescription>Card Description</CardDescription>
-                <CardAction>Card Action</CardAction>
+                <CardAction>
+                  <Badge variant="default">Featured</Badge>
+                </CardAction>
+                <CardTitle>Design systems meetup</CardTitle>
+                <CardDescription>
+                  A practical talk on component APIs, accessibility, and shipping
+                  faster.
+                </CardDescription>
               </CardHeader>
-              <CardContent>
-                <p>Card Content</p>
-              </CardContent>
               <CardFooter>
-                <p>Card Footer</p>
+                <Button className="w-full">View Event</Button>
               </CardFooter>
             </Card>
-            <Card className="rounded-2xl w-full min-h-[260px]">
+
+            {/* card 2 */}
+            <Card className="relative w-full pt-0">
+              <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
+              <img
+                src="https://avatar.vercel.sh/shadcn1"
+                alt="Event cover"
+                className="relative z-20 aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40"
+              />
               <CardHeader>
-                <CardTitle>Project 2</CardTitle>
-                <CardDescription>Card Description</CardDescription>
-                <CardAction>Card Action</CardAction>
+                <CardAction>
+                  <Badge variant="default">Featured</Badge>
+                </CardAction>
+                <CardTitle>Design systems meetup</CardTitle>
+                <CardDescription>
+                  A practical talk on component APIs, accessibility, and shipping
+                  faster.
+                </CardDescription>
               </CardHeader>
-              <CardContent>
-                <p>Card Content</p>
-              </CardContent>
               <CardFooter>
-                <p>Card Footer</p>
+                <Button className="w-full">View Event</Button>
               </CardFooter>
             </Card>
-            <Card className="rounded-2xl w-full min-h-[260px]">
+
+            {/* card 3 */}
+            <Card className="relative w-full pt-0">
+              <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
+              <img
+                src="https://avatar.vercel.sh/shadcn1"
+                alt="Event cover"
+                className="relative z-20 aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40"
+              />
               <CardHeader>
-                <CardTitle>Project 2</CardTitle>
-                <CardDescription>Card Description</CardDescription>
-                <CardAction>Card Action</CardAction>
+                <CardAction>
+                  <Badge variant="default">Featured</Badge>
+                </CardAction>
+                <CardTitle>Design systems meetup</CardTitle>
+                <CardDescription>
+                  A practical talk on component APIs, accessibility, and shipping
+                  faster.
+                </CardDescription>
               </CardHeader>
-              <CardContent>
-                <p>Card Content</p>
-              </CardContent>
               <CardFooter>
-                <p>Card Footer</p>
+                <Button className="w-full">View Event</Button>
               </CardFooter>
             </Card>
-            <Card className="rounded-2xl w-full min-h-[260px]">
+
+            {/* card 4 */}
+            <Card className="relative w-full pt-0">
+              <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
+              <img
+                src="https://avatar.vercel.sh/shadcn1"
+                alt="Event cover"
+                className="relative z-20 aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40"
+              />
               <CardHeader>
-                <CardTitle>Project 2</CardTitle>
-                <CardDescription>Card Description</CardDescription>
-                <CardAction>Card Action</CardAction>
+                <CardAction>
+                  <Badge variant="default">Featured</Badge>
+                </CardAction>
+                <CardTitle>Design systems meetup</CardTitle>
+                <CardDescription>
+                  A practical talk on component APIs, accessibility, and shipping
+                  faster.
+                </CardDescription>
               </CardHeader>
-              <CardContent>
-                <p>Card Content</p>
-              </CardContent>
               <CardFooter>
-                <p>Card Footer</p>
-              </CardFooter>
-            </Card>
-            <Card className="rounded-2xl w-full min-h-[260px]">
-              <CardHeader>
-                <CardTitle>Project 2</CardTitle>
-                <CardDescription>Card Description</CardDescription>
-                <CardAction>Card Action</CardAction>
-              </CardHeader>
-              <CardContent>
-                <p>Card Content</p>
-              </CardContent>
-              <CardFooter>
-                <p>Card Footer</p>
+                <Button className="w-full">View Event</Button>
               </CardFooter>
             </Card>
           </div>
