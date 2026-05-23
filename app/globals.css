@@ -163,6 +163,10 @@
 
   --radius: 0.75rem;
 
+  /* Console  */
+  --console: oklch(0.93 0.005 85);
+  --console-nav: oklch(0.86 0.008 85);
+
   /* Charts */
   --chart-1: oklch(0.78 0.16 85);   /* yellow */
   --chart-2: oklch(0.7 0.18 45);    /* orange */
@@ -254,6 +258,9 @@
 
   --destructive: oklch(0.7 0.2 25);
 
+  /* Console  */
+  --console: oklch(14.574% 0.00429 285.807);
+  --console-nav: oklch(27.201% 0.01475 285.357);
   /* Charts */
   --chart-1: oklch(0.82 0.15 85);
   --chart-2: oklch(0.72 0.18 45);

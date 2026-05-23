@@ -1,18 +1,13 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { GraduationCap, UserStar, MailIcon } from "lucide-react";
+import { GraduationCap, UserStar, MailIcon, Ghost, ArrowRight, Mail } from "lucide-react";
 import { Montserrat } from "next/font/google";
 import { Button } from "@/components/ui/button";
-import { IconBrandGithub, IconBrandLinkedin } from "@tabler/icons-react";
+import { IconBrandFacebook, IconBrandGithub, IconBrandInstagram, IconBrandLinkedin } from "@tabler/icons-react";
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Badge } from "@/components/ui/badge"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import { Check } from "lucide-react";
 
 import {
   Navbar,
@@ -41,13 +36,14 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 
 const LEFT_EYE  = { cx: 105.354, cy: 202.694 };
 const RIGHT_EYE = { cx: 203.354, cy: 202.694 };
-const MAX_DIST  = 7; // max pupil travel in SVG units
+const MAX_DIST  = 2;
 
 function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t;
 }
 
 export default function Home() {
+  const [activeTab, setActiveTab] = useState<'professional' | 'personal'>('professional')
   const { setTheme, resolvedTheme } = useTheme();
   const svgRef = useRef<SVGSVGElement>(null);
 
@@ -133,37 +129,79 @@ export default function Home() {
     { logo: <UserStar />,      name: "Personal",     link: "#personal"      },
   ];
 
+  const services = [
+    { 
+      service: 'UI/UX Design', 
+      desc: "Clean, intuitive interfaces designed in Figma — from wireframes to polished high-fidelity screens.", 
+      tag: 'Design',
+      featured: false,
+      deliverables: ['Wireframes & prototypes', 'Design system & components', 'Mobile & desktop screens'],
+      cta: "Let's build something"
+    },
+    { 
+      service: 'Web and App Development', 
+      desc: "Responsive, performant websites and apps built from scratch or from your existing designs.", 
+      tag: 'Development',
+      featured: false,
+      deliverables: ['Responsive web apps', 'Mobile app development', 'Design-to-code handoff'],
+      cta: 'Start a project'
+    },
+    { 
+      service: 'Digital Illustration', 
+      desc: "Custom digital artwork — character art, portraits, concept art, or illustrations for branding and content.", 
+      tag: 'Art',
+      featured: false,
+      deliverables: ['Character & portrait art', 'Brand illustrations', 'High-res export files'],
+      cta: 'Starting at ₱1,500'
+    },
+    { 
+      service: 'Full Creative Pipeline', 
+      desc: "The complete package — I design, illustrate, and build your product end to end, no handoffs needed.", 
+      tag: 'My specialty',
+      featured: true,
+      deliverables: ['Concept to live product', 'Custom art & branding', 'Ongoing support'],
+      cta: "Let's create together"
+    },
+  ];
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
 
   return (
     <div className={`flex flex-col flex-1 items-center justify-start font-sans bg-background ${montserrat.className}`}>
       <main className="flex flex-1 w-full max-w-6xl flex-col items-center justify-start py-10 px-10 sm:items-start bg-background">
-        {/* <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" size="icon">
-                      <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-                      <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-                      <span className="sr-only">Toggle theme</span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem onClick={() => setTheme("light")}>
-                      Light
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setTheme("dark")}>
-                      Dark
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setTheme("system")}>
-                      System
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu> */}
 
         <div className="relative w-full">
           <Navbar>
             <NavBody>
             <NavbarLogo />
-            <NavItems items={navItems} />
+            {/* <NavItems items={navItems} /> */}
+            {/* Tab switcher in the center */}
+            <div className="flex items-center gap-1 border border-border rounded-full p-1">
+              <Button
+                variant={'ghost'}
+                onClick={() => setActiveTab('professional')}
+                className={`px-4 py-1 rounded-full text-sm transition-all duration-200
+                  ${activeTab === 'professional'
+                    ? 'bg-foreground text-background'
+                    : 'text-(--text-muted) hover:text-foreground'
+                  }`}
+              >
+                Professional
+              </Button>
+              <Button
+                variant={'ghost'}
+                onClick={() => setActiveTab('personal')}
+                className={`cursor-pointer px-4 py-1 rounded-full text-sm transition-all duration-200
+                  ${activeTab === 'personal'
+                    ? 'bg-foreground text-background'
+                    : 'text-(--text-muted) hover:text-foreground'
+                  }`}
+              >
+                Personal
+              </Button>
+            </div>
+
             <div className="flex items-center gap-4">
               <NavbarButton variant="primary">English</NavbarButton>
               <NavbarButton
@@ -187,31 +225,40 @@ export default function Home() {
                 />
               </MobileNavHeader>
               <MobileNavMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)}>
+  
+                {/* Tab switcher for mobile */}
+                <div className="flex w-full gap-2">
+                  <Button
+                    onClick={() => { setActiveTab('professional'); setIsMobileMenuOpen(false); }}
+                    className={`flex-1 py-2 rounded-lg text-sm border transition-all
+                      ${activeTab === 'professional'
+                        ? 'bg-foreground text-background border-foreground'
+                        : 'border-border text-(--text-muted)'
+                      }`}
+                  >
+                    Professional
+                  </Button>
+                  <Button
+                    onClick={() => { setActiveTab('personal'); setIsMobileMenuOpen(false); }}
+                    className={`flex-1 py-2 rounded-lg text-sm border transition-all
+                      ${activeTab === 'personal'
+                        ? 'bg-foreground text-background border-foreground'
+                        : 'border-border text-(--text-muted)'
+                      }`}
+                  >
+                    Personal
+                  </Button>
+                </div>
+
                 {navItems.map((item, idx) => (
                   <a key={idx} href={item.link} onClick={() => setIsMobileMenuOpen(false)}
-                     className="relative text-neutral-600 dark:text-neutral-300">
+                    className="relative text-[var(--text-soft)] dark:text-neutral-300">
                     <span className="block">{item.name}</span>
                   </a>
                 ))}
-                <div className="flex w-full flex-col gap-4">
-                  <NavbarButton onClick={() => setIsMobileMenuOpen(false)} variant="primary" className="w-full">
-                    En
-                  </NavbarButton>
-                </div>
               </MobileNavMenu>
             </MobileNav>
           </Navbar>
-           <div className="absolute top-2 right-0 z-[9999] flex items-center gap-4">
-              {/* <Button
-                variant="outline"
-                size="icon"
-                onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-              >
-                <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-                <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-                <span className="sr-only">Toggle theme</span>
-              </Button> */}
-            </div>
         </div>
 
         <section className="grid grid-cols-3 gap-8 mt-16 w-full items-center justify-center ">
@@ -221,7 +268,7 @@ export default function Home() {
               <span className="text-primary font-bold">Marianne</span>
             </h1>
 
-            <p className="text-2xl text-neutral-600 dark:text-neutral-300">
+            <p className="text-2xl text-[var(--text-soft)] dark:text-neutral-300">
               Explore my projects, skills, and experience in web development.
             </p>
 
@@ -285,6 +332,7 @@ export default function Home() {
           <p>scroll</p>
         </section>
 
+        {/* my works */}
         <section className="flex flex-col justify-center mt-100 w-full">
           <div className="w-full max-w-5xl">
             <p className="font-light tracking-wider text-pretty">MY WORKS</p>
@@ -480,25 +528,311 @@ export default function Home() {
               Things I use in development and designing.
             </p>
           </div>
+
+          <div className="flex flex-col w-full">
+            <div className="bg-(--console-nav) border border-muted h-10 flex items-center justify-center rounded-t-lg px-5 gap-2">
+              <div className="w-4 h-4 bg-red-500 rounded-full"/>
+              <div className="w-4 h-4 bg-yellow-500 rounded-full"/>
+              <div className="w-4 h-4 bg-green-500 rounded-full"/>
+              <p className="text-xs text-foreground mx-auto pr-16 font-mono">skills.tsx</p>
+            </div>
+            <div className="bg-(--console) p-5 rounded-b-lg border border-muted font-mono text-sm leading-8">
+
+              <div className="flex gap-4">
+                <span className="text-[var(--text-soft)] select-none w-4">1</span>
+                <code>
+                  <span className="text-[var(--text-purple)]">export default function </span>
+                  <span className="text-[var(--text-yellow)]">Skills</span>
+                  <span className="text-[var(--foreground)]">() {"{"}</span>
+                </code>
+              </div>
+
+              <div className="flex gap-4">
+                <span className="text-[var(--text-soft)] select-none w-4">2</span>
+                <code></code>
+              </div>
+
+              <div className="flex gap-4">
+                <span className="text-[var(--text-soft)] select-none w-4">3</span>
+                <code className="pl-6">
+                  <span className="text-[var(--text-purple)]">const </span>
+                  <span className="text-[var(--text-orange)]">design </span>
+                  <span className="text-[var(--foreground)]">= [</span>
+                  <span className="text-[var(--text-yellow)]">&quot;Figma&quot;</span>
+                  <span className="text-[var(--foreground)]">, </span>
+                  <span className="text-[var(--text-yellow)]">&quot;Rive&quot;</span>
+                  <span className="text-[var(--foreground)]">, </span>
+                  <span className="text-[var(--text-yellow)]">&quot;Canva&quot;</span>
+                  <span className="text-[var(--foreground)]">]</span>
+                </code>
+              </div>
+
+              <div className="flex gap-4">
+                <span className="text-[var(--text-soft)] select-none w-4">4</span>
+                <code className="pl-6">
+                  <span className="text-[var(--text-purple)]">const </span>
+                  <span className="text-[var(--text-orange)]">art </span>
+                  <span className="text-[var(--foreground)]">= [</span>
+                  <span className="text-[var(--text-yellow)]">&quot;Medibang&quot;</span>
+                  <span className="text-[var(--foreground)]">, </span>
+                  <span className="text-[var(--text-yellow)]">&quot;Clip Studio Paint&quot;</span>
+                  <span className="text-[var(--foreground)]">]</span>
+                </code>
+              </div>
+
+              <div className="flex gap-4">
+                <span className="text-[var(--text-soft)] select-none w-4">5</span>
+                <code className="pl-6">
+                  <span className="text-[var(--text-purple)]">const </span>
+                  <span className="text-[var(--text-orange)]">languages </span>
+                  <span className="text-[var(--foreground)]">= [</span>
+                  <span className="text-[var(--text-yellow)]">&quot;HTML/CSS&quot;</span>
+                  <span className="text-[var(--foreground)]">, </span>
+                  <span className="text-[var(--text-yellow)]">&quot;JavaScript&quot;</span>
+                  <span className="text-[var(--foreground)]">, </span>
+                  <span className="text-[var(--text-yellow)]">&quot;TypeScript&quot;</span>
+                  <span className="text-[var(--foreground)]">, </span>
+                  <span className="text-[var(--text-yellow)]">&quot;Java&quot;</span>
+                  <span className="text-[var(--foreground)]">, </span>
+                  <span className="text-[var(--text-yellow)]">&quot;PHP&quot;</span>
+                  <span className="text-[var(--foreground)]">]</span>
+                </code>
+              </div>
+
+              <div className="flex gap-4">
+                <span className="text-[var(--text-soft)] select-none w-4">6</span>
+                <code className="pl-6">
+                  <span className="text-[var(--text-purple)]">const </span>
+                  <span className="text-[var(--text-orange)]">frameworks </span>
+                  <span className="text-[var(--foreground)]">= [</span>
+                  <span className="text-[var(--text-yellow)]">&quot;React&quot;</span>
+                  <span className="text-[var(--foreground)]">, </span>
+                  <span className="text-[var(--text-yellow)]">&quot;Next.js&quot;</span>
+                  <span className="text-[var(--foreground)]">, </span>
+                  <span className="text-[var(--text-yellow)]">&quot;React Native&quot;</span>
+                  <span className="text-[var(--foreground)]">, </span>
+                  <span className="text-[var(--text-yellow)]">&quot;Laravel&quot;</span>
+                  <span className="text-[var(--foreground)]">]</span>
+                </code>
+              </div>
+
+              <div className="flex gap-4">
+                <span className="text-[var(--text-soft)] select-none w-4">7</span>
+                <code className="pl-6">
+                  <span className="text-[var(--text-purple)]">const </span>
+                  <span className="text-[var(--text-orange)]">databases </span>
+                  <span className="text-[var(--foreground)]">= [</span>
+                  <span className="text-[var(--text-yellow)]">&quot;MySQL&quot;</span>
+                  <span className="text-[var(--foreground)]">, </span>
+                  <span className="text-[var(--text-yellow)]">&quot;Firebase&quot;</span><span className="text-[var(--foreground)]">, </span>
+                  <span className="text-[var(--text-yellow)]">&quot;Supabase&quot;</span>
+                  <span className="text-[var(--foreground)]">]</span>
+                </code>
+              </div>
+
+              <div className="flex gap-4">
+                <span className="text-[var(--text-soft)] select-none w-4">8</span>
+                <code className="pl-6">
+                  <span className="text-[var(--text-purple)]">const </span>
+                  <span className="text-[var(--text-orange)]">tools </span>
+                  <span className="text-[var(--foreground)]">= [</span>
+                  <span className="text-[var(--text-yellow)]">&quot;VS Code&quot;</span>
+                  <span className="text-[var(--foreground)]">, </span>
+                  <span className="text-[var(--text-yellow)]">&quot;Git&quot;</span>
+                  <span className="text-[var(--foreground)]">, </span>
+                  <span className="text-[var(--text-yellow)]">&quot;GitHub&quot;</span>
+                  <span className="text-[var(--foreground)]">, </span>
+                  <span className="text-[var(--text-yellow)]">&quot;Notion&quot;</span>
+                  <span className="text-[var(--foreground)]">]</span>
+                </code>
+              </div>
+
+              <div className="flex gap-4">
+                <span className="text-[var(--text-soft)] select-none w-4">9</span>
+                <code></code>
+              </div>
+
+              <div className="flex gap-4">
+                <span className="text-(--text-soft) select-none w-4">10</span>
+                <code className="pl-6">
+                  <span className="text-(--text-purple)">return </span>
+                  <span className="text-foreground">{"{ "}</span>
+                  <span className="text-[var(--text-orange)]">design</span>
+                  <span className="text-[var(--foreground)]">, </span>
+                  <span className="text-(--text-orange)">art</span>
+                  <span className="text-[var(--foreground)]">, </span>
+                  <span className="text-[var(--text-orange)]">languages</span>
+                  <span className="text-[var(--foreground)]">, </span>
+                  <span className="text-[var(--text-orange)]">frameworks</span>
+                  <span className="text-[var(--foreground)]">, </span>
+                  <span className="text-[var(--text-orange)]">databases</span>
+                  <span className="text-[var(--foreground)]">, </span>
+                  <span className="text-[var(--text-orange)]">tools</span>
+                  <span className="text-[var(--foreground)]">{" }"}</span>
+                </code>
+              </div>
+
+              <div className="flex gap-4">
+                <span className="text-(--text-soft) select-none w-4">11</span>
+                <code>
+                  <span className="text-foreground">{"}"}</span>
+                </code>
+              </div>
+
+              <div className="flex gap-4 mt-1">
+                <span className="text-(--text-soft) select-none w-4">12</span>
+                {/* <span className="inline-block w-2 h-4 bg-[var(--primary)] animate-pulse duration-fast mt-1"/> */}
+              </div>
+
+              {/* Line 13 - run command */}
+              <div className="flex gap-4">
+                <span className="text-(--text-soft) select-none w-4">13</span>
+                <code>
+                  <span className="text-(--text-orange)">Skills</span>
+                  <span className="text-foreground">()</span>
+                </code>
+              </div>
+            </div>
+          </div>
+          
+          <br />
+          {/* Output panel - OUTPUT THE LOGOS*/}
+          <div className="border border-muted rounded-lg p-5 bg-(--surface-secondary)">
+            <p className="text-xs text-[var(--text-soft)] font-mono mb-4"> Output</p>
+
+            <div className="flex flex-col gap-4">
+
+              <div>
+                <p className="text-xs text-[var(--text-muted)] mb-2 font-mono">design</p>
+                <div className="flex flex-wrap gap-3">
+                  {["Figma", "Rive", "Canva"].map(tool => (
+                    <div key={tool} className="flex items-center gap-2 px-3 py-2 rounded-lg border border-muted bg-(--surface)">
+                     
+                      <span className="text-sm">{tool}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <p className="text-xs text-[var(--text-muted)] mb-2 font-mono">art</p>
+                <div className="flex flex-wrap gap-3">
+                  {["Medibang", "Clip Studio Paint"].map(tool => (
+                    <div key={tool} className="flex items-center gap-2 px-3 py-2 rounded-lg border border-muted bg-(--surface)">
+                      
+                      <span className="text-sm">{tool}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* repeat for languages, frameworks, databases, tools */}
+
+            </div>
+          </div>
         </section>
 
         {/* experience and education section */}
         <section className="flex flex-col justify-center mt-100 w-full">
           <div className="w-full max-w-5xl">
-            <p className="font-light tracking-wider text-pretty">MY EXPERIENCES</p>
-
+            <p className="font-light tracking-wider text-(--text-muted)">MY JOURNEY</p>
             <h2 className="text-6xl font-bold tracking-tight text-pretty leading-tight">
-              Experience and Education
+              Experience
             </h2>
-
-            <p className="font-normal tracking-wide text-pretty pb-5">
-              My timeline of experiences and education.
+            <p className="font-normal tracking-wide text-(--text-secondary) pb-10">
+              Where I&apos;ve been, what I&apos;ve built, and what shaped me.
             </p>
+          </div>
+
+          <div className="relative w-full max-w-5xl">
+
+            {/* Vertical line */}
+            <div className="absolute left-3 top-5 bottom-2 w-px bg-border" />
+
+            <div className="flex flex-col gap-10 pl-8">
+
+              <div className="relative">
+                <div className="absolute -left-6.25 top-1.5 w-3 h-3 rounded-full bg-foreground border-2 border-foreground" />
+                <div className="flex items-center gap-2 mb-1 flex-wrap">
+                  <span className="text-xs text-(--text-soft) font-mono">2020 — Present</span>
+                  <Badge variant={'outline'} className="text-xs px-2 py-0.5 border-(--text-orange)/40 text-(--text-orange)">Freelance</Badge>
+                  <Badge variant={'outline'} className="text-xs px-2 py-0.5 border-(--text-yellow)/40 text-(--text-yellow)">Now</Badge>
+                </div>
+                <p className="text-lg font-bold tracking-wider text-(--foreground)]">Freelance Digital Artist</p>
+                <p className="text-md text-(--text-secondary) mb-2">Self-employed</p>
+                <p className="text-sm text-(--text-muted) leading-relaxed text-pretty max-w-xl">
+                  Taking on digital art commissions — character art, portraits, and illustrations for clients online.
+                </p>
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {["Medibang", "Clip Studio Paint", "Procreate"].map(s => (
+                    <Badge key={s} variant={'default'} className="text-xs px-2 py-1 bg-(--surface-secondary) text-(--text-muted) ">{s}</Badge>
+                  ))}
+                </div>
+              </div>
+
+              {/* OJT*/}
+              <div className="relative">
+                <div className="absolute -left-6.25 top-1.5 w-3 h-3 rounded-full bg-background border-2 border-border" />
+                <div className="flex items-center gap-2 mb-1 flex-wrap">
+                  <span className="text-xs text-(--text-soft) font-mono">2024</span>
+                  <Badge variant={'outline'} className="text-xs px-2 py-0.5 border-(--text-pink)/40 text-(--text-pink)">Internship</Badge>
+                </div>
+                <p className="text-lg font-bold tracking-wider text-(--foreground)]">IT Intern / OJT</p>
+                <p className="text-md text-(--text-secondary) mb-2">Municipality of Paniqui · Paniqui, Tarlac</p>
+                <p className="text-sm text-(--text-muted) leading-relaxed text-pretty max-w-xl">
+                  Developed two internal systems used by the municipality. Assisted in both technical and non-technical operations within the office, and served the community directly by supporting financial assistance payout operations.
+                </p>
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {["System Development", "Technical Support", "Community Service"].map(s => (
+                    <Badge key={s} variant={'default'} className="text-xs px-2 py-1 bg-(--surface-secondary) text-(--text-muted) ">{s}</Badge>
+                  ))}
+                </div>
+              </div>
+
+              {/* ── CAPSTONE ── */}
+              <div className="relative">
+                <div className="absolute -left-6.25 top-1.5 w-3 h-3 rounded-full bg-background border-2 border-border" />
+                <div className="flex items-center gap-2 mb-1 flex-wrap">
+                  <span className="text-xs text-(--text-soft) font-mono">2023 — 2024</span>
+                  <Badge variant={'outline'} className="text-xs px-2 py-0.5 border-(--text-purple)/40 text-(--text-purple)">Capstone</Badge>
+                </div>
+                <p className="text-lg font-bold tracking-wider text-(--foreground)]">Revio: A Review Material Generator Using Natural Language Processing with Acronym Mnemonic, Leitner and Pomodoro Techniques</p>
+                <p className="text-md text-(--text-secondary) mb-2">University Capstone · Tarlac State University</p>
+                <p className="text-sm text-(--text-muted) leading-relaxed text-pretty max-w-xl">
+                  Revio is an AI-powered learning and reviewer generation platform designed to help students study more efficiently through automated summaries, flashcards, and structured review materials. It allows users to upload or input content and instantly transforms it into organized study resources tailored for better retention. The system focuses on simplifying complex topics and improving study productivity through content processing and spaced-learning friendly outputs.
+                </p>
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {["React", "React Native", "Firebase", "Tailwind CSS", "Figma"].map(s => (
+                    <Badge key={s} variant={'default'} className="text-xs px-2 py-1 bg-(--surface-secondary) text-(--text-muted) ">{s}</Badge>
+                  ))}
+                </div>
+              </div>
+
+              {/* ── EDUCATION ── */}
+              <div className="relative">
+                <div className="absolute -left-6.25 top-1.5 w-3 h-3 rounded-full bg-background border-2 border-border" />
+                <div className="flex items-center gap-2 mb-1 flex-wrap">
+                  <span className="text-xs text-(--text-soft) font-mono">2022 — 2026</span>
+                  <Badge variant={'outline'} className="text-xs px-2 py-0.5 border-(--text-purple)/40 text-(--text-purple)">Education</Badge>
+                </div>
+                <p className="text-lg font-bold tracking-wider text-(--foreground)]">Bachelor of Science in Information Technology specialized in Web and Mobile Application</p>
+                <p className="text-md text-(--text-secondary) mb-2">Tarlac State University · Tarlac</p>
+                <p className="text-sm text-(--text-muted) leading-relaxed text-pretty max-w-xl">
+                  Studied BSIT with a focus on design and development. Led class projects, and built things I&apos;m proud of.
+                </p>
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {["Web Development", "App Development", "UI/UX Design","Digital Art"].map(s => (
+                    <Badge key={s} variant={'default'} className="text-xs px-2 py-1 bg-(--surface-secondary) text-(--text-muted) ">{s}</Badge>
+                  ))}
+                </div>
+              </div>
+
+            </div>
           </div>
         </section>
 
         {/* Services */}
-        <section className="flex flex-col justify-center mt-100 w-full bg-green-400">
+        <section className="flex flex-col justify-center mt-100 w-full">
           <div className="w-full max-w-5xl">
             <p className="font-light tracking-wider text-pretty">MY SERVICES</p>
 
@@ -507,25 +841,102 @@ export default function Home() {
             </h2>
 
             <p className="font-normal tracking-wide text-pretty pb-5">
-              Here&apos;s the services I offer.
+              From concept to code - I handle the the full creative pipeline.
             </p>
+
+            <div className="grid grid-cols-2 gap-4">
+              {services.map(c =>(
+                <Card key={c.service} className={c.featured ? "border-2 border-primary rounded-md" : "rounded-md"}>
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-base">{c.service}</CardTitle>
+                      <span className="text-xs px-2 py-0.5 rounded-full border border-border text-(--text-muted)">
+                        {c.tag}
+                      </span>
+                    </div>
+                    <CardDescription>{c.desc}</CardDescription>
+                  </CardHeader>
+
+                  <CardContent>
+                    <div className="flex flex-col gap-2">
+                      {c.deliverables.map(d => (
+                        <div key={d} className="flex items-center gap-2 text-sm text-(--text-secondary)">
+                          <Check className="w-3.5 h-3.5 text-(--text-muted) shrink-0" />
+                          {d}
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+
+                  <CardFooter className="flex items-center justify-between">
+                    <span className="text-xs text-(--text-soft) italic">
+                      {c.cta}
+                    </span>
+                    <Button variant={'ghost'} className="text-xs text-(--text-secondary) flex items-center gap-1 hover:text-foreground transition-colors cursor-pointer">
+                      Inquire <ArrowRight />
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+              
+            </div>
           </div>
         </section>
 
         {/* Contact */}
-        <section className="flex flex-col justify-center mt-100 w-full bg-amber-200">
-          <div className="w-full max-w-5xl">
-            <p className="font-light tracking-wider text-pretty">MY CONTACT</p>
+        <section className="flex flex-col justify-center mt-100 w-full mb-20">
+          <div className="w-full max-w-5xl flex flex-col items-center justify-center">
+            <p className="font-light tracking-wider text-pretty">LET&apos;S CONNECT</p>
 
-            <h2 className="text-6xl font-bold tracking-tight text-pretty leading-tight">
-              Contact
+            <h2 className="text-6xl font-medium tracking-tight text-pretty leading-tight">
+              Want to make something <br /><span className="font-serif font-bold italic flex justify-center">together?</span>
             </h2>
 
-            <p className="font-normal tracking-wide text-pretty pb-5">
-              Let&apos;s connect!
+            <p className="font-normal tracking-wide text-pretty py-10">
+              I&apos;m a designer, developer, and digital artist — I can take your idea from a rough sketch all the way to a live product.
             </p>
+
+            <Button variant={"outline"} size={'lg'} className=" font-light tracking-tight gap-2 cursor-pointer py-5">
+              <Mail/> Send me an Email
+            </Button>
+
+            <div className="w-24 mx-auto">
+              <Separator className="mt-10" />
+            </div>
+
+            <div className="flex flex-row gap-3 mt-10 mb-20">
+              <Button variant={"outline"} size={'sm'} className="font-light tracking-tight gap-2 cursor-pointer py-5 rounded-md">
+                <IconBrandFacebook /> Facebook
+              </Button>
+              <Button variant={"outline"} size={'sm'} className="font-light tracking-tight gap-2 cursor-pointer py-5 rounded-md">
+                <IconBrandInstagram /> Instagram
+              </Button>
+              <Button variant={"outline"} size={'sm'} className="font-light tracking-tight gap-2 cursor-pointer py-5 rounded-md">
+                <IconBrandLinkedin /> LinkedIn
+              </Button>
+            </div>
+            <p className="text-xs text-muted-foreground">Usually responds within 24 hours · Based in the Philippines</p>
           </div>
         </section>
+        <footer className="w-full border-t border-border py-6 px-10">
+          <div className="flex items-center justify-between text-xs text-(--text-muted)">
+            
+            <p className="font-mono">
+              designed & built by <span className="text-(--foreground)] font-medium">Marianne</span>
+            </p>
+
+            {/* Center — nav links
+            <div className="flex gap-6">
+              <button className="hover:text-[var(--foreground)] transition-colors">About</button>
+              <button className="hover:text-[var(--foreground)] transition-colors">Projects</button>
+              <button className="hover:text-[var(--foreground)] transition-colors">Services</button>
+              <button className="hover:text-[var(--foreground)] transition-colors">Contact</button>
+            </div> */}
+
+            <p className="font-mono">© {new Date().getFullYear()} · All rights reserved</p>
+
+          </div>
+        </footer>
       </main>
     </div>
   );
