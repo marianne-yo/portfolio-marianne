@@ -31,6 +31,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -125,8 +126,8 @@ export default function Home() {
   }, []);
 
   const navItems = [
-    { logo: <GraduationCap />, name: "Professional", link: "#professional" },
-    { logo: <UserStar />,      name: "Personal",     link: "#personal"      },
+    { logo: <GraduationCap />, name: "Professional", link: "/" },
+    { logo: <UserStar />,      name: "Personal",     link: "/personal"      },
   ];
 
   const services = [
@@ -178,28 +179,18 @@ export default function Home() {
             {/* <NavItems items={navItems} /> */}
             {/* Tab switcher in the center */}
             <div className="flex items-center gap-1 border border-border rounded-full p-1">
-              <Button
-                variant={'ghost'}
-                onClick={() => setActiveTab('professional')}
-                className={`px-4 py-1 rounded-full text-sm transition-all duration-200
-                  ${activeTab === 'professional'
-                    ? 'bg-foreground text-background'
-                    : 'text-(--text-muted) hover:text-foreground'
-                  }`}
-              >
-                Professional
-              </Button>
-              <Button
-                variant={'ghost'}
-                onClick={() => setActiveTab('personal')}
-                className={`cursor-pointer px-4 py-1 rounded-full text-sm transition-all duration-200
-                  ${activeTab === 'personal'
-                    ? 'bg-foreground text-background'
-                    : 'text-(--text-muted) hover:text-foreground'
-                  }`}
-              >
-                Personal
-              </Button>
+              <Link href="/">
+                <Button variant={'ghost'} className={`px-4 py-1 rounded-full text-sm transition-all duration-200
+                  ${activeTab === 'professional' ? 'bg-foreground text-background' : 'text-(--text-muted) hover:text-foreground'}`}>
+                  Professional
+                </Button>
+              </Link>
+              <Link href="/personal">
+                <Button variant={'ghost'} className={`px-4 py-1 rounded-full text-sm transition-all duration-200
+                  ${activeTab === 'personal' ? 'bg-foreground text-background' : 'text-(--text-muted) hover:text-foreground'}`}>
+                  Personal
+                </Button>
+              </Link>
             </div>
 
             <div className="flex items-center gap-4">
@@ -922,7 +913,7 @@ export default function Home() {
           <div className="flex items-center justify-between text-xs text-(--text-muted)">
             
             <p className="font-mono">
-              designed & built by <span className="text-(--foreground)] font-medium">Marianne</span>
+              designed & built by <span className="text-(--foreground) font-medium">Marianne</span>
             </p>
 
             {/* Center — nav links
