@@ -33,6 +33,8 @@ import {
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 
+import { Textarea } from "@/components/ui/textarea"
+
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 const LEFT_EYE  = { cx: 105.354, cy: 202.694 };
@@ -913,7 +915,7 @@ export default function Home() {
           <div className="flex items-center justify-between text-xs text-(--text-muted)">
             
             <p className="font-mono">
-              designed & built by <span className="text-(--foreground) font-medium">Marianne</span>
+              designed & built by <span className="text-foreground font-medium">Marianne</span>
             </p>
 
             {/* Center — nav links

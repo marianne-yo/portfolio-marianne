@@ -41,6 +41,10 @@ import { Separator } from "@/components/ui/separator";
 import Typewriter from "@/components/ui/Typewriter";
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay"
+import openMeteo from "@/lib/openMeteo";
+import WeatherWidget from "@/components/ui/WeatherWidget";
+import TimeWidget from "@/components/ui/TimeWidget";
+import { Textarea } from "@/components/ui/textarea";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function Personal() {
@@ -55,42 +59,128 @@ export default function Personal() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const hobbies = [
-  {
-    title: "Digital Art",
-    description: "Drawing characters, portraits, and illustrations.",
-    image: "/wuxian.png",
-    emoji: "🎨",
-    color: "var(--text-purple)",
-  },
-  {
-    title: "Fitness",
-    description: "Staying active and taking care of my body.",
-    image: "/gym.jpg",
-    emoji: "🏋️",
-    color: "var(--text-orange)",
-  },
-  {
-    title: "Music",
-    description: "Listening to playlists that match my mood.",
-    image: "/music.jpg",
-    emoji: "🎵",
-    color: "var(--text-yellow)",
-  },
-  {
-    title: "Reading",
-    description: "Books, articles, anything that feeds curiosity.",
-    image: "/books2.jpg",
-    emoji: "📚",
-    color: "var(--text-pink)",
-  },
-  {
-    title: "Gaming",
-    description: "Unwinding with games after a long day.",
-    image: "/games2.jpeg",
-    emoji: "🎮",
-    color: "var(--text-orange)",
-  },
-]
+    {
+      title: "Digital Art",
+      description: "Drawing characters, portraits, and illustrations.",
+      image: "/wuxian.png",
+      emoji: "🎨",
+      color: "var(--text-purple)",
+      priority: true,
+    },
+    {
+      title: "Fitness",
+      description: "Staying active and taking care of my body.",
+      image: "/gym.jpg",
+      emoji: "🏋️",
+      color: "var(--text-orange)",
+    },
+    {
+      title: "Music",
+      description: "Listening to playlists that match my mood.",
+      image: "/music.jpg",
+      emoji: "🎵",
+      color: "var(--text-yellow)",
+    },
+    {
+      title: "Reading",
+      description: "Books, articles, anything that feeds curiosity.",
+      image: "/books2.jpg",
+      emoji: "📚",
+      color: "var(--text-pink)",
+    },
+    {
+      title: "Gaming",
+      description: "Unwinding with games after a long day.",
+      image: "/games2.jpeg",
+      emoji: "🎮",
+      color: "var(--text-orange)",
+    },
+  ]
+
+  const dailyRoutine = [
+    {
+      num: 1,
+      routine: "Wake up"
+    },
+    {
+      num: 2,
+      routine: "Tend to pets"
+    },
+    {
+      num: 3,
+      routine: "Drink water"
+    },
+    {
+      num: 4,
+      routine: "Eat brunch"
+    },
+    {
+      num: 5,
+      routine: "Coding"
+    },
+    {
+      num: 6,
+      routine: "General work"
+    },
+    {
+      num: 7,
+      routine: "Play games"
+    },
+    {
+      num: 8,
+      routine: "Eat light dinner"
+    },
+    {
+      num: 9,
+      routine: "Workout"
+    },
+    {
+      num: 10,
+      routine: "Shower"
+    },
+    {
+      num: 11,
+      routine: "Watch series/movies"
+    },
+    {
+      num: 12,
+      routine: "Do daily language learning"
+    },
+    {
+      num: 13,
+      routine: "Sleep"
+    },
+  ]
+
+  const favoriteColors = [
+    { name: "Jasmine", hex: "#e9c46a" },
+    { name: "Soft Pink", hex: "#F9A8D4" },
+    { name: "Lavender", hex: "#C4B5FD" },
+    { name: "Burnt Orange", hex: "#FB923C" },
+    { name: "Amber Flame", hex: "#ffb703"},
+    { name: "Verdigris", hex: "#2a9d8f"},
+    { name: "Bright Teal Blue", hex: "#0077b6"},
+    { name: "Blushed Brick", hex: "#cc444b"}
+  ]
+
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+  const handleSend = async () => {
+    if (!message.trim()) return;
+    setStatus("sending");
+    try {
+      const res = await fetch("https://formspree.io/f/xykvdokl", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message }),
+      });
+      setStatus(res.ok ? "sent" : "error");
+      if (res.ok) setMessage("");
+    } catch {
+      setStatus("error");
+    }
+  };
 
   return (
     <div className={`flex flex-col flex-1 items-center justify-start font-sans bg-background ${montserrat.className}`}>
@@ -308,12 +398,13 @@ export default function Personal() {
                                         src={hobby.image}
                                         alt={hobby.title}
                                         fill
-                                        className="object-cover"
+                                        sizes="(max-width: 768px) 50vw, 33vw"
+                                        priority={hobby.priority}
                                         />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                                        <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
                                         <div className="relative p-5 flex flex-col gap-1">
-                                            <p className="text-(--accent-foreground) font-bold text-2xl leading-tight ">{hobby.title}</p>
-                                            <p className="text-muted dark:text-(--muted-foreground) text-xs line-clamp-2">{hobby.description}</p>
+                                            <p className="text-accent-foreground font-bold text-2xl leading-tight ">{hobby.title}</p>
+                                            <p className="text-muted dark:text-muted-foreground text-xs line-clamp-2">{hobby.description}</p>
                                         </div>
                                     </div>
                                 </Card>
@@ -342,9 +433,9 @@ export default function Personal() {
                 </p>
             </div>
 
-            <div className="grid grid-cols-6 grid-rows-5 w-full max-w-5xl gap-2">
+            <div className="grid grid-cols-6 gap-2 w-full max-w-5xl auto-rows-[minmax(120px,auto)]">
                 {/* div1 — spans col 1-4, row 1-3 MY FAVORTIE PLAYLISTS*/}
-                <div className="bg-card border-2 border-muted col-span-4 row-span-3 rounded-lg p-5">
+                <div className="bg-card border-2 border-muted col-span-4 row-span-3 rounded-lg p-5 overflow-y-auto">
                     <h2 className="text-lg font-medium font-mono">MY FAVORTIE PLAYLISTS</h2>
                     <div className="flex flex-col gap-2 justify-center">
                         <iframe
@@ -400,19 +491,49 @@ export default function Personal() {
 
 
                 {/* div5 — col 5, row 1 open meteo api, time and weather*/} 
-                <div className="bg-card border-2 border-muted col-start-5 col-span-2 row-start-1 rounded-lg p-5"><p>5</p></div>
+                <div className="bg-card border-2 border-muted col-start-5 col-span-2 row-start-1 rounded-lg p-5 flex flex-col justify-center">
+                  <div className="flex justify-center items-center">
+                    <TimeWidget/>
+                  </div>
+                </div>
 
                 {/* div6 — col 5, row 2 */}
-                <div className="bg-card border-2 border-muted col-start-5 col-span-2  row-start-2 rounded-lg p-5"><p>6</p></div>
+                <div className="bg-card border-2 border-muted col-start-5 col-span-2  row-start-2 rounded-lg p-5 flex flex-col justify-center">
+                  <div className="flex justify-center items-center">
+                    <WeatherWidget />
+                  </div>
+                </div>
 
                 {/* div7 — col 5, row 3-4 MY DAILY ROUTINE, THIS WILL BE A LIST*/}
-                <div className="bg-card border-2 border-muted col-start-5 col-span-2  row-start-3 row-span-2 rounded-lg p-5">
+                <div className="bg-card border-2 border-muted col-start-5 col-span-2 row-start-3 row-span-2 rounded-lg p-5 overflow-y-auto">
                     <h2 className="text-lg font-medium font-mono">Marianne&apos;s Daily Routine</h2>
+                    {dailyRoutine.map(dr => (
+                      <ul key={dr.num} className="list-none">
+                        <Separator />
+                        <li className="flex flex-row gap-2 p-2 rounded-sm font-light">{dr.num}.<span className="font-medium tracking-tight">{dr.routine}</span></li>
+                      </ul>
+                    ))}
+                    <Separator />
                 </div>
 
                 {/* div2 — col 1-2, row 4 MY FAVORTIE COLORS*/}
                 <div className="bg-card border-2 border-muted col-span-2 col-start-1 row-start-4 rounded-lg p-5">
                     <h2 className="text-lg font-medium font-mono">MY FAVORTIE COLORS</h2>
+                    <div className="grid grid-cols-2 gap-3 mt-4">
+                      {favoriteColors.map((color) => (
+                        <div
+                          key={color.hex}
+                          className="rounded-md border border-border p-3"
+                        >
+                          <div
+                            className="h-12 rounded-sm mb-2"
+                            style={{ backgroundColor: color.hex }}
+                          />
+                          <p className="text-xs font-medium">{color.name}</p>
+                          <p className="text-[11px] text-muted-foreground">{color.hex}</p>
+                        </div>
+                      ))}
+                    </div>
                 </div>
 
                 {/* div3 — col 3-4, row 4 MY FAVORTIE ARTIST*/}
@@ -467,6 +588,7 @@ export default function Personal() {
                 {/* div8 — col 5, row 5 */}
                 <div className="bg-card border-2 border-muted col-start-5 col-span-2 row-start-5 rounded-lg p-5">
                     <h2 className="text-lg font-medium font-mono">MY FAVORITE QUOTE</h2>
+                    <h2 className="font-serif italic p-5 font-medium tracking-wider">“If you get tired, learn to rest, not to quit.” <span className="font-light">- Banksy</span></h2>
                 </div>
             </div>
             
@@ -476,19 +598,39 @@ export default function Personal() {
         {/* Contact */}
         <section className="flex flex-col justify-center mt-100 w-full mb-20">
           <div className="w-full max-w-5xl flex flex-col items-center justify-center">
-            <p className="font-light tracking-wider text-pretty">LET&apos;S CONNECT</p>
+            <p className="font-light tracking-wider text-pretty">THANK YOU FOR VIEWING MY PORTFOLIO</p>
 
             <h2 className="text-6xl font-medium tracking-tight text-pretty leading-tight">
-              Want to make something <br /><span className="font-serif font-bold italic flex justify-center">together?</span>
+              Got a fun project, a commission, or just want to say <span className="font-serif font-bold italic">hi? </span>
+               I&apos;d love to hear from you.
             </h2>
 
             <p className="font-normal tracking-wide text-pretty py-10">
               I&apos;m a designer, developer, and digital artist — I can take your idea from a rough sketch all the way to a live product.
             </p>
 
-            <Button variant={"outline"} size={'lg'} className=" font-light tracking-tight gap-2 cursor-pointer py-5">
-              <Mail/> Send me an Email
-            </Button>
+            <div className="grid w-full gap-2">
+              <Textarea
+                className="rounded-md h-50"
+                placeholder="Type your message here."
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                disabled={status === "sending" || status === "sent"}
+              />
+              <Button
+                variant="secondary"
+                size="lg"
+                className="font-bold tracking-tight gap-2 cursor-pointer py-5 rounded-sm"
+                onClick={handleSend}
+                disabled={status === "sending" || status === "sent" || !message.trim()}
+              >
+                <Mail />
+                {status === "sending" ? "Sending..." : status === "sent" ? "Message sent! ✓" : "Send message"}
+              </Button>
+              {status === "error" && (
+                <p className="text-xs text-red-500">Something went wrong. Please try again.</p>
+              )}
+            </div>
 
             <div className="w-24 mx-auto">
               <Separator className="mt-10" />
@@ -512,7 +654,7 @@ export default function Personal() {
           <div className="flex items-center justify-between text-xs text-(--text-muted)">
             
             <p className="font-mono">
-              designed & built by <span className="text-(--foreground)] font-medium">Marianne</span>
+              designed & built by <span className="text-(--foreground) font-medium">Marianne</span>
             </p>
 
             {/* Center — nav links
