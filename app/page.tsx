@@ -34,6 +34,7 @@ import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 
 import { Textarea } from "@/components/ui/textarea"
+import Image from "next/image";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -172,7 +173,7 @@ export default function Home() {
 
   return (
     <div className={`flex flex-col flex-1 items-center justify-start font-sans bg-background ${montserrat.className}`}>
-      <main className="flex flex-1 w-full max-w-6xl flex-col items-center justify-start py-10 px-10 sm:items-start bg-background">
+      <main className="flex flex-1 w-full max-w-6xl flex-col items-center justify-start px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-10 sm:items-start bg-background">
 
         <div className="relative w-full">
           <Navbar>
@@ -254,18 +255,18 @@ export default function Home() {
           </Navbar>
         </div>
 
-        <section className="grid grid-cols-3 gap-8 mt-16 w-full items-center justify-center ">
-          <div className="col-span-2 flex flex-col gap-6">
-            <h1 className="text-6xl font-medium tracking-tight text-pretty leading-tight">
+        <section className="grid w-full grid-cols-1 items-center justify-center gap-10 mt-12 sm:mt-16 md:grid-cols-3 md:gap-8">
+          <div className="flex flex-col gap-5 text-center sm:gap-6 md:col-span-2 md:text-left">
+            <h1 className="text-4xl font-medium tracking-tight text-pretty leading-tight sm:text-5xl lg:text-6xl">
               Hi, my name <br /> is{" "}
               <span className="text-primary font-bold">Marianne</span>
             </h1>
 
-            <p className="text-2xl text-[var(--text-soft)] dark:text-neutral-300">
+            <p className="text-lg text-[var(--text-soft)] dark:text-neutral-300 sm:text-xl lg:text-2xl">
               Explore my projects, skills, and experience in web development.
             </p>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap justify-center gap-2 md:justify-start">
               <Button variant="outline" size="lg" className="rounded-md cursor-pointer" aria-label="GitHub">
                 <IconBrandGithub />
               </Button>
@@ -282,14 +283,14 @@ export default function Home() {
           </div>
 
           {/* Right — your character with eye tracking */}
-          <div className="flex justify-center items-end">
+          <div className="flex justify-center items-end md:justify-end">
             <svg
               ref={svgRef}
               width="100%"
               viewBox="0 0 323 399"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="max-w-[280px] drop-shadow-md"
+              className="w-full max-w-[220px] drop-shadow-md sm:max-w-[260px] lg:max-w-[280px]"
               aria-label="Illustrated portrait of Marianne"
             >
               {/* ── All original paths (unchanged) ── */}
@@ -322,15 +323,15 @@ export default function Home() {
               <path d="M141.354 143.194C157.911 126.976 178.854 97.194 178.854 97.194C178.854 97.194 182.63 123.467 190.354 138.194C199.03 154.738 221.854 174.194 221.854 174.194C221.854 174.194 234.811 188.372 243.854 196.694C251.911 204.11 265.354 214.694 265.354 214.694C265.354 214.694 280.26 225.717 291.354 229.194C302.218 232.6 320.354 232.194 320.354 232.194C320.354 232.194 309.019 226.02 303.354 220.194C297.35 214.02 296.04 208.919 291.354 201.694L310.854 212.694C310.854 212.694 301.91 196.577 299.854 185.194C297.136 170.146 302.622 161.468 303.354 146.194C304.194 128.641 306.904 118.405 303.354 101.194C299.645 83.2138 293.976 73.8293 284.354 58.194C274.683 42.4803 270.332 30.9214 254.354 21.694C242.949 15.1079 234.911 14.4071 221.854 12.694C209.657 11.0939 190.354 12.694 190.354 12.694L193.354 6.19403L185.854 9.69403L181.854 0.194031V12.694C181.854 12.694 170.79 5.61074 162.854 3.19403C149.031 -1.01534 140.168 1.22624 125.854 3.19403C112.009 5.09716 103.984 6.71404 91.3536 12.694C75.7512 20.0811 67.271 26.322 56.3536 39.694C47.2371 50.8602 44.3728 58.8774 38.8536 72.194C30.9116 91.3563 25.8536 123.694 25.8536 123.694C20.9615 140.084 13.8536 154.694 11.8536 165.194C9.85358 175.694 0.353577 185.194 0.353577 185.194L16.8536 179.194C16.8536 179.194 5.96945 209.444 7.85358 229.194C8.8655 239.802 14.3536 255.694 14.3536 255.694C14.3536 255.694 16.5846 245.036 19.3536 238.694C21.0169 234.884 22.8734 231.876 24.883 229.194C29.009 223.688 33.7808 219.558 38.8536 212.694C45.7479 203.366 56.3536 188.694 56.3536 188.694C56.3536 188.694 59.1377 196.488 59.3536 201.694C59.617 208.046 56.3536 217.694 56.3536 217.694C56.3536 217.694 71.5916 200.703 79.8536 188.694C91.292 172.068 104.354 143.194 104.354 143.194L91.3536 181.694C91.3536 181.694 123.748 160.439 141.354 143.194Z" fill="black"/>
             </svg>
           </div>
-          <p>scroll</p>
+          <p className="text-xs tracking-widest text-(--text-soft) md:col-span-3">SCROLL</p>
         </section>
 
         {/* my works */}
-        <section className="flex flex-col justify-center mt-100 w-full">
+        <section className="flex flex-col justify-center mt-24 w-full sm:mt-32 lg:mt-56">
           <div className="w-full max-w-5xl">
             <p className="font-light tracking-wider text-pretty">MY WORKS</p>
 
-            <h2 className="text-6xl font-bold tracking-tight text-pretty leading-tight">
+            <h2 className="text-4xl font-bold tracking-tight text-pretty leading-tight sm:text-5xl lg:text-6xl">
               Projects
             </h2>
 
@@ -339,22 +340,22 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid w-full grid-cols-2 gap-3 max-w-5xl">
+          <div className="grid w-full grid-cols-1 gap-3 max-w-5xl md:grid-cols-2">
             {/* card 1 */}
-            <Card className="relative w-full pt-0 col-span-2 bg-card border-2 border-ring ">
+            <Card className="relative w-full pt-0 bg-card border-2 border-ring md:col-span-2">
               <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
               <img
                 src="https://avatar.vercel.sh/shadcn1"
                 alt="Event cover"
                 className="relative z-20 aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40"
               />
-              <CardHeader className="grid grid-cols-2">
-                <CardTitle className="font-bold text-pretty tracking-sm text-lg w-[90%]">Revio: A Review Material Generator Using Natural Language Processing with Acronym Mnemonic, Leitner, and Pomodoro Techniques </CardTitle>
+              <CardHeader className="grid grid-cols-[1fr_auto] gap-3">
+                <CardTitle className="font-bold text-pretty tracking-sm text-base sm:text-lg">Revio: A Review Material Generator Using Natural Language Processing with Acronym Mnemonic, Leitner, and Pomodoro Techniques </CardTitle>
                 
                 <CardAction>
                   <Badge variant="secondary" className="bg-slate-600/30">2025</Badge>
                 </CardAction>
-                <p className="font-light text-md text-secondary-foreground tracking-wider">Mobile App Developer | UI/UX Designer - Capstone Project</p>         
+                <p className="col-span-2 font-light text-sm text-secondary-foreground tracking-wider sm:text-base">Mobile App Developer | UI/UX Designer - Capstone Project</p>         
               </CardHeader>
               <CardContent>
                 <CardDescription>
@@ -362,32 +363,34 @@ export default function Home() {
                 </CardDescription>
               </CardContent>
               
-              <CardContent className="flex flex-row gap-1">
+              <CardContent className="flex flex-wrap gap-1">
                   <Badge variant="outline" className="bg-blue-600/30">React</Badge>
                   <Badge variant="outline" className="bg-green-400/20">Supabase</Badge>
                   <Badge variant="outline" className="bg-orange-500/30">Firebase</Badge>
               </CardContent>
-              <CardFooter className="flex flex-row gap-2">
-                <Button variant={'outline'} className="w-[50%] rounded-md cursor-pointer">Github</Button>
-                <Button className="w-[50%] rounded-md cursor-pointer bg-primary">Website</Button>
+              <CardFooter className="flex flex-col gap-2 sm:flex-row">
+                <Button variant={'outline'} className="w-full rounded-md cursor-pointer sm:w-1/2">Github</Button>
+                <Button className="w-full rounded-md cursor-pointer bg-primary sm:w-1/2">Website</Button>
               </CardFooter>
             </Card>
 
             {/* card 2 */}
             <Card className="relative w-full pt-0">
               <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
-              <img
-                src="https://avatar.vercel.sh/shadcn1"
+              <Image
+                src="/faced_ss.png"
                 alt="Event cover"
                 className="relative z-20 aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40"
+                width={600}
+                height={400}
               />
-              <CardHeader className="grid grid-cols-2">
-                <CardTitle className="font-bold text-pretty tracking-sm text-lg w-[90%]">Family Assistance Card in Emergencies and Disasters</CardTitle>
+              <CardHeader className="grid grid-cols-[1fr_auto] gap-3">
+                <CardTitle className="font-bold text-pretty tracking-sm text-base sm:text-lg">Family Assistance Card in Emergencies and Disasters</CardTitle>
 
                 <CardAction>
                   <Badge variant="secondary" className="bg-slate-600/30">2026</Badge>
                 </CardAction>
-                <p className="font-light text-md text-secondary-foreground tracking-wider">Full-Stack Developer | UI/UX Designer - Internship Project</p>         
+                <p className="col-span-2 font-light text-sm text-secondary-foreground tracking-wider sm:text-base">Full-Stack Developer | UI/UX Designer - Internship Project</p>         
               </CardHeader>
               <CardContent>
                 <CardDescription>
@@ -395,33 +398,36 @@ export default function Home() {
                 </CardDescription>
               </CardContent>
               
-              <CardContent className="flex flex-row gap-1">
+              <CardContent className="flex flex-wrap gap-1">
                   <Badge variant="outline" className="bg-blue-600/30">React</Badge>
                   <Badge variant="outline" className="bg-blue-500/30">Typescript</Badge>
                   <Badge variant="outline" className="bg-slate-400/10">Next.js</Badge>
                   <Badge variant="outline" className="bg-green-400/20">Supabase</Badge>
               </CardContent>
-              <CardFooter className="flex flex-row gap-2">
-                <Button variant={'outline'} className="w-[50%] rounded-md cursor-pointer">Github</Button>
-                <Button className="w-[50%] rounded-md cursor-pointer bg-primary">Website</Button>
+              <CardFooter className="flex flex-col gap-2 sm:flex-row">
+                <Button variant={'outline'} className="w-full rounded-md cursor-pointer sm:w-1/2">Github</Button>
+                <Button className="w-full rounded-md cursor-pointer bg-primary sm:w-1/2">Website</Button>
               </CardFooter>
             </Card>
 
             {/* card 3 */}
             <Card className="relative w-full pt-0">
               <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
-              <img
-                src="https://avatar.vercel.sh/shadcn1"
+              <Image
+                src="/frva_ss.png"
                 alt="Event cover"
-                className="relative z-20 aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40"
+                className="relative z-20 aspect-video w-full object-cover brightness-60 dark:brightness-60"
+                width={600}
+                height={400}
+                loading="eager"
               />
-              <CardHeader className="grid grid-cols-2">
-                <CardTitle className="font-bold text-pretty tracking-sm text-lg w-[90%]">Family Risk Assessment and Vulnerability Assessment</CardTitle>
+              <CardHeader className="grid grid-cols-[1fr_auto] gap-3">
+                <CardTitle className="font-bold text-pretty tracking-sm text-base sm:text-lg">Family Risk Assessment and Vulnerability Assessment</CardTitle>
 
                 <CardAction>
                   <Badge variant="secondary" className="bg-slate-600/30">2026</Badge>
                 </CardAction>
-                <p className="font-light text-md text-secondary-foreground tracking-wider">Full-Stack Developer | UI/UX Designer - Internship Project</p>         
+                <p className="col-span-2 font-light text-sm text-secondary-foreground tracking-wider sm:text-base">Full-Stack Developer | UI/UX Designer - Internship Project</p>         
               </CardHeader>
               <CardContent>
                 <CardDescription>
@@ -429,15 +435,15 @@ export default function Home() {
                 </CardDescription>
               </CardContent>
               
-              <CardContent className="flex flex-row gap-1">
+              <CardContent className="flex flex-wrap gap-1">
                   <Badge variant="outline" className="bg-blue-600/30">React</Badge>
                   <Badge variant="outline" className="bg-blue-500/30">Typescript</Badge>
                   <Badge variant="outline" className="bg-slate-400/10">Next.js</Badge>
                   <Badge variant="outline" className="bg-green-400/20">Supabase</Badge>
               </CardContent>
-              <CardFooter className="flex flex-row gap-2">
-                <Button variant={'outline'} className="w-[50%] rounded-md cursor-pointer">Github</Button>
-                <Button className="w-[50%] rounded-md cursor-pointer bg-primary">Website</Button>
+              <CardFooter className="flex flex-col gap-2 sm:flex-row">
+                <Button variant={'outline'} className="w-full rounded-md cursor-pointer sm:w-1/2">Github</Button>
+                <Button className="w-full rounded-md cursor-pointer bg-primary sm:w-1/2">Website</Button>
               </CardFooter>
             </Card>
 
@@ -449,12 +455,12 @@ export default function Home() {
                 alt="Event cover"
                 className="relative z-20 aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40"
               />
-              <CardHeader className="grid grid-cols-2">
-                <CardTitle className="font-bold text-pretty tracking-sm text-lg w-[90%]">Festverse</CardTitle>
+              <CardHeader className="grid grid-cols-[1fr_auto] gap-3">
+                <CardTitle className="font-bold text-pretty tracking-sm text-base sm:text-lg">Festverse</CardTitle>
                 <CardAction>
                   <Badge variant="secondary" className="bg-slate-600/30">2025</Badge>
                 </CardAction>
-                <p className="font-light text-md text-secondary-foreground tracking-wider">Front-End Developer | UI/UX Designer - School Project</p>         
+                <p className="col-span-2 font-light text-sm text-secondary-foreground tracking-wider sm:text-base">Front-End Developer | UI/UX Designer - School Project</p>         
               </CardHeader>
               <CardContent>
                 <CardDescription>
@@ -462,15 +468,15 @@ export default function Home() {
                 </CardDescription>
               </CardContent>
               
-              <CardContent className="flex flex-row gap-1">
+              <CardContent className="flex flex-wrap gap-1">
                   <Badge variant="outline" className="bg-orange-700/30">HTML</Badge>
                   <Badge variant="outline" className="bg-sky-500/30">Tailwind CSS</Badge>
                   <Badge variant="outline" className="bg-yellow-500/30">Javascript</Badge>
                   <Badge variant="outline" className="bg-purple-400/20">PHP</Badge>
               </CardContent>
-              <CardFooter className="flex flex-row gap-2">
-                <Button variant={'outline'} className="w-[50%] rounded-md cursor-pointer">Github</Button>
-                <Button className="w-[50%] rounded-md cursor-pointer bg-primary">Website</Button>
+              <CardFooter className="flex flex-col gap-2 sm:flex-row">
+                <Button variant={'outline'} className="w-full rounded-md cursor-pointer sm:w-1/2">Github</Button>
+                <Button className="w-full rounded-md cursor-pointer bg-primary sm:w-1/2">Website</Button>
               </CardFooter>
             </Card>
 
@@ -482,12 +488,12 @@ export default function Home() {
                 alt="Event cover"
                 className="relative z-20 aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40"
               />
-              <CardHeader className="grid grid-cols-2">
-                <CardTitle className="font-bold text-pretty tracking-sm text-lg w-[90%]">Cafe Ka Dito</CardTitle>
+              <CardHeader className="grid grid-cols-[1fr_auto] gap-3">
+                <CardTitle className="font-bold text-pretty tracking-sm text-base sm:text-lg">Cafe Ka Dito</CardTitle>
                 <CardAction>
                   <Badge variant="secondary" className="bg-slate-600/30">2023</Badge>
                 </CardAction>
-                <p className="font-light text-md text-secondary-foreground tracking-wider">Front-End Developer | UI/UX Designer - School Project</p>         
+                <p className="col-span-2 font-light text-sm text-secondary-foreground tracking-wider sm:text-base">Front-End Developer | UI/UX Designer - School Project</p>         
               </CardHeader>
               <CardContent>
                 <CardDescription>
@@ -495,25 +501,25 @@ export default function Home() {
                 </CardDescription>
               </CardContent>
               
-              <CardContent className="flex flex-row gap-1">
+              <CardContent className="flex flex-wrap gap-1">
                   <Badge variant="outline" className="bg-red-700/30">Java</Badge>
                   <Badge variant="outline" className="bg-red-400/30">Java Swing</Badge>
                   
               </CardContent>
-              <CardFooter className="flex flex-row gap-2">
-                <Button variant={'outline'} className="w-[50%] rounded-md cursor-pointer">Github</Button>
-                <Button disabled className="w-[50%] rounded-md cursor-pointer bg-primary">Website</Button>
+              <CardFooter className="flex flex-col gap-2 sm:flex-row">
+                <Button variant={'outline'} className="w-full rounded-md cursor-pointer sm:w-1/2">Github</Button>
+                <Button disabled className="w-full rounded-md cursor-pointer bg-primary sm:w-1/2">Website</Button>
               </CardFooter>
             </Card>
           </div>
         </section>
 
         {/* skills and tools section */}
-        <section className="flex flex-col justify-center mt-100 w-full">
+        <section className="flex flex-col justify-center mt-24 w-full sm:mt-32 lg:mt-56">
           <div className="w-full max-w-5xl">
             <p className="font-light tracking-wider text-pretty">MY STACK</p>
 
-            <h2 className="text-6xl font-bold tracking-tight text-pretty leading-tight">
+            <h2 className="text-4xl font-bold tracking-tight text-pretty leading-tight sm:text-5xl lg:text-6xl">
               Skills and Tools
             </h2>
 
@@ -523,13 +529,14 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col w-full">
-            <div className="bg-(--console-nav) border border-muted h-10 flex items-center justify-center rounded-t-lg px-5 gap-2">
-              <div className="w-4 h-4 bg-red-500 rounded-full"/>
-              <div className="w-4 h-4 bg-yellow-500 rounded-full"/>
-              <div className="w-4 h-4 bg-green-500 rounded-full"/>
-              <p className="text-xs text-foreground mx-auto pr-16 font-mono">skills.tsx</p>
+            <div className="bg-(--console-nav) border border-muted h-10 flex items-center justify-center rounded-t-lg px-3 gap-2 sm:px-5">
+              <div className="w-3 h-3 bg-red-500 rounded-full sm:w-4 sm:h-4"/>
+              <div className="w-3 h-3 bg-yellow-500 rounded-full sm:w-4 sm:h-4"/>
+              <div className="w-3 h-3 bg-green-500 rounded-full sm:w-4 sm:h-4"/>
+              <p className="text-xs text-foreground mx-auto pr-8 font-mono sm:pr-16">skills.tsx</p>
             </div>
-            <div className="bg-(--console) p-5 rounded-b-lg border border-muted font-mono text-sm leading-8">
+            <div className="bg-(--console) overflow-x-auto p-4 rounded-b-lg border border-muted font-mono text-xs leading-7 sm:p-5 sm:text-sm sm:leading-8">
+            <div className="min-w-max">
 
               <div className="flex gap-4">
                 <span className="text-[var(--text-soft)] select-none w-4">1</span>
@@ -686,11 +693,12 @@ export default function Home() {
                 </code>
               </div>
             </div>
+            </div>
           </div>
           
           <br />
           {/* Output panel - OUTPUT THE LOGOS*/}
-          <div className="border border-muted rounded-lg p-5 bg-(--surface-secondary)">
+          <div className="border border-muted rounded-lg p-4 bg-(--surface-secondary) sm:p-5">
             <p className="text-xs text-[var(--text-soft)] font-mono mb-4"> Output</p>
 
             <div className="flex flex-col gap-4">
@@ -726,10 +734,10 @@ export default function Home() {
         </section>
 
         {/* experience and education section */}
-        <section className="flex flex-col justify-center mt-100 w-full">
+        <section className="flex flex-col justify-center mt-24 w-full sm:mt-32 lg:mt-56">
           <div className="w-full max-w-5xl">
             <p className="font-light tracking-wider text-(--text-muted)">MY JOURNEY</p>
-            <h2 className="text-6xl font-bold tracking-tight text-pretty leading-tight">
+            <h2 className="text-4xl font-bold tracking-tight text-pretty leading-tight sm:text-5xl lg:text-6xl">
               Experience
             </h2>
             <p className="font-normal tracking-wide text-(--text-secondary) pb-10">
@@ -742,7 +750,7 @@ export default function Home() {
             {/* Vertical line */}
             <div className="absolute left-3 top-5 bottom-2 w-px bg-border" />
 
-            <div className="flex flex-col gap-10 pl-8">
+            <div className="flex flex-col gap-10 pl-7 sm:pl-8">
 
               <div className="relative">
                 <div className="absolute -left-6.25 top-1.5 w-3 h-3 rounded-full bg-foreground border-2 border-foreground" />
@@ -751,8 +759,8 @@ export default function Home() {
                   <Badge variant={'outline'} className="text-xs px-2 py-0.5 border-(--text-orange)/40 text-(--text-orange)">Freelance</Badge>
                   <Badge variant={'outline'} className="text-xs px-2 py-0.5 border-(--text-yellow)/40 text-(--text-yellow)">Now</Badge>
                 </div>
-                <p className="text-lg font-bold tracking-wider text-(--foreground)]">Freelance Digital Artist</p>
-                <p className="text-md text-(--text-secondary) mb-2">Self-employed</p>
+                <p className="text-base font-bold tracking-wider text-(--foreground)] sm:text-lg">Freelance Digital Artist</p>
+                <p className="text-sm text-(--text-secondary) mb-2 sm:text-base">Self-employed</p>
                 <p className="text-sm text-(--text-muted) leading-relaxed text-pretty max-w-xl">
                   Taking on digital art commissions — character art, portraits, and illustrations for clients online.
                 </p>
@@ -770,8 +778,8 @@ export default function Home() {
                   <span className="text-xs text-(--text-soft) font-mono">2024</span>
                   <Badge variant={'outline'} className="text-xs px-2 py-0.5 border-(--text-pink)/40 text-(--text-pink)">Internship</Badge>
                 </div>
-                <p className="text-lg font-bold tracking-wider text-(--foreground)]">IT Intern / OJT</p>
-                <p className="text-md text-(--text-secondary) mb-2">Municipality of Paniqui · Paniqui, Tarlac</p>
+                <p className="text-base font-bold tracking-wider text-(--foreground)] sm:text-lg">IT Intern / OJT</p>
+                <p className="text-sm text-(--text-secondary) mb-2 sm:text-base">Municipality of Paniqui · Paniqui, Tarlac</p>
                 <p className="text-sm text-(--text-muted) leading-relaxed text-pretty max-w-xl">
                   Developed two internal systems used by the municipality. Assisted in both technical and non-technical operations within the office, and served the community directly by supporting financial assistance payout operations.
                 </p>
@@ -789,8 +797,8 @@ export default function Home() {
                   <span className="text-xs text-(--text-soft) font-mono">2023 — 2024</span>
                   <Badge variant={'outline'} className="text-xs px-2 py-0.5 border-(--text-purple)/40 text-(--text-purple)">Capstone</Badge>
                 </div>
-                <p className="text-lg font-bold tracking-wider text-(--foreground)]">Revio: A Review Material Generator Using Natural Language Processing with Acronym Mnemonic, Leitner and Pomodoro Techniques</p>
-                <p className="text-md text-(--text-secondary) mb-2">University Capstone · Tarlac State University</p>
+                <p className="text-base font-bold tracking-wider text-(--foreground)] sm:text-lg">Revio: A Review Material Generator Using Natural Language Processing with Acronym Mnemonic, Leitner and Pomodoro Techniques</p>
+                <p className="text-sm text-(--text-secondary) mb-2 sm:text-base">University Capstone · Tarlac State University</p>
                 <p className="text-sm text-(--text-muted) leading-relaxed text-pretty max-w-xl">
                   Revio is an AI-powered learning and reviewer generation platform designed to help students study more efficiently through automated summaries, flashcards, and structured review materials. It allows users to upload or input content and instantly transforms it into organized study resources tailored for better retention. The system focuses on simplifying complex topics and improving study productivity through content processing and spaced-learning friendly outputs.
                 </p>
@@ -808,8 +816,8 @@ export default function Home() {
                   <span className="text-xs text-(--text-soft) font-mono">2022 — 2026</span>
                   <Badge variant={'outline'} className="text-xs px-2 py-0.5 border-(--text-purple)/40 text-(--text-purple)">Education</Badge>
                 </div>
-                <p className="text-lg font-bold tracking-wider text-(--foreground)]">Bachelor of Science in Information Technology specialized in Web and Mobile Application</p>
-                <p className="text-md text-(--text-secondary) mb-2">Tarlac State University · Tarlac</p>
+                <p className="text-base font-bold tracking-wider text-(--foreground)] sm:text-lg">Bachelor of Science in Information Technology specialized in Web and Mobile Application</p>
+                <p className="text-sm text-(--text-secondary) mb-2 sm:text-base">Tarlac State University · Tarlac</p>
                 <p className="text-sm text-(--text-muted) leading-relaxed text-pretty max-w-xl">
                   Studied BSIT with a focus on design and development. Led class projects, and built things I&apos;m proud of.
                 </p>
@@ -825,11 +833,11 @@ export default function Home() {
         </section>
 
         {/* Services */}
-        <section className="flex flex-col justify-center mt-100 w-full">
+        <section className="flex flex-col justify-center mt-24 w-full sm:mt-32 lg:mt-56">
           <div className="w-full max-w-5xl">
             <p className="font-light tracking-wider text-pretty">MY SERVICES</p>
 
-            <h2 className="text-6xl font-bold tracking-tight text-pretty leading-tight">
+            <h2 className="text-4xl font-bold tracking-tight text-pretty leading-tight sm:text-5xl lg:text-6xl">
               Services
             </h2>
 
@@ -837,11 +845,11 @@ export default function Home() {
               From concept to code - I handle the the full creative pipeline.
             </p>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {services.map(c =>(
                 <Card key={c.service} className={c.featured ? "border-2 border-primary rounded-md" : "rounded-md"}>
                   <CardHeader>
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                       <CardTitle className="text-base">{c.service}</CardTitle>
                       <span className="text-xs px-2 py-0.5 rounded-full border border-border text-(--text-muted)">
                         {c.tag}
@@ -861,7 +869,7 @@ export default function Home() {
                     </div>
                   </CardContent>
 
-                  <CardFooter className="flex items-center justify-between">
+                  <CardFooter className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <span className="text-xs text-(--text-soft) italic">
                       {c.cta}
                     </span>
@@ -877,15 +885,15 @@ export default function Home() {
         </section>
 
         {/* Contact */}
-        <section className="flex flex-col justify-center mt-100 w-full mb-20">
-          <div className="w-full max-w-5xl flex flex-col items-center justify-center">
+        <section className="flex flex-col justify-center mt-24 w-full mb-16 sm:mt-32 sm:mb-20 lg:mt-56">
+          <div className="w-full max-w-5xl flex flex-col items-center justify-center text-center">
             <p className="font-light tracking-wider text-pretty">LET&apos;S CONNECT</p>
 
-            <h2 className="text-6xl font-medium tracking-tight text-pretty leading-tight">
-              Want to make something <br /><span className="font-serif font-bold italic flex justify-center">together?</span>
+            <h2 className="text-4xl font-medium tracking-tight text-pretty leading-tight sm:text-5xl lg:text-6xl">
+              Want to make something <br className="hidden sm:block" /><span className="font-serif font-bold italic inline-flex justify-center">together?</span>
             </h2>
 
-            <p className="font-normal tracking-wide text-pretty py-10">
+            <p className="font-normal tracking-wide text-pretty py-8 sm:py-10">
               I&apos;m a designer, developer, and digital artist — I can take your idea from a rough sketch all the way to a live product.
             </p>
 
@@ -897,7 +905,7 @@ export default function Home() {
               <Separator className="mt-10" />
             </div>
 
-            <div className="flex flex-row gap-3 mt-10 mb-20">
+            <div className="flex flex-col w-full gap-3 mt-10 mb-16 sm:w-auto sm:flex-row sm:mb-20">
               <Button variant={"outline"} size={'sm'} className="font-light tracking-tight gap-2 cursor-pointer py-5 rounded-md">
                 <IconBrandFacebook /> Facebook
               </Button>
@@ -911,8 +919,8 @@ export default function Home() {
             <p className="text-xs text-muted-foreground">Usually responds within 24 hours · Based in the Philippines</p>
           </div>
         </section>
-        <footer className="w-full border-t border-border py-6 px-10">
-          <div className="flex items-center justify-between text-xs text-(--text-muted)">
+        <footer className="w-full border-t border-border py-6 px-0 sm:px-10">
+          <div className="flex flex-col items-center justify-between gap-3 text-center text-xs text-(--text-muted) sm:flex-row sm:text-left">
             
             <p className="font-mono">
               designed & built by <span className="text-foreground font-medium">Marianne</span>

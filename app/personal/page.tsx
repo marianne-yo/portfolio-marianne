@@ -45,11 +45,14 @@ import openMeteo from "@/lib/openMeteo";
 import WeatherWidget from "@/components/ui/WeatherWidget";
 import TimeWidget from "@/components/ui/TimeWidget";
 import { Textarea } from "@/components/ui/textarea";
+import { link } from "fs";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function Personal() {
   const [activeTab, setActiveTab] = useState<'professional' | 'personal'>('personal')
   const { setTheme, resolvedTheme } = useTheme();
+
+  const [activeFilter, setActiveFilter] = useState("All")
   
   const navItems = [
     { logo: <GraduationCap />, name: "Professional", link: "#professional" },
@@ -162,6 +165,73 @@ export default function Personal() {
     { name: "Bright Teal Blue", hex: "#0077b6"},
     { name: "Blushed Brick", hex: "#cc444b"}
   ]
+
+  const artworks = [
+    { title: "Wei Wuxian", tag: "Fan Art", image: "/wuxian.png" },
+    { title: "Portrait Study", tag: "Portrait", image: "/artworks/portrait1.jpg" },
+    // ... add all your pieces
+  ]
+
+  const fav_games = [
+    { 
+      name: "Genshin Impact", 
+      genre: "Action RPG", 
+      image: "https://upload.wikimedia.org/wikipedia/en/thumb/9/9d/Genshin_Impact_-_App_Icon.png/240px-Genshin_Impact_-_App_Icon.png"
+    },
+    { 
+      name: "Valorant", 
+      genre: "Tactical FPS", 
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo_-_pink_color_version.svg/240px-Valorant_logo_-_pink_color_version.svg.png"
+    },
+    { 
+      name: "Arknights: Endfield", 
+      genre: "Strategy RPG", 
+      image: "https://upload.wikimedia.org/wikipedia/en/thumb/5/5e/Arknights_logo.png/240px-Arknights_logo.png"
+    },
+    { 
+      name: "Animal Crossing", 
+      genre: "Life Simulation", 
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Animal_Crossing_logo.svg/240px-Animal_Crossing_logo.svg.png"
+    },
+    { 
+      name: "Stardew Valley", 
+      genre: "Farming Sim", 
+      image: "https://upload.wikimedia.org/wikipedia/en/thumb/0/0f/Stardew_Valley_logo.png/240px-Stardew_Valley_logo.png"
+    },
+    { 
+      name: "Mobile Legends", 
+      genre: "MOBA", 
+      image: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/Mobile_Legends_Bang_Bang.png/240px-Mobile_Legends_Bang_Bang.png"
+    },
+    { 
+      name: "Wild Rift", 
+      genre: "MOBA", 
+      image: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a7/League_of_Legends_Wild_Rift_logo.png/240px-League_of_Legends_Wild_Rift_logo.png"
+    },
+  ]
+
+  const fav_artists = [
+    { link: 'https://open.spotify.com/embed/artist/3pc0bOVB5whxmD50W79wwO?utm_source=generator', name: 'Keshi' },
+    {
+      link: 'https://open.spotify.com/embed/artist/0GAYGBzZBTtYKkHIZs9ADH?utm_source=generator', name: 'Dimo Rex'
+    },
+    { link: 'https://open.spotify.com/embed/artist/2F4oTJOWkcD1JaTeKEa9h6?utm_source=generator', name: 'LNGSHOT' },
+    {
+      link: 'https://open.spotify.com/embed/artist/6chmC6o0wvACYVGTITw3Pz?utm_source=generator', name: 'Nont Tanont'
+    },
+    { link: 'https://open.spotify.com/embed/artist/1uNFoZAHBGtllmzznpCI3s?utm_source=generator', name: 'Justin Bieber' 
+    },
+    {
+      link: 'https://open.spotify.com/embed/artist/5pKCCKE2ajJHZ9KAiaK11H?utm_source=generator', name: 'Rihanna'
+    },
+    { 
+      link: 'https://open.spotify.com/embed/artist/3L0pX41yQ7PT7yB3ZfWfgk?utm_source=generator', name: 'Emi Thasorn'
+    },
+    {
+      link: 'https://open.spotify.com/embed/artist/0ixzjrK1wkN2zWBXt3VW3W?utm_source=generator', name: 'Yuuri'
+    }
+  ]
+
 
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
@@ -436,8 +506,8 @@ export default function Personal() {
             <div className="grid grid-cols-6 gap-2 w-full max-w-5xl auto-rows-[minmax(120px,auto)]">
                 {/* div1 — spans col 1-4, row 1-3 MY FAVORTIE PLAYLISTS*/}
                 <div className="bg-card border-2 border-muted col-span-4 row-span-3 rounded-lg p-5 overflow-y-auto">
-                    <h2 className="text-lg font-medium font-mono">MY FAVORTIE PLAYLISTS</h2>
-                    <div className="flex flex-col gap-2 justify-center">
+                    {/* <h2 className="text-lg font-medium font-mono">MY FAVORITE PLAYLISTS</h2> */}
+                    {/* <div className="flex flex-col gap-2 justify-center">
                         <iframe
                         data-testid="embed-iframe"
                         style={{ borderRadius: "12px" }}
@@ -474,18 +544,24 @@ export default function Personal() {
                         loading="lazy"
                         />
 
-                        <iframe
-                        data-testid="embed-iframe"
-                        style={{ borderRadius: "12px" }}
-                        src="https://open.spotify.com/embed/playlist/6AT86MZmC60G1h26Wn6Rij?utm_source=generator"
-                        width="100%"
-                        height="152"
-                        frameBorder="0"
-                        allowFullScreen
-                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                        loading="lazy"
-                        />
+                    </div> */}
 
+                    <h2 className="text-lg font-medium font-mono">MY FAVORITE ARTISTS</h2>
+                    <div className="grid grid-cols-2 gap-2 mt-2">
+                      {fav_artists.map(artist => (
+                        <iframe
+                          key={artist.name}
+                          data-testid="embed-iframe"
+                          style={{ borderRadius: "12px" }}
+                          src={artist.link}
+                          width="100%"
+                          height="152"
+                          frameBorder="0"
+                          allowFullScreen
+                          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                          loading="lazy"
+                        />
+                      ))}
                     </div>
                 </div>
 
@@ -518,7 +594,7 @@ export default function Personal() {
 
                 {/* div2 — col 1-2, row 4 MY FAVORTIE COLORS*/}
                 <div className="bg-card border-2 border-muted col-span-2 col-start-1 row-start-4 rounded-lg p-5">
-                    <h2 className="text-lg font-medium font-mono">MY FAVORTIE COLORS</h2>
+                    <h2 className="text-lg font-medium font-mono">MY FAVORITE COLORS</h2>
                     <div className="grid grid-cols-2 gap-3 mt-4">
                       {favoriteColors.map((color) => (
                         <div
@@ -536,48 +612,28 @@ export default function Personal() {
                     </div>
                 </div>
 
-                {/* div3 — col 3-4, row 4 MY FAVORTIE ARTIST*/}
+                {/* div3 — col 3-4, row 4 MY FAVORITE GAMES */}
                 <div className="bg-card border-2 border-muted col-span-2 col-start-3 row-start-4 rounded-lg p-5">
-                    <h2 className="text-lg font-medium font-mono">MY FAVORTIE ARTISTS</h2>
-                    <div className="flex flex-col gap-2 justify-center">
-                        <iframe
-                        data-testid="embed-iframe"
-                        style={{ borderRadius: "12px" }}
-                        src="https://open.spotify.com/embed/artist/3pc0bOVB5whxmD50W79wwO?utm_source=generator"
-                        width="100%"
-                        height="152"
-                        frameBorder="0"
-                        allowFullScreen
-                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                        loading="lazy"
-                        />
-                        
-                        <iframe
-                        data-testid="embed-iframe"
-                        style={{ borderRadius: "12px" }}
-                        src="https://open.spotify.com/embed/artist/0GAYGBzZBTtYKkHIZs9ADH?utm_source=generator"
-                        width="100%"
-                        height="152"
-                        frameBorder="0"
-                        allowFullScreen
-                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                        loading="lazy"
-                        />
-
-                        <iframe
-                        data-testid="embed-iframe"
-                        style={{ borderRadius: "12px" }}
-                        src="https://open.spotify.com/embed/artist/2F4oTJOWkcD1JaTeKEa9h6?utm_source=generator"
-                        width="100%"
-                        height="152"
-                        frameBorder="0"
-                        allowFullScreen
-                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                        loading="lazy"
-                        />
-
-
-                    </div>
+                  <h2 className="text-lg font-medium font-mono">MY FAVORITE GAMES</h2>
+                  <div className="flex flex-col gap-3 mt-3 overflow-y-auto max-h-64 pr-1">
+                    {fav_games.map(game => (
+                      <div key={game.name} className="flex items-center gap-3 py-1">
+                        <div className="w-9 h-9 rounded-lg overflow-hidden border border-border flex-shrink-0">
+                          <Image
+                            src={game.image}
+                            alt={game.name}
+                            className="w-full h-full object-cover"
+                            width={36}
+                            height={36}
+                          />
+                        </div>
+                        <div className="flex flex-col">
+                          <p className="text-sm font-medium leading-tight">{game.name}</p>
+                          <p className="text-xs text-(--text-muted)">{game.genre}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
                 {/* div4 — col 1-4, row 5 DOODLE*/}
@@ -594,6 +650,65 @@ export default function Personal() {
             
         </section>
 
+        {/* Artworks */}
+        <section className="flex flex-col gap-10 mt-100 w-full">
+          <div className="w-full max-w-5xl flex flex-col items-start justify-start">
+            <p className="font-light tracking-wider">MY ARTWORKS</p>
+            <h2 className="text-6xl font-bold tracking-tight leading-tight">
+              DIGITAL ART
+            </h2>
+            <p className="font-normal tracking-wide py-5">
+              Characters, portraits, and illustrations I&apos;ve created.
+            </p>
+
+            {/* Filter tags */}
+            <div className="flex flex-wrap gap-2">
+              {["All", "Fan Art", "Portrait", "Character", "Doodle", "Original"].map(tag => (
+                <button
+                  key={tag}
+                  onClick={() => setActiveFilter(tag)}
+                  className={`text-xs px-3 py-1.5 rounded-full border transition-all
+                    ${activeFilter === tag
+                      ? 'bg-foreground text-background border-foreground'
+                      : 'border-border text-(--text-muted) hover:text-foreground hover:border-foreground'
+                    }`}
+                >
+                  {tag}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Masonry grid */}
+          <div className="columns-2 md:columns-3 gap-3 w-full max-w-5xl">
+            {artworks
+              .filter(a => activeFilter === "All" || a.tag === activeFilter)
+              .map((art) => (
+                <div
+                  key={art.title}
+                  className="break-inside-avoid mb-3 rounded-xl overflow-hidden border border-border relative group cursor-pointer"
+                >
+                  <Image
+                    src={art.image}
+                    alt={art.title}
+                    width={600}
+                    height={900}
+                    className="w-full h-auto object-cover"
+                  />
+
+                  {/* Hover overlay */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/45 transition-all duration-200 rounded-xl flex flex-col justify-end p-4">
+                    <p className="text-white font-medium text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                      {art.title}
+                    </p>
+                    <p className="text-white/70 text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                      {art.tag}
+                    </p>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </section>
 
         {/* Contact */}
         <section className="flex flex-col justify-center mt-100 w-full mb-20">
