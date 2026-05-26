@@ -9,26 +9,9 @@ import { useTheme } from "next-themes"
 import { Badge } from "@/components/ui/badge"
 import { Check } from "lucide-react";
 import Link from "next/link";
-import {
-  Navbar,
-  NavBody,
-  NavItems,
-  MobileNav,
-  NavbarLogo,
-  NavbarButton,
-  MobileNavHeader,
-  MobileNavToggle,
-  MobileNavMenu,
-} from "@/components/ui/resizable-navbar";
 import { useState } from "react";
 import {
   Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card"
 import {
   Carousel,
@@ -46,20 +29,19 @@ import WeatherWidget from "@/components/ui/WeatherWidget";
 import TimeWidget from "@/components/ui/TimeWidget";
 import { Textarea } from "@/components/ui/textarea";
 import { link } from "fs";
+import Navbar from "@/components/ui/nav-bar";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function Personal() {
-  const [activeTab, setActiveTab] = useState<'professional' | 'personal'>('personal')
   const { setTheme, resolvedTheme } = useTheme();
 
   const [activeFilter, setActiveFilter] = useState("All")
   
-  const navItems = [
-    { logo: <GraduationCap />, name: "Professional", link: "#professional" },
-    { logo: <UserStar />,      name: "Personal",     link: "#personal"      },
-  ];
+  // const navItems = [
+  //   { logo: <GraduationCap />, name: "Professional", link: "#professional" },
+  //   { logo: <UserStar />,      name: "Personal",     link: "#personal"      },
+  // ];
 
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const hobbies = [
     {
@@ -183,37 +165,37 @@ export default function Personal() {
     { 
       name: "Genshin Impact", 
       genre: "Action RPG", 
-      image: "https://upload.wikimedia.org/wikipedia/en/thumb/9/9d/Genshin_Impact_-_App_Icon.png/240px-Genshin_Impact_-_App_Icon.png"
+      image: "/games/Genshin_Impact.png"
     },
     { 
       name: "Valorant", 
       genre: "Tactical FPS", 
-      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Valorant_logo_-_pink_color_version.svg/240px-Valorant_logo_-_pink_color_version.svg.png"
+      image: "/games/val-logo.jpg"
     },
     { 
       name: "Arknights: Endfield", 
       genre: "Strategy RPG", 
-      image: "https://upload.wikimedia.org/wikipedia/en/thumb/5/5e/Arknights_logo.png/240px-Arknights_logo.png"
+      image: "/games/arknights.png"
     },
     { 
       name: "Animal Crossing", 
       genre: "Life Simulation", 
-      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Animal_Crossing_logo.svg/240px-Animal_Crossing_logo.svg.png"
+      image: "/games/animal_crossing.png"
     },
     { 
       name: "Stardew Valley", 
       genre: "Farming Sim", 
-      image: "https://upload.wikimedia.org/wikipedia/en/thumb/0/0f/Stardew_Valley_logo.png/240px-Stardew_Valley_logo.png"
+      image: "/games/stardew_valley.png"
     },
     { 
       name: "Mobile Legends", 
       genre: "MOBA", 
-      image: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/Mobile_Legends_Bang_Bang.png/240px-Mobile_Legends_Bang_Bang.png"
+      image: "/games/ml.jpg"
     },
     { 
       name: "Wild Rift", 
       genre: "MOBA", 
-      image: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a7/League_of_Legends_Wild_Rift_logo.png/240px-League_of_Legends_Wild_Rift_logo.png"
+      image: "/games/Wild_Rift_icon.png"
     },
   ]
 
@@ -261,86 +243,10 @@ export default function Personal() {
 
   return (
     <div className={`flex flex-col flex-1 items-center justify-start font-sans bg-background ${montserrat.className}`}>
+        <Navbar activeTab="personal" />
+
       <main className="flex flex-1 w-full max-w-6xl flex-col items-center justify-start py-10 px-10 sm:items-start bg-background">
 
-        <div className="relative w-full">
-          <Navbar>
-            <NavBody>
-            <NavbarLogo />
-            {/* Tab switcher in the center */}
-            <div className="flex items-center gap-1 border border-border rounded-full p-1">
-                <Link href="/">
-                    <Button variant={'ghost'} className={`px-4 py-1 rounded-full text-sm transition-all duration-200
-                    ${activeTab === 'professional' ? 'bg-foreground text-background' : 'text-(--text-muted) hover:text-foreground'}`}>
-                    Professional
-                    </Button>
-                </Link>
-                <Link href="/personal">
-                    <Button variant={'ghost'} className={`px-4 py-1 rounded-full text-sm transition-all duration-200
-                    ${activeTab === 'personal' ? 'bg-foreground text-background' : 'text-(--text-muted) hover:text-foreground'}`}>
-                    Personal
-                    </Button>
-                </Link>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <NavbarButton variant="primary">English</NavbarButton>
-              <NavbarButton
-                as="button"
-                variant="primary"
-                onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-                className="relative flex items-center justify-center w-9 h-9 p-0"
-              >
-                <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-                <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-                <span className="sr-only">Toggle theme</span>
-              </NavbarButton>
-            </div>
-          </NavBody>
-            <MobileNav>
-              <MobileNavHeader>
-                <NavbarLogo />
-                <MobileNavToggle
-                  isOpen={isMobileMenuOpen}
-                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                />
-              </MobileNavHeader>
-              <MobileNavMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)}>
-  
-                {/* Tab switcher for mobile */}
-                <div className="flex w-full gap-2">
-                  <Button
-                    onClick={() => { setActiveTab('professional'); setIsMobileMenuOpen(false); }}
-                    className={`flex-1 py-2 rounded-lg text-sm border transition-all
-                      ${activeTab === 'professional'
-                        ? 'bg-foreground text-background border-foreground'
-                        : 'border-border text-(--text-muted)'
-                      }`}
-                  >
-                    Professional
-                  </Button>
-                  <Button
-                    onClick={() => { setActiveTab('personal'); setIsMobileMenuOpen(false); }}
-                    className={`flex-1 py-2 rounded-lg text-sm border transition-all
-                      ${activeTab === 'personal'
-                        ? 'bg-foreground text-background border-foreground'
-                        : 'border-border text-(--text-muted)'
-                      }`}
-                  >
-                    Personal
-                  </Button>
-                </div>
-
-                {navItems.map((item, idx) => (
-                  <a key={idx} href={item.link} onClick={() => setIsMobileMenuOpen(false)}
-                    className="relative text-(--text-soft) dark:text-neutral-300">
-                    <span className="block">{item.name}</span>
-                  </a>
-                ))}
-              </MobileNavMenu>
-            </MobileNav>
-          </Navbar>
-        </div>
 
         <section className="flex flex-col mt-16 w-full items-center justify-center gap-6 min-h-[60vh]">
             <Badge variant={'outline'} className="flex items-center gap-2 px-4 py-4 text-sm text-(--text-muted)">
@@ -510,9 +416,9 @@ export default function Personal() {
                 </p>
             </div>
 
-            <div className="grid grid-cols-6 gap-2 w-full max-w-5xl auto-rows-[minmax(120px,auto)]">
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 w-full max-w-5xl auto-rows-[minmax(120px,auto)]">
                 {/* div1 — spans col 1-4, row 1-3 MY FAVORTIE PLAYLISTS*/}
-                <div className="bg-card border-2 border-muted col-span-4 row-span-3 rounded-lg p-5 overflow-y-auto">
+                <div className="bg-card border-2 border-muted col-span-2 md:col-span-4 lg:col-span-4 row-span-1 md:row-span-2 lg:row-span-3 rounded-lg p-5 overflow-y-auto">
                     {/* <h2 className="text-lg font-medium font-mono">MY FAVORITE PLAYLISTS</h2> */}
                     {/* <div className="flex flex-col gap-2 justify-center">
                         <iframe
@@ -558,7 +464,6 @@ export default function Personal() {
                       {fav_artists.map(artist => (
                         <iframe
                           key={artist.name}
-                          data-testid="embed-iframe"
                           style={{ borderRadius: "12px" }}
                           src={artist.link}
                           width="100%"
@@ -572,46 +477,53 @@ export default function Personal() {
                     </div>
                 </div>
 
-
                 {/* div5 — col 5, row 1 open meteo api, time and weather*/} 
-                <div className="bg-card border-2 border-muted col-start-5 col-span-2 row-start-1 rounded-lg p-5 flex flex-col justify-center">
+                <div className="bg-card border-2 border-muted 
+                col-span-2 md:col-span-2 lg:col-span-2 
+                lg:col-start-5 lg:row-start-1 
+                rounded-lg p-5 flex flex-col justify-center">
                   <div className="flex justify-center items-center">
                     <TimeWidget/>
                   </div>
                 </div>
 
                 {/* div6 — col 5, row 2 */}
-                <div className="bg-card border-2 border-muted col-start-5 col-span-2  row-start-2 rounded-lg p-5 flex flex-col justify-center">
+                <div className="bg-card border-2 border-muted 
+                col-span-2 md:col-span-2 lg:col-span-2 
+                lg:col-start-5 lg:row-start-2 
+                rounded-lg p-5 flex flex-col justify-center">
                   <div className="flex justify-center items-center">
                     <WeatherWidget />
                   </div>
                 </div>
 
                 {/* div7 — col 5, row 3-4 MY DAILY ROUTINE, THIS WILL BE A LIST*/}
-                <div className="bg-card border-2 border-muted col-start-5 col-span-2 row-start-3 row-span-2 rounded-lg p-5 overflow-y-auto">
+                <div className="bg-card border-2 border-muted 
+                col-span-2 md:col-span-2 lg:col-span-2 
+                lg:col-start-5 lg:row-start-3 lg:row-span-2 
+                rounded-lg p-5 overflow-y-auto">
                     <h2 className="text-lg font-medium font-mono">Marianne&apos;s Daily Routine</h2>
                     {dailyRoutine.map(dr => (
                       <ul key={dr.num} className="list-none">
                         <Separator />
-                        <li className="flex flex-row gap-2 p-2 rounded-sm font-light">{dr.num}.<span className="font-medium tracking-tight">{dr.routine}</span></li>
+                        <li className="flex flex-row gap-2 p-2 rounded-sm font-light">
+                          {dr.num}.<span className="font-medium tracking-tight">{dr.routine}</span>
+                        </li>
                       </ul>
                     ))}
                     <Separator />
                 </div>
 
                 {/* div2 — col 1-2, row 4 MY FAVORTIE COLORS*/}
-                <div className="bg-card border-2 border-muted col-span-2 col-start-1 row-start-4 rounded-lg p-5">
+                <div className="bg-card border-2 border-muted 
+                col-span-2 md:col-span-2 lg:col-span-2 
+                lg:col-start-1 lg:row-start-4 
+                rounded-lg p-5">
                     <h2 className="text-lg font-medium font-mono">MY FAVORITE COLORS</h2>
                     <div className="grid grid-cols-2 gap-3 mt-4">
                       {favoriteColors.map((color) => (
-                        <div
-                          key={color.hex}
-                          className="rounded-md border border-border p-3"
-                        >
-                          <div
-                            className="h-12 rounded-sm mb-2"
-                            style={{ backgroundColor: color.hex }}
-                          />
+                        <div key={color.hex} className="rounded-md border border-border p-3">
+                          <div className="h-12 rounded-sm mb-2" style={{ backgroundColor: color.hex }} />
                           <p className="text-xs font-medium">{color.name}</p>
                           <p className="text-[11px] text-muted-foreground">{color.hex}</p>
                         </div>
@@ -620,36 +532,45 @@ export default function Personal() {
                 </div>
 
                 {/* div3 — col 3-4, row 4 MY FAVORITE GAMES */}
-                <div className="bg-card border-2 border-muted col-span-2 col-start-3 row-start-4 rounded-lg p-5">
+                <div className="bg-card border-2 border-muted 
+                col-span-2 md:col-span-2 lg:col-span-2 
+                lg:col-start-3 lg:row-start-4 
+                rounded-lg p-5">
                   <h2 className="text-lg font-medium font-mono">MY FAVORITE GAMES</h2>
-                  <div className="flex flex-col gap-3 mt-3 overflow-y-auto max-h-64 pr-1">
-                    {fav_games.map(game => (
-                      <div key={game.name} className="flex items-center gap-3 py-1">
-                        <div className="w-9 h-9 rounded-lg overflow-hidden border border-border flex-shrink-0">
-                          <Image
-                            src={game.image}
-                            alt={game.name}
-                            className="w-full h-full object-cover"
-                            width={36}
-                            height={36}
-                          />
+                  <div className="flex flex-col gap-3 mt-3 pr-1">
+                      {fav_games.map(game => (
+                        <div key={game.name} className="flex items-center gap-3 py-1">
+                          <div className="w-9 h-9 rounded-lg overflow-hidden border border-border flex-shrink-0">
+                            <Image
+                              src={game.image}
+                              alt={game.name}
+                              className="w-full h-full object-cover"
+                              width={36}
+                              height={36}
+                            />
+                          </div>
+                          <div className="flex flex-col">
+                            <p className="text-sm font-medium leading-tight">{game.name}</p>
+                            <p className="text-xs text-(--text-muted)">{game.genre}</p>
+                          </div>
                         </div>
-                        <div className="flex flex-col">
-                          <p className="text-sm font-medium leading-tight">{game.name}</p>
-                          <p className="text-xs text-(--text-muted)">{game.genre}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                      ))}
+                    </div>
                 </div>
 
                 {/* div4 — col 1-4, row 5 DOODLE*/}
-                <div className="bg-card border-2 border-muted col-span-4 col-start-1 row-start-5 rounded-lg p-5">
+                <div className="bg-card border-2 border-muted 
+                col-span-2 md:col-span-4 lg:col-span-4 
+                lg:col-start-1 lg:row-start-5 
+                rounded-lg p-5">
                     <h2 className="text-lg font-medium font-mono">MY OWN DOODLE</h2>
                 </div>
 
                 {/* div8 — col 5, row 5 */}
-                <div className="bg-card border-2 border-muted col-start-5 col-span-2 row-start-5 rounded-lg p-5">
+                <div className="bg-card border-2 border-muted 
+                col-span-2 md:col-span-2 lg:col-span-2 
+                lg:col-start-5 lg:row-start-5 
+                rounded-lg p-5">
                     <h2 className="text-lg font-medium font-mono">MY FAVORITE QUOTE</h2>
                     <h2 className="font-serif italic p-5 font-medium tracking-wider">“If you get tired, learn to rest, not to quit.” <span className="font-light">- Banksy</span></h2>
                 </div>

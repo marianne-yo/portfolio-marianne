@@ -113,6 +113,11 @@
   }
 }
 
+@keyframes pill-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
 :root {
   --background: oklch(0.985 0.003 85);
   --foreground: oklch(0.18 0.02 285);
@@ -304,6 +309,14 @@
   --glow-pink: 0 0 60px oklch(0.74 0.16 350 / 0.45);
 }
 
+.pill-bg {
+  background-color: oklch(0.985 0.003 85 / 0.85);
+}
+
+.dark .pill-bg {
+  background-color: oklch(0.16 0.015 285 / 0.85);
+}
+
 .gradient-border {
   position: relative;
   border-radius: var(--radius-2xl);
@@ -338,8 +351,6 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    backface-visibility: hidden;
-    transform-style: preserve-3d;
   }
   body {
     @apply bg-background text-foreground;

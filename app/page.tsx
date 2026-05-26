@@ -9,17 +9,6 @@ import { useTheme } from "next-themes"
 import { Badge } from "@/components/ui/badge"
 import { Check } from "lucide-react";
 
-import {
-  Navbar,
-  NavBody,
-  NavItems,
-  MobileNav,
-  NavbarLogo,
-  NavbarButton,
-  MobileNavHeader,
-  MobileNavToggle,
-  MobileNavMenu,
-} from "@/components/ui/resizable-navbar";
 import { useState } from "react";
 import {
   Card,
@@ -35,7 +24,7 @@ import Link from "next/link";
 
 import { Textarea } from "@/components/ui/textarea"
 import Image from "next/image";
-
+import Navbar from "@/components/ui/nav-bar";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 const LEFT_EYE  = { cx: 105.354, cy: 202.694 };
@@ -47,7 +36,6 @@ function lerp(a: number, b: number, t: number) {
 }
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState<'professional' | 'personal'>('professional')
   const { setTheme, resolvedTheme } = useTheme();
   const svgRef = useRef<SVGSVGElement>(null);
 
@@ -128,10 +116,10 @@ export default function Home() {
     };
   }, []);
 
-  const navItems = [
-    { logo: <GraduationCap />, name: "Professional", link: "/" },
-    { logo: <UserStar />,      name: "Personal",     link: "/personal"      },
-  ];
+  // const navItems = [
+  //   { logo: <GraduationCap />, name: "Professional", link: "/" },
+  //   { logo: <UserStar />,      name: "Personal",     link: "/personal"      },
+  // ];
 
   const services = [
     { 
@@ -168,92 +156,12 @@ export default function Home() {
     },
   ];
 
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-
   return (
-    <div className={`flex flex-col flex-1 items-center justify-start font-sans bg-background ${montserrat.className}`}>
-      <main className="flex flex-1 w-full max-w-6xl flex-col items-center justify-start px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-10 sm:items-start bg-background">
+    <div className={`min-h-screen flex flex-col items-center font-sans bg-background ${montserrat.className}`}>
 
-        <div className="relative w-full">
-          <Navbar>
-            <NavBody>
-            <NavbarLogo />
-            {/* <NavItems items={navItems} /> */}
-            {/* Tab switcher in the center */}
-            <div className="flex items-center gap-1 border border-border rounded-full p-1">
-              <Link href="/">
-                <Button variant={'ghost'} className={`px-4 py-1 rounded-full text-sm transition-all duration-200
-                  ${activeTab === 'professional' ? 'bg-foreground text-background' : 'text-(--text-muted) hover:text-foreground'}`}>
-                  Professional
-                </Button>
-              </Link>
-              <Link href="/personal">
-                <Button variant={'ghost'} className={`px-4 py-1 rounded-full text-sm transition-all duration-200
-                  ${activeTab === 'personal' ? 'bg-foreground text-background' : 'text-(--text-muted) hover:text-foreground'}`}>
-                  Personal
-                </Button>
-              </Link>
-            </div>
+      <Navbar activeTab="professional"/>
 
-            <div className="flex items-center gap-4">
-              <NavbarButton variant="primary">English</NavbarButton>
-              <NavbarButton
-                as="button"
-                variant="primary"
-                onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-                className="relative flex items-center justify-center w-9 h-9 p-0"
-              >
-                <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-                <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-                <span className="sr-only">Toggle theme</span>
-              </NavbarButton>
-            </div>
-          </NavBody>
-            <MobileNav>
-              <MobileNavHeader>
-                <NavbarLogo />
-                <MobileNavToggle
-                  isOpen={isMobileMenuOpen}
-                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                />
-              </MobileNavHeader>
-              <MobileNavMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)}>
-  
-                {/* Tab switcher for mobile */}
-                <div className="flex w-full gap-2">
-                  <Button
-                    onClick={() => { setActiveTab('professional'); setIsMobileMenuOpen(false); }}
-                    className={`flex-1 py-2 rounded-lg text-sm border transition-all
-                      ${activeTab === 'professional'
-                        ? 'bg-foreground text-background border-foreground'
-                        : 'border-border text-(--text-muted)'
-                      }`}
-                  >
-                    Professional
-                  </Button>
-                  <Button
-                    onClick={() => { setActiveTab('personal'); setIsMobileMenuOpen(false); }}
-                    className={`flex-1 py-2 rounded-lg text-sm border transition-all
-                      ${activeTab === 'personal'
-                        ? 'bg-foreground text-background border-foreground'
-                        : 'border-border text-(--text-muted)'
-                      }`}
-                  >
-                    Personal
-                  </Button>
-                </div>
-
-                {navItems.map((item, idx) => (
-                  <a key={idx} href={item.link} onClick={() => setIsMobileMenuOpen(false)}
-                    className="relative text-[var(--text-soft)] dark:text-neutral-300">
-                    <span className="block">{item.name}</span>
-                  </a>
-                ))}
-              </MobileNavMenu>
-            </MobileNav>
-          </Navbar>
-        </div>
+      <main className="w-full max-w-6xl flex flex-col items-center justify-start px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-10 sm:items-start">
 
         <section className="grid w-full grid-cols-1 items-center justify-center gap-10 mt-12 sm:mt-16 md:grid-cols-3 md:gap-8">
           <div className="flex flex-col gap-5 text-center sm:gap-6 md:col-span-2 md:text-left">
