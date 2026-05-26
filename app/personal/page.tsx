@@ -167,9 +167,16 @@ export default function Personal() {
   ]
 
   const artworks = [
-    { title: "Wei Wuxian", tag: "Fan Art", image: "/wuxian.png" },
-    { title: "Portrait Study", tag: "Portrait", image: "/artworks/portrait1.jpg" },
-    // ... add all your pieces
+    { title: "Wei Wuxian", tag: "Fan Art", image: "/artworks/wuxian.png" },
+    { title: "Yor Forger", tag: "Fan Art", image: "/artworks/YOR_FANART_2.png" },
+    { title: "Stelle", tag: "Character", image: "/artworks/stelle.png" },
+    { title: "Yuuya", tag: "Original", image: "/artworks/YUUYA.png" },
+    { title: "Mari-1", tag: "Original", image: "/artworks/new_pfp_ver.2.png" },
+    { title: "Yoshi", tag: "Fan Art", image: "/artworks/JIKJIN_YOSHI.png" },
+    { title: "Rosa", tag: "Character", image: "/artworks/Rosa.png" },
+    { title: "Mari-2", tag: "Original", image: "/artworks/pfp-2.png" },
+    { title: "Mari-3", tag: "Original", image: "/artworks/pfp.png" },
+    { title: "Takumi", tag: "Portrait", image: "/artworks/Takumi.png" },
   ]
 
   const fav_games = [
@@ -680,7 +687,7 @@ export default function Personal() {
           </div>
 
           {/* Masonry grid */}
-          <div className="columns-2 md:columns-3 gap-3 w-full max-w-5xl">
+          <div className="columns-2 md:columns-3 w-full max-w-5xl" style={{ columnGap: '0.75rem' }}>
             {artworks
               .filter(a => activeFilter === "All" || a.tag === activeFilter)
               .map((art) => (
@@ -691,9 +698,10 @@ export default function Personal() {
                   <Image
                     src={art.image}
                     alt={art.title}
-                    width={600}
-                    height={900}
-                    className="w-full h-auto object-cover"
+                    width={0}
+                    height={0}
+                    sizes="(max-width: 768px) 50vw, 33vw"
+                    className="w-full h-auto block"
                   />
 
                   {/* Hover overlay */}
