@@ -563,7 +563,7 @@ export default function Personal() {
                 col-span-2 md:col-span-4 lg:col-span-4 
                 lg:col-start-1 lg:row-start-5 
                 rounded-lg p-5">
-                    <h2 className="text-lg font-medium font-mono">MY OWN DOODLE</h2>
+                    <h2 className="text-lg font-medium font-mono">MY DOODLE</h2>
                 </div>
 
                 {/* div8 — col 5, row 5 */}

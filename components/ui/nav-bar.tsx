@@ -47,7 +47,7 @@ export default function Navbar({ activeTab }: NavbarProps) {
           
           {/* Logo + Name */}
           <div className="flex items-center gap-2">
-            <Image src="/your-logo.png" alt="logo" width={28} height={28} className="rounded-full" />
+            <Image src="/logo_nav.png" alt="logo" width={28} height={28} className="rounded-full" />
             <p className="font-medium text-sm tracking-wide">Marianne</p>
           </div>
 

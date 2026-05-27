@@ -8,7 +8,7 @@ import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Badge } from "@/components/ui/badge"
 import { Check } from "lucide-react";
-
+import CharacterHero from "@/components/ui/Characterhero";
 import { useState } from "react";
 import {
   Card,
@@ -170,66 +170,38 @@ export default function Home() {
               <span className="text-primary font-bold">Marianne</span>
             </h1>
 
-            <p className="text-lg text-[var(--text-soft)] dark:text-neutral-300 sm:text-xl lg:text-2xl">
+            <p className="text-lg text-(--text-soft) dark:text-neutral-300 sm:text-xl lg:text-2xl">
               Explore my projects, skills, and experience in web development.
             </p>
 
-            <div className="flex flex-wrap justify-center gap-2 md:justify-start">
-              <Button variant="outline" size="lg" className="rounded-md cursor-pointer" aria-label="GitHub">
-                <IconBrandGithub />
-              </Button>
-              <Button variant="outline" size="lg" className="rounded-md cursor-pointer" aria-label="LinkedIn">
-                <IconBrandLinkedin />
-              </Button>
-              <Button variant="outline" size="lg" className="rounded-md cursor-pointer" aria-label="Email">
-                <MailIcon />
-              </Button>
-              <Button variant="outline" size="lg" className="rounded-md cursor-pointer font-bold">
-                Resume
-              </Button>
+            <div className="flex flex-row justify-center w-full gap-2 md:justify-start">
+              <Link href="https://github.com/marianne-yo" target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" size="lg" className="rounded-md cursor-pointer" aria-label="GitHub">
+                  <IconBrandGithub />
+                </Button>
+              </Link>
+              <Link href="https://www.linkedin.com/in/marianne-balen-066185264/" target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" size="lg" className="rounded-md cursor-pointer" aria-label="LinkedIn">
+                  <IconBrandLinkedin />
+                </Button>
+              </Link>
+              <Link
+                href="mailto:yourname@gmail.com?subject=Portfolio Inquiry&body=Hi Mari, I saw your portfolio..."
+              >
+                <Button variant="outline" size="lg" className="rounded-md cursor-pointer" aria-label="Email">
+                  <MailIcon/>
+                </Button>
+              </Link>
+              <Link href="/RESUME_V2.pdf" target="_blank" rel="noopener noreferrer" className="w-full">
+                <Button variant="default" size="lg" className="rounded-md cursor-pointer font-bold">
+                  Resume
+                </Button>
+              </Link>
             </div>
           </div>
 
-          {/* Right — your character with eye tracking */}
-          <div className="flex justify-center items-end md:justify-end">
-            <svg
-              ref={svgRef}
-              width="100%"
-              viewBox="0 0 323 399"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-full max-w-[220px] drop-shadow-md sm:max-w-[260px] lg:max-w-[280px]"
-              aria-label="Illustrated portrait of Marianne"
-            >
-              {/* ── All original paths (unchanged) ── */}
-              <path d="M119.854 328.694C122.2 319.62 119.854 304.694 119.854 304.694L84.3536 279.694L69.3536 243.694L39.3536 213.694L24.8536 230.194C24.8536 230.194 28.6173 260.487 26.3536 279.694C24.0303 299.406 12.8536 314.527 12.8536 328.694V373.694C12.8536 373.694 18.5202 388.527 21.3536 394.694C24.1869 400.861 37.3536 397.694 37.3536 397.694C37.3536 397.694 46.8536 361.194 51.3536 357.194C55.8536 353.194 112.354 344.694 112.354 344.694C112.354 344.694 118.126 335.375 119.854 328.694Z" fill="black"/>
-              <path d="M196.854 328.694C194.092 318.923 196.854 302.694 196.854 302.694L234.854 275.694L243.854 242.194L256.354 233.694L270.354 219.194L286.354 227.694L303.354 263.194C303.354 263.194 316.993 295.645 318.854 317.694C320.318 335.05 322.603 346.137 315.854 362.194C308.415 379.89 281.854 397.694 281.854 397.694C281.854 397.694 273.354 361.694 268.854 357.194C264.354 352.694 204.854 344.694 204.854 344.694C204.854 344.694 198.753 335.417 196.854 328.694Z" fill="black"/>
-              <path d="M82.3536 276.694C71.3536 260.694 52.8536 177.194 52.8536 177.194L153.354 61.694L255.854 177.194C255.854 177.194 242.854 259.694 233.354 276.694C223.854 293.694 153.354 320.694 153.354 320.694C153.354 320.694 93.3536 292.694 82.3536 276.694Z" fill="#FFFCF6" stroke="black"/>
-              <path d="M189.854 224.694L201.354 227.194L216.854 224.694" stroke="black"/>
-              <path d="M184.354 197.194C184.354 197.194 182.24 206.128 183.354 211.694C184.467 217.26 189.854 224.694 189.854 224.694" stroke="white"/>
-              <path d="M228.854 216.694L222.854 221.694L216.854 225.194" stroke="white"/>
-              <path d="M118.854 223.194L107.354 225.694L91.8536 223.194" stroke="black"/>
-              <path d="M124.354 195.694C124.354 195.694 126.467 204.628 125.354 210.194C124.24 215.76 118.854 223.194 118.854 223.194" stroke="white"/>
-              <path d="M79.8536 215.194L85.8536 220.194L91.8536 223.694" stroke="white"/>
-
-              {/* ── Eyes (ids required for JS) ── */}
-              <ellipse id="iris-left"   cx="105.354" cy="202.694" rx="16.5" ry="18"  fill="#230436"/>
-              <ellipse id="pupil-left"  cx="105.354" cy="202.694" rx="7.5"  ry="8"   fill="#160321"/>
-              <circle  id="shine-left"  cx="110.354" cy="199.194" r="3.5"            fill="#E4E2E6"/>
-              <ellipse id="iris-right"  cx="203.354" cy="202.694" rx="16.5" ry="18"  fill="#230436"/>
-              <ellipse id="pupil-right" cx="203.354" cy="202.694" rx="7.5"  ry="8"   fill="#160321"/>
-              <circle  id="shine-right" cx="208.354" cy="199.194" r="3.5"            fill="#E4E2E6"/>
-
-              <path d="M147.354 252.694L154.354 257.694" stroke="black"/>
-              <path d="M138.354 160.694C140.854 164.194 138.354 169.694 138.354 169.694C138.354 169.694 122.854 158.194 111.354 156.194C99.8536 154.194 96.0943 153.714 86.8536 156.194C82.3709 157.397 75.8536 160.694 75.8536 160.694C75.8536 160.694 77.8536 155.194 87.8536 151.694C97.8536 148.194 111.354 151.694 111.354 151.694C111.354 151.694 135.854 157.194 138.354 160.694Z" fill="black" stroke="black"/>
-              <path d="M135.854 275.694H181.354" stroke="black"/>
-              <path d="M196.854 182.194C190.176 186.362 182.854 196.694 182.854 196.694L196.854 189.694C196.854 189.694 204.354 185.194 213.854 184.194C223.354 183.194 233.854 189.694 233.854 189.694V202.194L229.354 216.194L236.354 206.694L240.854 189.694L244.354 188.194L240.854 185.694C240.854 185.694 243.02 185.992 244.354 185.694C246.68 185.174 249.354 182.194 249.354 182.194C249.354 182.194 246.246 182.675 244.354 182.194C242.147 181.633 239.354 179.194 239.354 179.194L244.354 174.694L239.354 176.194H232.354C232.354 176.194 220.972 174.958 213.854 176.194C206.917 177.398 202.826 178.466 196.854 182.194Z" fill="black" stroke="black"/>
-              <path d="M113.354 182.194C120.031 186.362 127.354 196.694 127.354 196.694L113.354 189.694C113.354 189.694 105.854 185.194 96.3536 184.194C86.8536 183.194 76.3536 189.694 76.3536 189.694V202.194L80.8536 216.194L73.8536 206.694L69.3536 189.694L65.8536 188.194L69.3536 185.694C69.3536 185.694 67.1874 185.992 65.8536 185.694C63.5276 185.174 60.8536 182.194 60.8536 182.194C60.8536 182.194 63.9612 182.675 65.8536 182.194C68.0605 181.633 70.8536 179.194 70.8536 179.194L65.8536 174.694L70.8536 176.194H77.8536C77.8536 176.194 89.2353 174.958 96.3536 176.194C103.29 177.398 107.381 178.466 113.354 182.194Z" fill="black" stroke="black"/>
-              <path d="M210.354 155.694C195.854 158.194 184.854 168.194 184.854 168.194C184.854 168.194 182.616 166.353 182.354 164.694C182.013 162.538 184.854 159.694 184.854 159.694C184.854 159.694 199.754 151.133 210.354 149.694C221.657 148.16 239.354 153.194 239.354 153.194L243.854 159.694C243.854 159.694 224.854 153.194 210.354 155.694Z" fill="black" stroke="black"/>
-              <path d="M69.3536 242.694C69.3536 242.694 38.3536 223.194 34.3536 200.194C30.3536 177.194 52.3536 178.194 52.3536 178.194" stroke="black"/>
-              <path d="M243.854 242.2C243.854 242.2 274.854 222.7 278.854 199.7C282.854 176.7 255.854 178.194 255.854 178.194" stroke="black"/>
-              <path d="M141.354 143.194C157.911 126.976 178.854 97.194 178.854 97.194C178.854 97.194 182.63 123.467 190.354 138.194C199.03 154.738 221.854 174.194 221.854 174.194C221.854 174.194 234.811 188.372 243.854 196.694C251.911 204.11 265.354 214.694 265.354 214.694C265.354 214.694 280.26 225.717 291.354 229.194C302.218 232.6 320.354 232.194 320.354 232.194C320.354 232.194 309.019 226.02 303.354 220.194C297.35 214.02 296.04 208.919 291.354 201.694L310.854 212.694C310.854 212.694 301.91 196.577 299.854 185.194C297.136 170.146 302.622 161.468 303.354 146.194C304.194 128.641 306.904 118.405 303.354 101.194C299.645 83.2138 293.976 73.8293 284.354 58.194C274.683 42.4803 270.332 30.9214 254.354 21.694C242.949 15.1079 234.911 14.4071 221.854 12.694C209.657 11.0939 190.354 12.694 190.354 12.694L193.354 6.19403L185.854 9.69403L181.854 0.194031V12.694C181.854 12.694 170.79 5.61074 162.854 3.19403C149.031 -1.01534 140.168 1.22624 125.854 3.19403C112.009 5.09716 103.984 6.71404 91.3536 12.694C75.7512 20.0811 67.271 26.322 56.3536 39.694C47.2371 50.8602 44.3728 58.8774 38.8536 72.194C30.9116 91.3563 25.8536 123.694 25.8536 123.694C20.9615 140.084 13.8536 154.694 11.8536 165.194C9.85358 175.694 0.353577 185.194 0.353577 185.194L16.8536 179.194C16.8536 179.194 5.96945 209.444 7.85358 229.194C8.8655 239.802 14.3536 255.694 14.3536 255.694C14.3536 255.694 16.5846 245.036 19.3536 238.694C21.0169 234.884 22.8734 231.876 24.883 229.194C29.009 223.688 33.7808 219.558 38.8536 212.694C45.7479 203.366 56.3536 188.694 56.3536 188.694C56.3536 188.694 59.1377 196.488 59.3536 201.694C59.617 208.046 56.3536 217.694 56.3536 217.694C56.3536 217.694 71.5916 200.703 79.8536 188.694C91.292 172.068 104.354 143.194 104.354 143.194L91.3536 181.694C91.3536 181.694 123.748 160.439 141.354 143.194Z" fill="black"/>
-            </svg>
+          <div className="col-span-1">
+            <CharacterHero />
           </div>
           <p className="text-xs tracking-widest text-(--text-soft) md:col-span-3">SCROLL</p>
         </section>
@@ -250,12 +222,18 @@ export default function Home() {
 
           <div className="grid w-full grid-cols-1 gap-3 max-w-5xl md:grid-cols-2">
             {/* card 1 */}
-            <Card className="relative w-full pt-0 bg-card border-2 border-ring md:col-span-2">
-              <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
-              <img
-                src="https://avatar.vercel.sh/shadcn1"
+            <Card className="relative w-full pt-0 bg-card border-2 border-ring md:col-span-2
+            transition-all
+            duration-300
+            hover:-translate-y-2
+            hover:shadow-2xl">
+              <div className="absolute inset-0 z-30 aspect-video bg-black/10" />
+              <Image
+                src="/17.png"
                 alt="Event cover"
-                className="relative z-20 aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40"
+                className="relative  aspect-video w-full object-cover"
+                width={5000}
+                height={5000}
               />
               <CardHeader className="grid grid-cols-[1fr_auto] gap-3">
                 <CardTitle className="font-bold text-pretty tracking-sm text-base sm:text-lg">Revio: A Review Material Generator Using Natural Language Processing with Acronym Mnemonic, Leitner, and Pomodoro Techniques </CardTitle>
@@ -267,30 +245,51 @@ export default function Home() {
               </CardHeader>
               <CardContent>
                 <CardDescription>
-                  A reviewer generator that makes flashcards and summarization of the study materials.
+                  A web and mobile application that generates study materials to flashcards and summaries.
                 </CardDescription>
               </CardContent>
               
               <CardContent className="flex flex-wrap gap-1">
                   <Badge variant="outline" className="bg-blue-600/30">React</Badge>
-                  <Badge variant="outline" className="bg-green-400/20">Supabase</Badge>
+                  <Badge variant="outline" className="bg-sky-500/30">React Native</Badge>
+                  <Badge variant="outline" className="bg-slate-100/20">OpenAI</Badge>
                   <Badge variant="outline" className="bg-orange-500/30">Firebase</Badge>
+                  <Badge variant="outline" className="bg-cyan-300/30">Tailwind CSS</Badge>
               </CardContent>
-              <CardFooter className="flex flex-col gap-2 sm:flex-row">
-                <Button variant={'outline'} className="w-full rounded-md cursor-pointer sm:w-1/2">Github</Button>
-                <Button className="w-full rounded-md cursor-pointer bg-primary sm:w-1/2">Website</Button>
+              <CardFooter className="flex flex-col sm:flex-row gap-2 w-full">
+                <Link
+                  href="https://drive.google.com/drive/folders/1YqXcD1w_3YGOGzaQY_na1gtyOo1f6amC"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full"
+                >
+                  <Button variant={"outline"} className="w-full rounded-md bg-primary cursor-pointer hover:border hover:border-primary">
+                    Download the APK
+                  </Button>
+                </Link>
+
+                <Link
+                  href="https://revio-web-ebon.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full"
+                >
+                  <Button className="w-full rounded-md bg-primary cursor-pointer hover:border hover:border-primary">
+                    Website
+                  </Button>
+                </Link>
               </CardFooter>
             </Card>
-
+            
             {/* card 2 */}
-            <Card className="relative w-full pt-0">
-              <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
+            <Card className="relative w-full pt-0 transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:z-10">
+              <div className="absolute inset-0 z-30 aspect-video bg-black/10" />
               <Image
                 src="/faced_ss.png"
                 alt="Event cover"
-                className="relative z-20 aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40"
-                width={600}
-                height={400}
+                className="relative z-20 aspect-video w-full object-cover"
+                width={1000}
+                height={1000}
               />
               <CardHeader className="grid grid-cols-[1fr_auto] gap-3">
                 <CardTitle className="font-bold text-pretty tracking-sm text-base sm:text-lg">Family Assistance Card in Emergencies and Disasters</CardTitle>
@@ -307,26 +306,30 @@ export default function Home() {
               </CardContent>
               
               <CardContent className="flex flex-wrap gap-1">
+                  <Badge variant="outline" className="bg-slate-400/10">Next.js</Badge>
                   <Badge variant="outline" className="bg-blue-600/30">React</Badge>
                   <Badge variant="outline" className="bg-blue-500/30">Typescript</Badge>
-                  <Badge variant="outline" className="bg-slate-400/10">Next.js</Badge>
                   <Badge variant="outline" className="bg-green-400/20">Supabase</Badge>
+                  <Badge variant="outline" className="bg-yellow-500/50">Daisy UI</Badge>
               </CardContent>
-              <CardFooter className="flex flex-col gap-2 sm:flex-row">
-                <Button variant={'outline'} className="w-full rounded-md cursor-pointer sm:w-1/2">Github</Button>
-                <Button className="w-full rounded-md cursor-pointer bg-primary sm:w-1/2">Website</Button>
+              <CardFooter className="flex justify-center w-full sm:flex-row">
+                <Link href="https://faced-six.vercel.app/" target="_blank" rel="noopener noreferrer" className="flex w-full">
+                <Button className="w-full rounded-md cursor-pointer bg-primary hover:border hover:border-primary">
+                  Website
+                </Button>
+                </Link>
               </CardFooter>
             </Card>
 
             {/* card 3 */}
-            <Card className="relative w-full pt-0">
-              <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
+            <Card className="relative w-full pt-0 transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-2xl hover:z-10">
+              <div className="absolute inset-0 z-30 aspect-video bg-black/10" />
               <Image
                 src="/frva_ss.png"
                 alt="Event cover"
-                className="relative z-20 aspect-video w-full object-cover brightness-60 dark:brightness-60"
-                width={600}
-                height={400}
+                className="relative z-20 aspect-video w-full object-cover"
+                width={1000}
+                height={1000}
                 loading="eager"
               />
               <CardHeader className="grid grid-cols-[1fr_auto] gap-3">
@@ -344,19 +347,23 @@ export default function Home() {
               </CardContent>
               
               <CardContent className="flex flex-wrap gap-1">
+                  <Badge variant="outline" className="bg-slate-400/10">Next.js</Badge>
                   <Badge variant="outline" className="bg-blue-600/30">React</Badge>
                   <Badge variant="outline" className="bg-blue-500/30">Typescript</Badge>
-                  <Badge variant="outline" className="bg-slate-400/10">Next.js</Badge>
                   <Badge variant="outline" className="bg-green-400/20">Supabase</Badge>
+                  <Badge variant="outline" className="bg-mauve-700/20">Shadcn</Badge>
               </CardContent>
-              <CardFooter className="flex flex-col gap-2 sm:flex-row">
-                <Button variant={'outline'} className="w-full rounded-md cursor-pointer sm:w-1/2">Github</Button>
-                <Button className="w-full rounded-md cursor-pointer bg-primary sm:w-1/2">Website</Button>
+              <CardFooter className="flex justify-center w-full sm:flex-row">
+                <Link href="https://frva-pnq.vercel.app/" target="_blank" rel="noopener noreferrer" className="flex w-full">
+                  <Button className="w-full rounded-md cursor-pointer bg-primary hover:border-1 hover:border-secondary">
+                    Website
+                  </Button>
+                </Link>
               </CardFooter>
             </Card>
 
             {/* card 4 */}
-            <Card className="relative w-full pt-0">
+            {/* <Card className="relative w-full pt-0">
               <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
               <img
                 src="https://avatar.vercel.sh/shadcn1"
@@ -386,10 +393,10 @@ export default function Home() {
                 <Button variant={'outline'} className="w-full rounded-md cursor-pointer sm:w-1/2">Github</Button>
                 <Button className="w-full rounded-md cursor-pointer bg-primary sm:w-1/2">Website</Button>
               </CardFooter>
-            </Card>
+            </Card> */}
 
             {/* card 5 */}
-            <Card className="relative w-full pt-0">
+            {/* <Card className="relative w-full pt-0">
               <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
               <img
                 src="https://avatar.vercel.sh/shadcn1"
@@ -418,7 +425,7 @@ export default function Home() {
                 <Button variant={'outline'} className="w-full rounded-md cursor-pointer sm:w-1/2">Github</Button>
                 <Button disabled className="w-full rounded-md cursor-pointer bg-primary sm:w-1/2">Website</Button>
               </CardFooter>
-            </Card>
+            </Card> */}
           </div>
         </section>
 
@@ -660,6 +667,25 @@ export default function Home() {
 
             <div className="flex flex-col gap-10 pl-7 sm:pl-8">
 
+            <div className="relative">
+                <div className="absolute -left-6.25 top-1.5 w-3 h-3 rounded-full bg-foreground border-2 border-foreground" />
+                <div className="flex items-center gap-2 mb-1 flex-wrap">
+                  <span className="text-xs text-(--text-soft) font-mono">Present</span>
+                  <Badge variant={'outline'} className="text-xs px-2 py-0.5 border-(--text-orange)/40 text-(--text-orange)">Freelance</Badge>
+                  <Badge variant={'outline'} className="text-xs px-2 py-0.5 border-(--text-yellow)/40 text-(--text-yellow)">Now</Badge>
+                </div>
+                <p className="text-base font-bold tracking-wider text-(--foreground)] sm:text-lg">Freelance Web Developer</p>
+                <p className="text-sm text-(--text-secondary) mb-2 sm:text-base">Self-employed</p>
+                <p className="text-sm text-(--text-muted) leading-relaxed text-pretty max-w-xl">
+                  Taking on digital art commissions — character art, portraits, and illustrations for clients online.
+                </p>
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {["Web Development", "UI/UX Designer", "Figma"].map(s => (
+                    <Badge key={s} variant={'default'} className="text-xs px-2 py-1 bg-(--surface-secondary) text-(--text-muted) ">{s}</Badge>
+                  ))}
+                </div>
+              </div>
+
               <div className="relative">
                 <div className="absolute -left-6.25 top-1.5 w-3 h-3 rounded-full bg-foreground border-2 border-foreground" />
                 <div className="flex items-center gap-2 mb-1 flex-wrap">
@@ -781,8 +807,16 @@ export default function Home() {
                     <span className="text-xs text-(--text-soft) italic">
                       {c.cta}
                     </span>
-                    <Button variant={'ghost'} className="text-xs text-(--text-secondary) flex items-center gap-1 hover:text-foreground transition-colors cursor-pointer">
-                      Inquire <ArrowRight />
+                    <Button asChild variant="ghost" className="text-xs text-(--text-secondary) flex items-center gap-1 hover:text-foreground transition-colors cursor-pointer">
+                      <a
+                        href={`mailto:yourname@gmail.com?subject=${encodeURIComponent(
+                          `Inquiry: ${c.service}`
+                        )}&body=${encodeURIComponent(
+                          `Hi Mari,\n\nI’m interested in your ${c.service} service.\n\nProject details:\n-`
+                        )}`}
+                      >
+                        Inquire <ArrowRight />
+                      </a>
                     </Button>
                   </CardFooter>
                 </Card>
@@ -814,15 +848,21 @@ export default function Home() {
             </div>
 
             <div className="flex flex-col w-full gap-3 mt-10 mb-16 sm:w-auto sm:flex-row sm:mb-20">
-              <Button variant={"outline"} size={'sm'} className="font-light tracking-tight gap-2 cursor-pointer py-5 rounded-md">
-                <IconBrandFacebook /> Facebook
-              </Button>
-              <Button variant={"outline"} size={'sm'} className="font-light tracking-tight gap-2 cursor-pointer py-5 rounded-md">
-                <IconBrandInstagram /> Instagram
-              </Button>
-              <Button variant={"outline"} size={'sm'} className="font-light tracking-tight gap-2 cursor-pointer py-5 rounded-md">
-                <IconBrandLinkedin /> LinkedIn
-              </Button>
+              <Link href="https://www.facebook.com/marianeee123/" target="_blank" rel="noopener noreferrer">
+                <Button variant={"outline"} size={'sm'} className="font-light tracking-tight gap-2 cursor-pointer py-5 rounded-md">
+                  <IconBrandFacebook /> Facebook
+                </Button>
+              </Link>
+              <Link href="https://www.instagram.com/marianne.ee/" target="_blank" rel="noopener noreferrer">
+                <Button variant={"outline"} size={'sm'} className="font-light tracking-tight gap-2 cursor-pointer py-5 rounded-md">
+                  <IconBrandInstagram /> Instagram
+                </Button>
+              </Link>
+              <Link href="https://www.linkedin.com/in/marianne-balen-066185264/" target="_blank" rel="noopener noreferrer">
+                <Button variant={"outline"} size={'sm'} className="font-light tracking-tight gap-2 cursor-pointer py-5 rounded-md">
+                  <IconBrandLinkedin /> LinkedIn
+                </Button>
+              </Link>
             </div>
             <p className="text-xs text-muted-foreground">Usually responds within 24 hours · Based in the Philippines</p>
           </div>
