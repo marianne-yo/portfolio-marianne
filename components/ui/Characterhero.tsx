@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 
 const EYES = {
@@ -15,7 +15,10 @@ function lerp(a: number, b: number, t: number) {
 
 export default function CharacterHero() {
   const { resolvedTheme } = useTheme();
+
   const isDark = resolvedTheme === "dark";
+  const bodyFill = isDark ? "white" : "black";
+  const hairFill = isDark ? "#FBF8F8" : "black";
 
   const svgRef = useRef<SVGSVGElement>(null);
   const cur = useRef({ lx: EYES.left.cx, ly: EYES.left.cy, rx: EYES.right.cx, ry: EYES.right.cy });
@@ -88,8 +91,6 @@ export default function CharacterHero() {
     };
   }, []);
 
-  const bodyFill = isDark ? "white"   : "black";
-  const hairFill = isDark ? "#FBF8F8" : "black";
 
   return (
     <div style={{ padding: "12px", overflow: "hidden" }} className="flex justify-center items-end">
@@ -101,6 +102,7 @@ export default function CharacterHero() {
         xmlns="http://www.w3.org/2000/svg"
         style={{ overflow: "visible", maxWidth: "280px" }}
         aria-label="Illustrated portrait of Marianne"
+        suppressHydrationWarning
       >
         <path d="M281.854 397.694C281.854 397.694 273.354 361.694 268.854 357.194C264.354 352.694 204.854 344.694 204.854 344.694C204.854 344.694 198.753 335.417 196.854 328.694C194.092 318.923 196.854 301.194 196.854 301.194L119.854 303.694C119.854 303.694 122.2 319.62 119.854 328.694C118.126 335.375 112.354 344.694 112.354 344.694C112.354 344.694 55.8536 353.194 51.3536 357.194C46.8536 361.194 37.3536 397.694 37.3536 397.694H281.854Z" fill="#F4DBB2" stroke="black"/>
         <path d="M119.854 304.694C119.854 304.694 122.2 319.62 119.854 328.694C118.126 335.375 112.354 344.694 112.354 344.694C112.354 344.694 55.8536 353.194 51.3536 357.194C46.8536 361.194 37.3536 397.694 37.3536 397.694H281.854C281.854 397.694 273.354 361.694 268.854 357.194C264.354 352.694 204.854 344.694 204.854 344.694C204.854 344.694 198.753 335.417 196.854 328.694C194.092 318.923 196.854 302.694 196.854 302.694L234.854 275.694L243.854 242.194L256.354 233.694L270.354 219.194L286.354 227.694L303.354 263.194C303.354 263.194 316.993 295.645 318.854 317.694C320.318 335.05 322.603 346.137 315.854 362.194C308.415 379.89 281.854 397.694 281.854 397.694H37.3536C37.3536 397.694 24.187 400.861 21.3536 394.694C18.5203 388.527 12.8536 373.694 12.8536 373.694V328.694C12.8536 314.527 24.0304 299.406 26.3536 279.694C28.6173 260.487 24.8536 230.194 24.8536 230.194L39.3536 213.694L69.3537 243.694L84.3537 279.694L119.854 304.694Z" fill={bodyFill}/>

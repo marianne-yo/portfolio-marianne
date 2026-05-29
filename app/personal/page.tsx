@@ -1,14 +1,10 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { GraduationCap, UserStar, MailIcon, Ghost, ArrowRight, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import { Montserrat } from "next/font/google";
 import { Button } from "@/components/ui/button";
 import { IconBrandFacebook, IconBrandGithub, IconBrandInstagram, IconBrandLinkedin } from "@tabler/icons-react";
-import { Moon, Sun } from "lucide-react"
-import { useTheme } from "next-themes"
 import { Badge } from "@/components/ui/badge"
-import { Check } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
 import {
   Card,
@@ -24,24 +20,26 @@ import { Separator } from "@/components/ui/separator";
 import Typewriter from "@/components/ui/Typewriter";
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay"
-import openMeteo from "@/lib/openMeteo";
 import WeatherWidget from "@/components/ui/WeatherWidget";
 import TimeWidget from "@/components/ui/TimeWidget";
 import { Textarea } from "@/components/ui/textarea";
-import { link } from "fs";
 import Navbar from "@/components/ui/nav-bar";
+import gsap from "gsap";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation"
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function Personal() {
-  const { setTheme, resolvedTheme } = useTheme();
+  const contentRef = useRef<HTMLDivElement>(null)
+  useScrollAnimation(true)
+
+  useEffect(() => {
+    gsap.fromTo(contentRef.current,
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }
+    )
+  }, [])
 
   const [activeFilter, setActiveFilter] = useState("All")
-  
-  // const navItems = [
-  //   { logo: <GraduationCap />, name: "Professional", link: "#professional" },
-  //   { logo: <UserStar />,      name: "Personal",     link: "#personal"      },
-  // ];
-
 
   const hobbies = [
     {
@@ -242,19 +240,19 @@ export default function Personal() {
   };
 
   return (
-    <div className={`flex flex-col flex-1 items-center justify-start font-sans bg-background ${montserrat.className}`}>
+    <div className={`flex flex-col flex-1 items-center justify-start font-sans bg-background overflow-visible ${montserrat.className}`}>
         <Navbar activeTab="personal" />
 
-      <main className="flex flex-1 w-full max-w-6xl flex-col items-center justify-start py-10 px-10 sm:items-start bg-background">
+      <main className="flex flex-1 w-full max-w-6xl flex-col items-center justify-start py-10 px-10 sm:items-start bg-background overflow-visible">
 
 
         <section className="flex flex-col mt-16 w-full items-center justify-center gap-6 min-h-[60vh]">
-            <Badge variant={'outline'} className="flex items-center gap-2 px-4 py-4 text-sm text-(--text-muted)">
+            <Badge data-animate="fade-up" variant={'outline'} className="flex items-center gap-2 px-4 py-4 text-sm text-(--text-muted)">
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                 Open for commissions & collaborations
             </Badge>
 
-            <div className="flex flex-col items-center text-center gap-3">
+            <div data-animate="fade-up" className="flex flex-col items-center text-center gap-3">
                 <h1 className="text-6xl font-bold leading-tight">
                 Hi! I&apos;m <span className="text-(--text-yellow)">Marianne</span>
                 </h1>
@@ -271,12 +269,12 @@ export default function Personal() {
                 </h2>
             </div>
 
-            <p className="text-base text-(--text-muted) max-w-lg text-center leading-relaxed">
+            <p data-animate="fade-up" className="text-base text-(--text-muted) max-w-lg text-center leading-relaxed">
                 Designer, developer, and digital artist from Tarlac. 
                 This is the side of me that exists beyond the resume.
             </p>
 
-            <div className="flex flex-col items-center gap-1 mt-6 text-(--text-soft)">
+            <div data-animate="fade-up" className="flex flex-col items-center gap-1 mt-6 text-(--text-soft)">
                 <p className="text-xs tracking-widest font-light">SCROLL</p>
                 <div className="w-px h-10 bg-border" />
             </div>
@@ -285,7 +283,7 @@ export default function Personal() {
         {/* about */}
         <section className="flex flex-col-reverse gap-10 mt-100 w-full items-center sm:flex-row sm:justify-between sm:gap-16">
         
-            <div className="flex flex-col gap-6 max-w-lg">
+            <div data-animate="fade-up" className="flex flex-col gap-6 max-w-lg">
                 <p className="font-light tracking-widest text-xs text-(--text-muted)">ABOUT ME</p>
                 
                 <h2 className="text-5xl font-bold leading-tight">
@@ -323,7 +321,7 @@ export default function Personal() {
                 </div>
             </div>
 
-            <div className="relative shrink-0">
+            <div data-animate="fade-up" className="relative shrink-0">
                 
                 <div className="absolute -top-3 -right-3 w-full h-full rounded-2xl bg-(--primary)/20 border border-(--primary)/30" />
                 
@@ -347,7 +345,7 @@ export default function Personal() {
 
         {/* hobbies */}
         <section className="flex flex-col justify-center align-middle gap-5 mt-100 w-full items-center">
-            <div className="w-full max-w-5xl flex flex-col items-start justify-start">
+            <div data-animate="fade-up" className="w-full max-w-5xl flex flex-col items-start justify-start">
                 <p className="font-light tracking-wider text-pretty">MY HOBBIES</p>
 
                 <h2 className="text-6xl font-bold tracking-tight text-pretty leading-tight">
@@ -358,7 +356,7 @@ export default function Personal() {
                 Here are my other activities outside of professional life.
                 </p>
             </div>
-            <div className="flex flex-col w-full justify-center align-middle h-full">
+            <div data-animate="fade-up" className="flex flex-col w-full justify-center align-middle h-full">
                 <Carousel 
                 className="w-full"
                 opts={{
@@ -404,7 +402,7 @@ export default function Personal() {
 
         {/* mood board */}
         <section className="flex flex-col justify-center align-middle gap-5 mt-100 w-full items-center">
-            <div className="w-full max-w-5xl flex flex-col items-start justify-start">
+            <div data-animate="fade-up" className="w-full max-w-5xl flex flex-col items-start justify-start">
                 <p className="font-light tracking-wider text-pretty">THINGS I LOVE</p>
 
                 <h2 className="text-6xl font-bold tracking-tight text-pretty leading-tight">
@@ -416,49 +414,10 @@ export default function Personal() {
                 </p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 w-full max-w-5xl auto-rows-[minmax(120px,auto)]">
+            <div data-animate="stagger" className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 w-full max-w-5xl auto-rows-[minmax(120px,auto)] overflow-visible">
                 {/* div1 — spans col 1-4, row 1-3 MY FAVORTIE PLAYLISTS*/}
-                <div className="bg-card border-2 border-muted col-span-2 md:col-span-4 lg:col-span-4 row-span-1 md:row-span-2 lg:row-span-3 rounded-lg p-5 overflow-y-auto">
-                    {/* <h2 className="text-lg font-medium font-mono">MY FAVORITE PLAYLISTS</h2> */}
-                    {/* <div className="flex flex-col gap-2 justify-center">
-                        <iframe
-                        data-testid="embed-iframe"
-                        style={{ borderRadius: "12px" }}
-                        src="https://open.spotify.com/embed/playlist/3p26j8qStmyl81R8KqjgDz?utm_source=generator"
-                        width="100%"
-                        height="152"
-                        frameBorder="0"
-                        allowFullScreen
-                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                        loading="lazy"
-                        />
-                        
-                        <iframe
-                        data-testid="embed-iframe"
-                        style={{ borderRadius: "12px" }}
-                        src="https://open.spotify.com/embed/playlist/42rTJvd7cs9VU7ZH30IOqf?utm_source=generator"
-                        width="100%"
-                        height="152"
-                        frameBorder="0"
-                        allowFullScreen
-                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                        loading="lazy"
-                        />
-
-                        <iframe
-                        data-testid="embed-iframe"
-                        style={{ borderRadius: "12px" }}
-                        src="https://open.spotify.com/embed/playlist/2q7u0uYPRLC0iq077D3gi1?utm_source=generator"
-                        width="100%"
-                        height="152"
-                        frameBorder="0"
-                        allowFullScreen
-                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                        loading="lazy"
-                        />
-
-                    </div> */}
-
+                <div className="bg-card border-2 border-muted col-span-2 md:col-span-4 lg:col-span-4 row-span-1 md:row-span-2 lg:row-span-3 rounded-lg p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
+                  <div className="overflow-y-auto h-full">
                     <h2 className="text-lg font-medium font-mono">MY FAVORITE ARTISTS</h2>
                     <div className="grid grid-cols-2 gap-2 mt-2">
                       {fav_artists.map(artist => (
@@ -475,13 +434,14 @@ export default function Personal() {
                         />
                       ))}
                     </div>
+                  </div>
                 </div>
 
                 {/* div5 — col 5, row 1 open meteo api, time and weather*/} 
                 <div className="bg-card border-2 border-muted 
                 col-span-2 md:col-span-2 lg:col-span-2 
                 lg:col-start-5 lg:row-start-1 
-                rounded-lg p-5 flex flex-col justify-center">
+                rounded-lg p-5 flex flex-col justify-center transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
                   <div className="flex justify-center items-center">
                     <TimeWidget/>
                   </div>
@@ -491,34 +451,33 @@ export default function Personal() {
                 <div className="bg-card border-2 border-muted 
                 col-span-2 md:col-span-2 lg:col-span-2 
                 lg:col-start-5 lg:row-start-2 
-                rounded-lg p-5 flex flex-col justify-center">
+                rounded-lg p-5 flex flex-col justify-center transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
                   <div className="flex justify-center items-center">
                     <WeatherWidget />
                   </div>
                 </div>
 
                 {/* div7 — col 5, row 3-4 MY DAILY ROUTINE, THIS WILL BE A LIST*/}
-                <div className="bg-card border-2 border-muted 
-                col-span-2 md:col-span-2 lg:col-span-2 
-                lg:col-start-5 lg:row-start-3 lg:row-span-2 
-                rounded-lg p-5 overflow-y-auto">
+                <div className="bg-card border-2 border-muted col-span-2 md:col-span-2 lg:col-span-2 lg:col-start-5 lg:row-start-3 lg:row-span-2 rounded-lg p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
+                  <div className="overflow-y-auto h-full">
                     <h2 className="text-lg font-medium font-mono">Marianne&apos;s Daily Routine</h2>
-                    {dailyRoutine.map(dr => (
-                      <ul key={dr.num} className="list-none">
-                        <Separator />
-                        <li className="flex flex-row gap-2 p-2 rounded-sm font-light">
-                          {dr.num}.<span className="font-medium tracking-tight">{dr.routine}</span>
-                        </li>
-                      </ul>
-                    ))}
-                    <Separator />
+                      {dailyRoutine.map(dr => (
+                        <ul key={dr.num} className="list-none">
+                          <Separator />
+                          <li className="flex flex-row gap-2 p-2 rounded-sm font-light">
+                            {dr.num}.<span className="font-medium tracking-tight">{dr.routine}</span>
+                          </li>
+                        </ul>
+                      ))}
+                      <Separator />
+                  </div>
                 </div>
 
                 {/* div2 — col 1-2, row 4 MY FAVORTIE COLORS*/}
                 <div className="bg-card border-2 border-muted 
                 col-span-2 md:col-span-2 lg:col-span-2 
                 lg:col-start-1 lg:row-start-4 
-                rounded-lg p-5">
+                rounded-lg p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
                     <h2 className="text-lg font-medium font-mono">MY FAVORITE COLORS</h2>
                     <div className="grid grid-cols-2 gap-3 mt-4">
                       {favoriteColors.map((color) => (
@@ -535,7 +494,7 @@ export default function Personal() {
                 <div className="bg-card border-2 border-muted 
                 col-span-2 md:col-span-2 lg:col-span-2 
                 lg:col-start-3 lg:row-start-4 
-                rounded-lg p-5">
+                rounded-lg p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
                   <h2 className="text-lg font-medium font-mono">MY FAVORITE GAMES</h2>
                   <div className="flex flex-col gap-3 mt-3 pr-1">
                       {fav_games.map(game => (
@@ -559,18 +518,28 @@ export default function Personal() {
                 </div>
 
                 {/* div4 — col 1-4, row 5 DOODLE*/}
-                <div className="bg-card border-2 border-muted 
-                col-span-2 md:col-span-4 lg:col-span-4 
-                lg:col-start-1 lg:row-start-5 
-                rounded-lg p-5">
-                    <h2 className="text-lg font-medium font-mono">MY DOODLE</h2>
+                <div
+                  className="bg-card border-2 border-muted 
+                  col-span-2 md:col-span-4 lg:col-span-4 
+                  lg:col-start-1 lg:row-start-5 
+                  rounded-lg p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary"
+                >
+                  <div className="mt-4 flex items-center justify-center text-foreground">
+                    <Image
+                      src="/doodle.svg"
+                      alt="My doodle"
+                      width={200}
+                      height={100}
+                      className="w-full h-auto dark:invert"
+                    />
+                  </div>
                 </div>
 
                 {/* div8 — col 5, row 5 */}
                 <div className="bg-card border-2 border-muted 
                 col-span-2 md:col-span-2 lg:col-span-2 
                 lg:col-start-5 lg:row-start-5 
-                rounded-lg p-5">
+                rounded-lg p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
                     <h2 className="text-lg font-medium font-mono">MY FAVORITE QUOTE</h2>
                     <h2 className="font-serif italic p-5 font-medium tracking-wider">“If you get tired, learn to rest, not to quit.” <span className="font-light">- Banksy</span></h2>
                 </div>
@@ -581,16 +550,16 @@ export default function Personal() {
         {/* Artworks */}
         <section className="flex flex-col gap-10 mt-100 w-full">
           <div className="w-full max-w-5xl flex flex-col items-start justify-start">
-            <p className="font-light tracking-wider">MY ARTWORKS</p>
-            <h2 className="text-6xl font-bold tracking-tight leading-tight">
+            <p data-animate="fade-up" className="font-light tracking-wider">MY ARTWORKS</p>
+            <h2 data-animate="fade-up" className="text-6xl font-bold tracking-tight leading-tight">
               DIGITAL ART
             </h2>
-            <p className="font-normal tracking-wide py-5">
+            <p data-animate="fade-up" className="font-normal tracking-wide py-5">
               Characters, portraits, and illustrations I&apos;ve created.
             </p>
 
             {/* Filter tags */}
-            <div className="flex flex-wrap gap-2">
+            <div data-animate="stagger" className="flex flex-wrap gap-2">
               {["All", "Fan Art", "Portrait", "Character", "Doodle", "Original"].map(tag => (
                 <button
                   key={tag}
@@ -608,7 +577,7 @@ export default function Personal() {
           </div>
 
           {/* Masonry grid */}
-          <div className="columns-2 md:columns-3 w-full max-w-5xl" style={{ columnGap: '0.75rem' }}>
+          <div data-animate="stagger" className="columns-2 md:columns-3 w-full max-w-5xl" style={{ columnGap: '0.75rem' }}>
             {artworks
               .filter(a => activeFilter === "All" || a.tag === activeFilter)
               .map((art) => (
@@ -642,18 +611,18 @@ export default function Personal() {
         {/* Contact */}
         <section className="flex flex-col justify-center mt-100 w-full mb-20">
           <div className="w-full max-w-5xl flex flex-col items-center justify-center">
-            <p className="font-light tracking-wider text-pretty">THANK YOU FOR VIEWING MY PORTFOLIO</p>
+            <p data-animate="fade-up" className="font-light tracking-wider text-pretty">THANK YOU FOR VIEWING MY PORTFOLIO</p>
 
-            <h2 className="text-6xl font-medium tracking-tight text-pretty leading-tight">
+            <h2 data-animate="fade-up" className="text-6xl font-medium tracking-tight text-pretty leading-tight">
               Got a fun project, a commission, or just want to say <span className="font-serif font-bold italic">hi? </span>
                I&apos;d love to hear from you.
             </h2>
 
-            <p className="font-normal tracking-wide text-pretty py-10">
+            <p data-animate="fade-up" className="font-normal tracking-wide text-pretty py-10">
               I&apos;m a designer, developer, and digital artist — I can take your idea from a rough sketch all the way to a live product.
             </p>
 
-            <div className="grid w-full gap-2">
+            <div data-animate="fade-up" className="grid w-full gap-2">
               <Textarea
                 className="rounded-md h-50"
                 placeholder="Type your message here."
@@ -680,7 +649,7 @@ export default function Personal() {
               <Separator className="mt-10" />
             </div>
 
-            <div className="flex flex-row gap-3 mt-10 mb-20">
+            <div data-animate="stagger" className="flex flex-row gap-3 mt-10 mb-20">
               <Button variant={"outline"} size={'sm'} className="font-light tracking-tight gap-2 cursor-pointer py-5 rounded-md">
                 <IconBrandFacebook /> Facebook
               </Button>
