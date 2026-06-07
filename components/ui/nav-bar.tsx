@@ -4,12 +4,47 @@ import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Moon, Sun, Menu, X } from "lucide-react"
 import { useTheme } from "next-themes"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import Image from "next/image"
 import gsap from "gsap"
 
-interface NavbarProps {
-  activeTab: 'professional' | 'personal'
+// interface NavbarProps {
+//   currentTab: 'professional' | 'personal'
+// }
+
+const SKIP_HOME_LOADER_KEY = "portfolio:skip-home-loader"
+
+type ActivePageTransition = {
+  href: string
+  wipe: HTMLDivElement
+  fallbackTimer: number | null
+  isFinishing: boolean
+}
+
+let activePageTransition: ActivePageTransition | null = null
+
+function finishPageTransition() {
+  const transition = activePageTransition
+  if (!transition || transition.isFinishing) return
+
+  transition.isFinishing = true
+
+  if (transition.fallbackTimer) {
+    window.clearTimeout(transition.fallbackTimer)
+  }
+  
+  setTimeout(() => {
+    gsap.killTweensOf(transition.wipe)
+    gsap.to(transition.wipe, {
+      xPercent: -100,
+      duration: 0.7,
+      ease: "power3.inOut",
+      onComplete: () => {
+        transition.wipe.remove()
+        activePageTransition = null
+      },
+    })
+  }, 600)
 }
 
 function AnimatedTabLink({ href, children, className, onClick }: {
@@ -19,44 +54,110 @@ function AnimatedTabLink({ href, children, className, onClick }: {
   onClick?: () => void
 }) {
   const router = useRouter()
+  const pathname = usePathname()
+
+  useEffect(() => {
+    router.prefetch(href)
+  }, [href, router])
+
+  useEffect(() => {
+    if (activePageTransition?.href !== pathname) return
+
+    const frame = window.requestAnimationFrame(finishPageTransition)
+    return () => window.cancelAnimationFrame(frame)
+  }, [pathname])
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault()
     onClick?.()
+
+    if (pathname === href) return
+    if (activePageTransition) return
 
     const wipe = document.createElement('div')
     wipe.style.cssText = `
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: var(--foreground);
+      background: var(--primary);
       transform: translateX(100%);
-      pointer-events: none;
+      pointer-events: auto;
+      will-change: transform;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     `
+    wipe.setAttribute("aria-hidden", "true")
     document.body.appendChild(wipe)
+    activePageTransition = {
+      href,
+      wipe,
+      fallbackTimer: null,
+      isFinishing: false,
+    }
 
     gsap.to(wipe, {
-      xPercent: -100,
-      duration: 0.5,
-      ease: "power4.inOut",
+      xPercent: 0,
+      duration: 0.6,
+      ease: "power3.inOut",
       onComplete: () => {
-        router.push(href)
-        document.body.removeChild(wipe)
-      }
+        setTimeout(() => {
+          if (href === "/") {
+            sessionStorage.setItem(SKIP_HOME_LOADER_KEY, "true")
+          }
+          router.push(href)
+          if (activePageTransition) {
+            activePageTransition.fallbackTimer = window.setTimeout(finishPageTransition, 5000)
+          }
+        }, 200)
+      },
     })
+
+    const text = document.createElement('p')
+    text.textContent = 'marianne.dev'
+    text.style.cssText = `
+      color: var(--primary-foreground);
+      font-family: monospace;
+      font-size: 14px;
+      letter-spacing: 0.15em;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    `
+    wipe.appendChild(text)
+    document.body.appendChild(wipe)
+    setTimeout(() => { text.style.opacity = '1' }, 150)
   }
 
   return (
-    <button onClick={handleClick} className={className}>
+    <button type="button" onClick={handleClick} className={className}>
       {children}
     </button>
   )
 }
 
-export default function Navbar({ activeTab }: NavbarProps) {
+export function onTransitionComplete(callback: () => void) {
+  const existing = activePageTransition
+  if (!existing) {
+    // No transition in progress, run immediately with slight delay
+    setTimeout(callback, 50)
+    return
+  }
+  // Poll until transition is done
+  const interval = setInterval(() => {
+    if (!activePageTransition) {
+      clearInterval(interval)
+      callback()
+    }
+  }, 16)
+}
+
+export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const { setTheme, resolvedTheme } = useTheme()
+  const pathname = usePathname();
+  const currentTab = pathname === '/personal' ? 'personal' : 'professional'
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -69,7 +170,7 @@ export default function Navbar({ activeTab }: NavbarProps) {
 
   const tabClass = (tab: string) =>
     `px-4 py-1 rounded-full text-sm transition-all duration-200 ${
-      activeTab === tab
+      currentTab === tab
         ? 'bg-foreground text-background'
         : 'text-muted-foreground hover:text-foreground'
     }`
@@ -115,11 +216,11 @@ export default function Navbar({ activeTab }: NavbarProps) {
         }`}>
           <div className="flex flex-col gap-1 px-4 pb-4 bg-background/95 backdrop-blur-md border-b border-border">
             <AnimatedTabLink href="/" onClick={() => setMenuOpen(false)}
-              className={`w-full text-left px-3 py-2 rounded-md text-sm ${activeTab === 'professional' ? 'bg-foreground text-background' : 'text-muted-foreground hover:text-foreground'}`}>
+              className={`w-full text-left px-3 py-2 rounded-md text-sm ${currentTab === 'professional' ? 'bg-foreground text-background' : 'text-muted-foreground hover:text-foreground'}`}>
               Professional
             </AnimatedTabLink>
             <AnimatedTabLink href="/personal" onClick={() => setMenuOpen(false)}
-              className={`w-full text-left px-3 py-2 rounded-md text-sm ${activeTab === 'personal' ? 'bg-foreground text-background' : 'text-muted-foreground hover:text-foreground'}`}>
+              className={`w-full text-left px-3 py-2 rounded-md text-sm ${currentTab === 'personal' ? 'bg-foreground text-background' : 'text-muted-foreground hover:text-foreground'}`}>
               Personal
             </AnimatedTabLink>
           </div>
@@ -173,11 +274,11 @@ export default function Navbar({ activeTab }: NavbarProps) {
         }`}>
           <div className="flex flex-col gap-1 px-4 pb-4 bg-background/95 backdrop-blur-md border-b border-border">
             <AnimatedTabLink href="/" onClick={() => setMenuOpen(false)}
-              className={`w-full text-left px-3 py-2 rounded-md text-sm ${activeTab === 'professional' ? 'bg-foreground text-background' : 'text-muted-foreground hover:text-foreground'}`}>
+              className={`w-full text-left px-3 py-2 rounded-md text-sm ${currentTab === 'professional' ? 'bg-foreground text-background' : 'text-muted-foreground hover:text-foreground'}`}>
               Professional
             </AnimatedTabLink>
             <AnimatedTabLink href="/personal" onClick={() => setMenuOpen(false)}
-              className={`w-full text-left px-3 py-2 rounded-md text-sm ${activeTab === 'personal' ? 'bg-foreground text-background' : 'text-muted-foreground hover:text-foreground'}`}>
+              className={`w-full text-left px-3 py-2 rounded-md text-sm ${currentTab === 'personal' ? 'bg-foreground text-background' : 'text-muted-foreground hover:text-foreground'}`}>
               Personal
             </AnimatedTabLink>
           </div>

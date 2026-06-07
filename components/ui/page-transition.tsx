@@ -46,7 +46,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
       {/* Wipe overlay */}
       <div
         ref={wipeRef}
-        className="fixed inset-0 z-[9999] bg-foreground pointer-events-none"
+        className="fixed inset-0 z-[9999] bg-background pointer-events-none"
         style={{ transform: 'translateX(100%)' }}
       />
 

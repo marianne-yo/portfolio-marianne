@@ -31,9 +31,9 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   return (
     <div
       ref={wipeRef}
-      className="fixed inset-0 z-[9999] bg-foreground flex items-center justify-center"
+      className="fixed inset-0 z-[9999] bg-background flex items-center justify-center"
     >
-      <p className="text-background font-mono text-sm tracking-widest animate-pulse">
+      <p className="text-foreground font-mono text-sm tracking-widest animate-pulse">
         marianne.dev
       </p>
     </div>

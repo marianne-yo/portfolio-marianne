@@ -26,17 +26,21 @@ import { Textarea } from "@/components/ui/textarea";
 import Navbar from "@/components/ui/nav-bar";
 import gsap from "gsap";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation"
+import { onTransitionComplete } from "@/components/ui/nav-bar"
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function Personal() {
   const contentRef = useRef<HTMLDivElement>(null)
   useScrollAnimation(true)
 
+  // Keep this — simple entry fade
   useEffect(() => {
-    gsap.fromTo(contentRef.current,
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }
-    )
+    onTransitionComplete(() => {
+      gsap.fromTo(contentRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.4, ease: "power2.out", delay: 0.2 }
+      )
+    })
   }, [])
 
   const [activeFilter, setActiveFilter] = useState("All")
@@ -240,8 +244,8 @@ export default function Personal() {
   };
 
   return (
-    <div className={`flex flex-col flex-1 items-center justify-start font-sans bg-background overflow-visible ${montserrat.className}`}>
-        <Navbar activeTab="personal" />
+    <div ref={contentRef} style={{ opacity: 0 }} className={`flex flex-col flex-1 items-center justify-start font-sans bg-background overflow-visible ${montserrat.className}`}>
+        <Navbar />
 
       <main className="flex flex-1 w-full max-w-6xl flex-col items-center justify-start py-10 px-10 sm:items-start bg-background overflow-visible">
 
