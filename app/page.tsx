@@ -8,7 +8,6 @@ import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Badge } from "@/components/ui/badge"
 import { Check } from "lucide-react";
-import CharacterHero from "@/components/ui/Characterhero";
 import { useState } from "react";
 import {
   Card,
@@ -30,19 +29,10 @@ import LoadingScreen from "@/components/ui/loading-screen"
 import { useScrollAnimation } from "@/hooks/useScrollAnimation"
 const montserrat = Montserrat({ subsets: ["latin"] });
 
-const LEFT_EYE  = { cx: 105.354, cy: 202.694 };
-const RIGHT_EYE = { cx: 203.354, cy: 202.694 };
-const MAX_DIST  = 2;
 const SKIP_HOME_LOADER_KEY = "portfolio:skip-home-loader"
 import { onTransitionComplete } from "@/components/ui/nav-bar"
 
-function lerp(a: number, b: number, t: number) {
-  return a + (b - a) * t;
-}
-
-
 export default function Home() {
-  const svgRef = useRef<SVGSVGElement>(null);
   const contentRef = useRef<HTMLDivElement>(null)
   const [loading, setLoading] = useState(() => {
     if (typeof window === "undefined") return true
@@ -55,83 +45,6 @@ export default function Home() {
     return !shouldSkipLoader
   })
   useScrollAnimation(!loading)  // passes true only when loading is false
-
-  const cur = useRef({ lx: LEFT_EYE.cx, ly: LEFT_EYE.cy, rx: RIGHT_EYE.cx, ry: RIGHT_EYE.cy });
-  const tgt = useRef({ lx: LEFT_EYE.cx, ly: LEFT_EYE.cy, rx: RIGHT_EYE.cx, ry: RIGHT_EYE.cy });
-  const rafRef = useRef<number>(0);
-
-  useEffect(() => {
-    const svg = svgRef.current;
-    if (!svg) return;
-
-    function getEyeTarget(eyeCx: number, eyeCy: number, cursorX: number, cursorY: number) {
-      const rect = svg!.getBoundingClientRect();
-      const scaleX = 323 / rect.width;
-      const scaleY = 399 / rect.height;
-      const px = (cursorX - rect.left) * scaleX;
-      const py = (cursorY - rect.top)  * scaleY;
-      const dx = px - eyeCx;
-      const dy = py - eyeCy;
-      const angle = Math.atan2(dy, dx);
-      const dist  = Math.min(MAX_DIST, Math.hypot(dx, dy));
-      return { x: eyeCx + Math.cos(angle) * dist, y: eyeCy + Math.sin(angle) * dist };
-    }
-
-    function onMove(clientX: number, clientY: number) {
-      const l = getEyeTarget(LEFT_EYE.cx,  LEFT_EYE.cy,  clientX, clientY);
-      const r = getEyeTarget(RIGHT_EYE.cx, RIGHT_EYE.cy, clientX, clientY);
-      tgt.current = { lx: l.x, ly: l.y, rx: r.x, ry: r.y };
-    }
-
-    function handleMouse(e: MouseEvent) { onMove(e.clientX, e.clientY); }
-    function handleTouch(e: TouchEvent) {
-      e.preventDefault();
-      onMove(e.touches[0].clientX, e.touches[0].clientY);
-    }
-
-    window.addEventListener("mousemove", handleMouse);
-    svg.addEventListener("touchmove", handleTouch, { passive: false });
-
-    function animate() {
-      const c = cur.current;
-      const t = tgt.current;
-      c.lx = lerp(c.lx, t.lx, 0.1);
-      c.ly = lerp(c.ly, t.ly, 0.1);
-      c.rx = lerp(c.rx, t.rx, 0.1);
-      c.ry = lerp(c.ry, t.ry, 0.1);
-
-      const iL  = svg!.getElementById("iris-left");
-      const pL  = svg!.getElementById("pupil-left");
-      const sL  = svg!.getElementById("shine-left");
-      const iR  = svg!.getElementById("iris-right");
-      const pR  = svg!.getElementById("pupil-right");
-      const sR  = svg!.getElementById("shine-right");
-
-      [iL, pL].forEach(el => {
-        el?.setAttribute("cx", String(c.lx));
-        el?.setAttribute("cy", String(c.ly));
-      });
-      sL?.setAttribute("cx", String(c.lx + 5));
-      sL?.setAttribute("cy", String(c.ly - 3.5));
-
-      [iR, pR].forEach(el => {
-        el?.setAttribute("cx", String(c.rx));
-        el?.setAttribute("cy", String(c.ry));
-      });
-      sR?.setAttribute("cx", String(c.rx + 5));
-      sR?.setAttribute("cy", String(c.ry - 3.5));
-
-      rafRef.current = requestAnimationFrame(animate);
-    }
-
-    rafRef.current = requestAnimationFrame(animate);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouse);
-      svg.removeEventListener("touchmove", handleTouch);
-      cancelAnimationFrame(rafRef.current);
-    };
-  }, []);
 
 
   const services = [
@@ -244,9 +157,38 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="col-span-1">
-                <CharacterHero />
-              </div>
+                <div className="relative flex justify-center items-end md:justify-end">
+                  <div className="relative w-[220px] h-[220px] sm:w-[260px] sm:h-[260px] lg:w-[280px] lg:h-[280px]">
+
+                    <div className="absolute inset-0 rounded-full overflow-hidden">
+                      <div className="animate-border-spin absolute -inset-[100%] origin-center"
+                        style={{
+                          background: `conic-gradient(
+                            from 0deg,
+                            transparent 0deg,
+                            var(--primary) 60deg,
+                            var(--secondary) 120deg,
+                            var(--accent) 180deg,
+                            transparent 220deg
+                          )`
+                        }}
+                      />
+                    </div>
+
+                    <div className="absolute inset-[3px] rounded-full bg-background z-10" />
+
+                    <div className="relative z-20 rounded-full overflow-hidden m-[3px] w-[calc(100%-6px)] h-[calc(100%-6px)]">
+                      <Image
+                        src="/marianne_2.jpg"
+                        alt="Marianne"
+                        fill
+                        className="object-cover object-top"
+                        priority
+                      />
+                    </div>
+
+                  </div>
+                </div>
               <p className="text-xs tracking-widest text-(--text-soft) md:col-span-3">SCROLL</p>
             </section>
 
