@@ -21,6 +21,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import DotField from "@/components/DotField";
+import Carousel from "@/components/Carousel";
 
 import { Textarea } from "@/components/ui/textarea"
 import Image from "next/image";
@@ -214,14 +215,25 @@ export default function Home() {
                 duration-300
                 hover:-translate-y-2
                 hover:shadow-2xl">
-                  <div className="absolute inset-0 z-30 aspect-video bg-black/10" />
-                  <Image
+                  {/* <div className="absolute inset-0 z-30 aspect-video bg-black/10" /> */}
+                  {/* <Image
                     src="/17.png"
                     alt="Event cover"
                     className="relative  aspect-video w-full object-cover"
                     width={5000}
                     height={5000}
-                  />
+                  /> */}
+
+                  <div className="h-150 position relative flex justify-center p-2">
+                    <Carousel
+                      baseWidth={1000}
+                      autoplay
+                      autoplayDelay={3000}
+                      loop
+                      round={false}
+                    />
+                  </div>
+                  
                   <CardHeader className="grid grid-cols-[1fr_auto] gap-3">
                     <CardTitle className="font-bold text-pretty tracking-sm text-base sm:text-lg">Revio: A Review Material Generator Using Natural Language Processing with Acronym Mnemonic, Leitner, and Pomodoro Techniques </CardTitle>
                     
