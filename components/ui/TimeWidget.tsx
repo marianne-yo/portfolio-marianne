@@ -15,7 +15,7 @@ export default function TimeWidget() {
   if (!now) return null;
 
   return (
-    <div className="flex flex-col gap-1 h-full">
+    <div className="flex min-w-0 flex-col gap-1 h-full">
       <p className="text-2xl font-mono font-bold">
         {now.toLocaleTimeString("en-PH", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
       </p>

@@ -20,6 +20,8 @@ import {
 } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
+import DotField from "@/components/DotField";
+import Carousel from "@/components/Carousel";
 
 import { Textarea } from "@/components/ui/textarea"
 import Image from "next/image";
@@ -213,14 +215,25 @@ export default function Home() {
                 duration-300
                 hover:-translate-y-2
                 hover:shadow-2xl">
-                  <div className="absolute inset-0 z-30 aspect-video bg-black/10" />
-                  <Image
+                  {/* <div className="absolute inset-0 z-30 aspect-video bg-black/10" /> */}
+                  {/* <Image
                     src="/17.png"
                     alt="Event cover"
                     className="relative  aspect-video w-full object-cover"
                     width={5000}
                     height={5000}
-                  />
+                  /> */}
+
+                  <div className="h-150 position relative flex justify-center p-2">
+                    <Carousel
+                      baseWidth={1000}
+                      autoplay
+                      autoplayDelay={3000}
+                      loop
+                      round={false}
+                    />
+                  </div>
+                  
                   <CardHeader className="grid grid-cols-[1fr_auto] gap-3">
                     <CardTitle className="font-bold text-pretty tracking-sm text-base sm:text-lg">Revio: A Review Material Generator Using Natural Language Processing with Acronym Mnemonic, Leitner, and Pomodoro Techniques </CardTitle>
                     
@@ -749,6 +762,35 @@ export default function Home() {
                   </div>
 
                 </div>
+              </div>
+            </section>
+
+            {/* certifications */}
+            <section className="flex flex-col justify-center mt-24 w-full sm:mt-32 lg:mt-56">
+              <div className="w-full max-w-5xl">
+                <p ref={subtitleRef} data-animate="fade-up" className="font-light tracking-wider text-(--text-muted)">Gallery</p>
+                <h2 ref={titleRef} data-animate="fade-up" className="text-4xl font-bold tracking-tight text-pretty leading-tight sm:text-5xl lg:text-6xl">
+                  Certifications
+                </h2>
+                <p ref={subtitleRef} data-animate="fade-up" className="font-normal tracking-wide text-(--text-secondary) pb-10">
+                  Where I&apos;ve been, what I&apos;ve built, and what shaped me.
+                </p>
+              </div>
+              <div style={{ width: '100%', height: '600px', position: 'relative' }}>
+                <DotField
+                  dotRadius={1}
+                  dotSpacing={24}
+                  bulgeStrength={9}
+                  glowRadius={80}
+                  sparkle={false}
+                  waveAmplitude={0}
+                  cursorRadius={100}
+                  cursorForce={0.05}
+                  bulgeOnly={false}
+                  gradientFrom="#A855F7"
+                  gradientTo="#B497CF"
+                  glowColor="#373037"
+              />
               </div>
             </section>
 
