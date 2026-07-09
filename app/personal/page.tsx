@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { Mail } from "lucide-react";
 import { Montserrat } from "next/font/google";
 import { Button } from "@/components/ui/button";
-import { IconBrandFacebook, IconBrandGithub, IconBrandInstagram, IconBrandLinkedin } from "@tabler/icons-react";
+import { IconBrandFacebook, IconBrandInstagram, IconBrandLinkedin } from "@tabler/icons-react";
 import { Badge } from "@/components/ui/badge"
 import { useState } from "react";
 import {
@@ -244,10 +244,10 @@ export default function Personal() {
   };
 
   return (
-    <div ref={contentRef} style={{ opacity: 0 }} className={`flex flex-col flex-1 items-center justify-start font-sans bg-background overflow-visible ${montserrat.className}`}>
+    <div ref={contentRef} style={{ opacity: 0 }} className={`flex flex-col flex-1 items-center justify-start font-sans bg-background overflow-x-hidden ${montserrat.className}`}>
         <Navbar />
 
-      <main className="flex flex-1 w-full max-w-6xl flex-col items-center justify-start py-10 px-10 sm:items-start bg-background overflow-visible">
+      <main className="flex flex-1 w-full max-w-6xl flex-col items-center justify-start px-4 py-8 sm:items-start sm:px-6 lg:px-10 lg:py-10 bg-background overflow-x-hidden">
 
 
         <section className="flex flex-col mt-16 w-full items-center justify-center gap-6 min-h-[60vh]">
@@ -257,10 +257,10 @@ export default function Personal() {
             </Badge>
 
             <div data-animate="fade-up" className="flex flex-col items-center text-center gap-3">
-                <h1 className="text-6xl font-bold leading-tight">
+                <h1 className="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
                 Hi! I&apos;m <span className="text-(--text-yellow)">Marianne</span>
                 </h1>
-                <h2 className="text-4xl font-medium text-(--text-secondary)">
+                <h2 className="text-2xl font-medium text-(--text-secondary) sm:text-3xl lg:text-4xl">
                 I&apos;m born to{" "}
                 <Typewriter
                     text={["experience", "dance", "love", "be alive", "create things", "explore"]}
@@ -285,12 +285,12 @@ export default function Personal() {
         </section>
         
         {/* about */}
-        <section className="flex flex-col-reverse gap-10 mt-100 w-full items-center sm:flex-row sm:justify-between sm:gap-16">
+        <section className="flex flex-col-reverse gap-10 mt-24 w-full items-center sm:mt-32 sm:flex-row sm:justify-between sm:gap-16 lg:mt-100">
         
             <div data-animate="fade-up" className="flex flex-col gap-6 max-w-lg">
                 <p className="font-light tracking-widest text-xs text-(--text-muted)">ABOUT ME</p>
                 
-                <h2 className="text-5xl font-bold leading-tight">
+                <h2 className="text-4xl font-bold leading-tight sm:text-5xl">
                 A creative who <br />
                 <span className="font-serif italic font-medium text-(--text-yellow)">codes & draws.</span>
                 </h2>
@@ -303,7 +303,7 @@ export default function Personal() {
                 When I&apos;m not pushing pixels or writing code, you&apos;ll find me drawing characters, listening to music, or finding beauty in the little things around me.
                 </p>
 
-                <div className="grid grid-cols-2 gap-4 pt-2">
+                <div className="grid grid-cols-1 gap-4 pt-2 sm:grid-cols-2">
                 <div className="flex flex-col gap-1">
                     <p className="text-xs text-(--text-soft) tracking-wider">BASED IN</p>
                     <p className="text-sm font-medium">Paniqui, Tarlac, Philippines</p>
@@ -329,7 +329,7 @@ export default function Personal() {
                 
                 <div className="absolute -top-3 -right-3 w-full h-full rounded-2xl bg-(--primary)/20 border border-(--primary)/30" />
                 
-                <div className="relative w-72 h-80 rounded-2xl overflow-hidden border border-border">
+                <div className="relative h-80 w-[min(18rem,calc(100vw-3rem))] rounded-2xl overflow-hidden border border-border">
                 <Image
                     src="/marianne_2.jpg"
                     alt="Marianne"
@@ -348,11 +348,11 @@ export default function Personal() {
         </section>
 
         {/* hobbies */}
-        <section className="flex flex-col justify-center align-middle gap-5 mt-100 w-full items-center">
+        <section className="flex flex-col justify-center align-middle gap-5 mt-24 w-full items-center sm:mt-32 lg:mt-100">
             <div data-animate="fade-up" className="w-full max-w-5xl flex flex-col items-start justify-start">
                 <p className="font-light tracking-wider text-pretty">MY HOBBIES</p>
 
-                <h2 className="text-6xl font-bold tracking-tight text-pretty leading-tight">
+                <h2 className="text-4xl font-bold tracking-tight text-pretty leading-tight sm:text-5xl lg:text-6xl">
                 COMPONENTS OF MY LIFE
                 </h2>
 
@@ -375,10 +375,10 @@ export default function Personal() {
                 >
                     <CarouselContent className="-ml-1">
                         {hobbies.map((hobby) => (
-                        <CarouselItem key={hobby.title} className="basis-1/2 pl-2 lg:basis-1/3 h-full">
+                        <CarouselItem key={hobby.title} className="basis-[85%] pl-2 sm:basis-1/2 lg:basis-1/3 h-full">
                             <div className="p-1 h-full">
                                 <Card className="overflow-hidden h-full p-0 gap-0">
-                                    <div className="relative w-full h-150">
+                                    <div className="relative w-full h-96 sm:h-120 lg:h-150">
                                         <Image
                                         src={hobby.image}
                                         alt={hobby.title}
@@ -397,19 +397,19 @@ export default function Personal() {
                             </CarouselItem>
                         ))}
                     </CarouselContent>
-                    <CarouselPrevious />
-                    <CarouselNext />
+                    <CarouselPrevious className="left-2 sm:-left-12" />
+                    <CarouselNext className="right-2 sm:-right-12" />
                 </Carousel>
             </div>
             
         </section>
 
         {/* mood board */}
-        <section className="flex flex-col justify-center align-middle gap-5 mt-100 w-full items-center">
+        <section className="flex flex-col justify-center align-middle gap-5 mt-24 w-full items-center sm:mt-32 lg:mt-100">
             <div data-animate="fade-up" className="w-full max-w-5xl flex flex-col items-start justify-start">
                 <p className="font-light tracking-wider text-pretty">THINGS I LOVE</p>
 
-                <h2 className="text-6xl font-bold tracking-tight text-pretty leading-tight">
+                <h2 className="text-4xl font-bold tracking-tight text-pretty leading-tight sm:text-5xl lg:text-6xl">
                 MOOD BOARD
                 </h2>
 
@@ -418,15 +418,16 @@ export default function Personal() {
                 </p>
             </div>
 
-            <div data-animate="stagger" className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 w-full max-w-5xl auto-rows-[minmax(120px,auto)] overflow-visible">
+            <div data-animate="stagger" className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 w-full max-w-5xl auto-rows-[minmax(120px,auto)] overflow-hidden">
                 {/* div1 — spans col 1-4, row 1-3 MY FAVORTIE PLAYLISTS*/}
-                <div className="bg-card border-2 border-muted col-span-2 md:col-span-4 lg:col-span-4 row-span-1 md:row-span-2 lg:row-span-3 rounded-lg p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
+                <div className="min-w-0 bg-card border-2 border-muted col-span-2 md:col-span-4 lg:col-span-4 row-span-1 md:row-span-2 lg:row-span-3 rounded-lg p-4 sm:p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
                   <div className="overflow-y-auto h-full">
                     <h2 className="text-lg font-medium font-mono">MY FAVORITE ARTISTS</h2>
-                    <div className="grid grid-cols-2 gap-2 mt-2">
+                    <div className="grid grid-cols-1 gap-2 mt-2 sm:grid-cols-2">
                       {fav_artists.map(artist => (
                         <iframe
                           key={artist.name}
+                          className="w-full min-w-0"
                           style={{ borderRadius: "12px" }}
                           src={artist.link}
                           width="100%"
@@ -442,27 +443,27 @@ export default function Personal() {
                 </div>
 
                 {/* div5 — col 5, row 1 open meteo api, time and weather*/} 
-                <div className="bg-card border-2 border-muted 
+                <div className="min-w-0 bg-card border-2 border-muted 
                 col-span-2 md:col-span-2 lg:col-span-2 
                 lg:col-start-5 lg:row-start-1 
-                rounded-lg p-5 flex flex-col justify-center transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
+                rounded-lg p-4 sm:p-5 flex flex-col justify-center transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
                   <div className="flex justify-center items-center">
                     <TimeWidget/>
                   </div>
                 </div>
 
                 {/* div6 — col 5, row 2 */}
-                <div className="bg-card border-2 border-muted 
+                <div className="min-w-0 bg-card border-2 border-muted 
                 col-span-2 md:col-span-2 lg:col-span-2 
                 lg:col-start-5 lg:row-start-2 
-                rounded-lg p-5 flex flex-col justify-center transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
+                rounded-lg p-4 sm:p-5 flex flex-col justify-center transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
                   <div className="flex justify-center items-center">
                     <WeatherWidget />
                   </div>
                 </div>
 
                 {/* div7 — col 5, row 3-4 MY DAILY ROUTINE, THIS WILL BE A LIST*/}
-                <div className="bg-card border-2 border-muted col-span-2 md:col-span-2 lg:col-span-2 lg:col-start-5 lg:row-start-3 lg:row-span-2 rounded-lg p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
+                <div className="min-w-0 bg-card border-2 border-muted col-span-2 md:col-span-2 lg:col-span-2 lg:col-start-5 lg:row-start-3 lg:row-span-2 rounded-lg p-4 sm:p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
                   <div className="overflow-y-auto h-full">
                     <h2 className="text-lg font-medium font-mono">Marianne&apos;s Daily Routine</h2>
                       {dailyRoutine.map(dr => (
@@ -478,12 +479,12 @@ export default function Personal() {
                 </div>
 
                 {/* div2 — col 1-2, row 4 MY FAVORTIE COLORS*/}
-                <div className="bg-card border-2 border-muted 
+                <div className="min-w-0 bg-card border-2 border-muted 
                 col-span-2 md:col-span-2 lg:col-span-2 
                 lg:col-start-1 lg:row-start-4 
-                rounded-lg p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
+                rounded-lg p-4 sm:p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
                     <h2 className="text-lg font-medium font-mono">MY FAVORITE COLORS</h2>
-                    <div className="grid grid-cols-2 gap-3 mt-4">
+                    <div className="grid grid-cols-2 gap-2 mt-4 sm:gap-3">
                       {favoriteColors.map((color) => (
                         <div key={color.hex} className="rounded-md border border-border p-3">
                           <div className="h-12 rounded-sm mb-2" style={{ backgroundColor: color.hex }} />
@@ -495,10 +496,10 @@ export default function Personal() {
                 </div>
 
                 {/* div3 — col 3-4, row 4 MY FAVORITE GAMES */}
-                <div className="bg-card border-2 border-muted 
+                <div className="min-w-0 bg-card border-2 border-muted 
                 col-span-2 md:col-span-2 lg:col-span-2 
                 lg:col-start-3 lg:row-start-4 
-                rounded-lg p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
+                rounded-lg p-4 sm:p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
                   <h2 className="text-lg font-medium font-mono">MY FAVORITE GAMES</h2>
                   <div className="flex flex-col gap-3 mt-3 pr-1">
                       {fav_games.map(game => (
@@ -512,7 +513,7 @@ export default function Personal() {
                               height={36}
                             />
                           </div>
-                          <div className="flex flex-col">
+                          <div className="flex min-w-0 flex-col">
                             <p className="text-sm font-medium leading-tight">{game.name}</p>
                             <p className="text-xs text-(--text-muted)">{game.genre}</p>
                           </div>
@@ -523,10 +524,10 @@ export default function Personal() {
 
                 {/* div4 — col 1-4, row 5 DOODLE*/}
                 <div
-                  className="bg-card border-2 border-muted 
+                  className="min-w-0 bg-card border-2 border-muted 
                   col-span-2 md:col-span-4 lg:col-span-4 
                   lg:col-start-1 lg:row-start-5 
-                  rounded-lg p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary"
+                  rounded-lg p-4 sm:p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary"
                 >
                   <div className="mt-4 flex items-center justify-center text-foreground">
                     <Image
@@ -540,22 +541,22 @@ export default function Personal() {
                 </div>
 
                 {/* div8 — col 5, row 5 */}
-                <div className="bg-card border-2 border-muted 
+                <div className="min-w-0 bg-card border-2 border-muted 
                 col-span-2 md:col-span-2 lg:col-span-2 
                 lg:col-start-5 lg:row-start-5 
-                rounded-lg p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
+                rounded-lg p-4 sm:p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
                     <h2 className="text-lg font-medium font-mono">MY FAVORITE QUOTE</h2>
-                    <h2 className="font-serif italic p-5 font-medium tracking-wider">“If you get tired, learn to rest, not to quit.” <span className="font-light">- Banksy</span></h2>
+                    <h2 className="font-serif italic p-2 font-medium tracking-wider sm:p-5">“If you get tired, learn to rest, not to quit.” <span className="font-light">- Banksy</span></h2>
                 </div>
             </div>
             
         </section>
 
         {/* Artworks */}
-        <section className="flex flex-col gap-10 mt-100 w-full">
+        <section className="flex flex-col gap-10 mt-24 w-full sm:mt-32 lg:mt-100">
           <div className="w-full max-w-5xl flex flex-col items-start justify-start">
             <p data-animate="fade-up" className="font-light tracking-wider">MY ARTWORKS</p>
-            <h2 data-animate="fade-up" className="text-6xl font-bold tracking-tight leading-tight">
+            <h2 data-animate="fade-up" className="text-4xl font-bold tracking-tight leading-tight sm:text-5xl lg:text-6xl">
               DIGITAL ART
             </h2>
             <p data-animate="fade-up" className="font-normal tracking-wide py-5">
@@ -613,11 +614,11 @@ export default function Personal() {
         </section>
 
         {/* Contact */}
-        <section className="flex flex-col justify-center mt-100 w-full mb-20">
+        <section className="flex flex-col justify-center mt-24 w-full mb-20 sm:mt-32 lg:mt-100">
           <div className="w-full max-w-5xl flex flex-col items-center justify-center">
             <p data-animate="fade-up" className="font-light tracking-wider text-pretty">THANK YOU FOR VIEWING MY PORTFOLIO</p>
 
-            <h2 data-animate="fade-up" className="text-6xl font-medium tracking-tight text-pretty leading-tight">
+            <h2 data-animate="fade-up" className="text-4xl font-medium tracking-tight text-pretty leading-tight sm:text-5xl lg:text-6xl">
               Got a fun project, a commission, or just want to say <span className="font-serif font-bold italic">hi? </span>
                I&apos;d love to hear from you.
             </h2>
@@ -653,7 +654,7 @@ export default function Personal() {
               <Separator className="mt-10" />
             </div>
 
-            <div data-animate="stagger" className="flex flex-row gap-3 mt-10 mb-20">
+            <div data-animate="stagger" className="flex w-full flex-col gap-3 mt-10 mb-20 sm:w-auto sm:flex-row">
               <Button variant={"outline"} size={'sm'} className="font-light tracking-tight gap-2 cursor-pointer py-5 rounded-md">
                 <IconBrandFacebook /> Facebook
               </Button>
@@ -667,8 +668,8 @@ export default function Personal() {
             <p className="text-xs text-muted-foreground">Usually responds within 24 hours · Based in the Philippines</p>
           </div>
         </section>
-        <footer className="w-full border-t border-border py-6 px-10">
-          <div className="flex items-center justify-between text-xs text-(--text-muted)">
+        <footer className="w-full border-t border-border py-6 px-0 sm:px-10">
+          <div className="flex flex-col items-center justify-between gap-3 text-center text-xs text-(--text-muted) sm:flex-row sm:text-left">
             
             <p className="font-mono">
               designed & built by <span className="text-(--foreground) font-medium">Marianne</span>

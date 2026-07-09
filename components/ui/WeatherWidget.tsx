@@ -33,7 +33,7 @@ function getWeatherEmoji(code: number): string {
 }
 
 export default function WeatherWidget() {
-  const [now, setNow] = useState(new Date());
+  const now = new Date();
   const [weather, setWeather] = useState<WeatherData | null>(null);
 
   useEffect(() => {
@@ -71,21 +71,21 @@ export default function WeatherWidget() {
   const code = weather?.weather_code?.[idx] ?? 0;
 
   return (
-    <div className="flex flex-col gap-1 h-full">
+    <div className="flex min-w-0 flex-col gap-1 h-full">
       {weather ? (
         <>
-          <div className="flex items-center gap-2 mt-2 flex-row justify-start">
-            <span className="text-4xl">{getWeatherEmoji(code)}</span>
-            <div className="flex flex-col justify-start w-full">
+          <div className="flex min-w-0 flex-row flex-wrap items-center justify-start gap-2 mt-2">
+            <span className="text-4xl shrink-0">{getWeatherEmoji(code)}</span>
+            <div className="flex min-w-0 flex-1 flex-col justify-start">
               <p className="text-2xl font-mono font-semibold">{temp}°C</p>
               <p className="text-sm text-muted-foreground">{getWeatherLabel(code)}</p>
             </div>
-            <div className="flex justify-center align-middle">
+            <div className="flex shrink-0 justify-center align-middle">
                 <p className="text-xs text-muted-foreground font-mono mt-1 flex flex-row items-center gap-1"><Droplet size={20}/> {humidity}%</p>
             </div>
           </div>
           
-          <p className="text-xs text-muted-foreground font-mono flex flex-row items-center gap-1 mt-2"><MapPin size={20}/> Paniqui, Tarlac City · {weather.timezone}</p>
+          <p className="text-xs text-muted-foreground font-mono flex min-w-0 flex-row flex-wrap items-center gap-1 mt-2"><MapPin size={20} className="shrink-0"/> Paniqui, Tarlac City · {weather.timezone}</p>
         </>
       ) : (
         <p className="text-xs text-muted-foreground font-mono mt-2">Loading weather...</p>
