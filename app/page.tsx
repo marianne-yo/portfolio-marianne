@@ -35,6 +35,7 @@ const SKIP_HOME_LOADER_KEY = "portfolio:skip-home-loader"
 import { onTransitionComplete } from "@/components/ui/nav-bar"
 
 export default function Home() {
+  const maintenanceMode = true;
   const contentRef = useRef<HTMLDivElement>(null)
   const [loading, setLoading] = useState(() => {
     if (typeof window === "undefined") return true
@@ -112,7 +113,28 @@ export default function Home() {
     })
   }, [loading])
 
-  return (
+  if (maintenanceMode) {
+    return (
+      <main className="min-h-screen flex items-center justify-center bg-[#12121A] px-6">
+        <div className="max-w-xl text-center">
+          <h1 className="text-5xl font-bold text-white">
+            🚧 Portfolio Under Maintenance
+          </h1>
+
+          <p className="mt-6 text-gray-300">
+            I&apos;m currently updating my portfolio with new projects and improving
+            the overall experience.
+          </p>
+
+          <p className="mt-4 text-gray-400">
+            Please check back soon!
+          </p>
+        </div>
+      </main>
+    );
+  } else {
+
+    return (
     <>
       {loading && <LoadingScreen onComplete={()=> setLoading(false)}/>}
       <div ref={contentRef} style={{ opacity: 0 }}>
@@ -919,4 +941,8 @@ export default function Home() {
       </div>
     </>
   );
+
+  }
+
+  
 }
