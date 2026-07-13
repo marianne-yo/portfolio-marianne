@@ -29,6 +29,7 @@ import Navbar from "@/components/ui/nav-bar";
 import gsap from "gsap";
 import LoadingScreen from "@/components/ui/loading-screen"
 import { useScrollAnimation } from "@/hooks/useScrollAnimation"
+import SpotlightCard from "@/components/SpotlightCard";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 const SKIP_HOME_LOADER_KEY = "portfolio:skip-home-loader"
@@ -205,6 +206,7 @@ export default function Home() {
                       <Image
                         src="/marianne_2.jpg"
                         alt="Marianne"
+                        sizes="10"
                         fill
                         className="object-cover object-top"
                         priority
@@ -886,16 +888,18 @@ export default function Home() {
                 </p>
 
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+
+                  {/* spotlight cards */}
                   {services.map(c =>(
-                    <Card key={c.service} className={c.featured ? "border-2 border-primary rounded-md" : "rounded-md"}>
+                    <SpotlightCard className={c.featured ? "border-2 border-primary rounded-md custom-spotlight-card" : "rounded-md pt-8 pb-8 custom-spotlight-card "} spotlightColor="rgba(128, 113, 67, 0.5)" key={c.service}>
                       <CardHeader>
                         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                          <CardTitle className="text-base">{c.service}</CardTitle>
+                          <CardTitle className="text-xl font-bold tracking-wide font-mono">{c.service}</CardTitle>
                           <span className="text-xs px-2 py-0.5 rounded-full border border-border text-(--text-muted)">
                             {c.tag}
                           </span>
                         </div>
-                        <CardDescription>{c.desc}</CardDescription>
+                        <CardDescription className="text-sm">{c.desc}</CardDescription>
                       </CardHeader>
 
                       <CardContent>
@@ -925,9 +929,8 @@ export default function Home() {
                           </a>
                         </Button>
                       </CardFooter>
-                    </Card>
+                    </SpotlightCard>
                   ))}
-                  
                 </div>
               </div>
             </section>
