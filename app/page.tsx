@@ -173,7 +173,7 @@ export default function Home() {
                       <MailIcon/>
                     </Button>
                   </Link>
-                  <Link href="/RESUME_V2.pdf" target="_blank" rel="noopener noreferrer" className="w-full">
+                  <Link href="/MARIANNE_BALEN_RESUME.pdf" target="_blank" rel="noopener noreferrer" className="w-full">
                     <Button variant="default" size="lg" className="rounded-md cursor-pointer font-bold">
                       Resume
                     </Button>
