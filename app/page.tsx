@@ -754,7 +754,7 @@ export default function Home() {
                     <p className="text-base font-bold tracking-wider text-(--foreground)] sm:text-lg">Freelance Web Developer</p>
                     <p className="text-sm text-(--text-secondary) mb-2 sm:text-base">Self-employed</p>
                     <p className="text-sm text-(--text-muted) leading-relaxed text-pretty max-w-xl">
-                      Taking on digital art commissions — character art, portraits, and illustrations for clients online.
+                      Taking on commissions —UI/UX designs and web development for clients online.
                     </p>
                     <div className="flex flex-wrap gap-2 mt-3">
                       {["Web Development", "UI/UX Designer", "Figma"].map(s => (
@@ -766,7 +766,7 @@ export default function Home() {
                   <div className="relative">
                     <div className="absolute -left-6.25 top-1.5 w-3 h-3 rounded-full bg-foreground border-2 border-foreground" />
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <span className="text-xs text-(--text-soft) font-mono">2020 — Present</span>
+                      <span className="text-xs text-(--text-soft) font-mono">2020 - Present</span>
                       <Badge variant={'outline'} className="text-xs px-2 py-0.5 border-(--text-orange)/40 text-(--text-orange)">Freelance</Badge>
                       <Badge variant={'outline'} className="text-xs px-2 py-0.5 border-(--text-yellow)/40 text-(--text-yellow)">Now</Badge>
                     </div>
@@ -786,7 +786,7 @@ export default function Home() {
                   <div data-animate="fade-up" className="relative">
                     <div className="absolute -left-6.25 top-1.5 w-3 h-3 rounded-full bg-background border-2 border-border" />
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <span className="text-xs text-(--text-soft) font-mono">2024</span>
+                      <span className="text-xs text-(--text-soft) font-mono">2026</span>
                       <Badge variant={'outline'} className="text-xs px-2 py-0.5 border-(--text-pink)/40 text-(--text-pink)">Internship</Badge>
                     </div>
                     <p className="text-base font-bold tracking-wider text-(--foreground)] sm:text-lg">IT Intern / OJT</p>
@@ -805,7 +805,7 @@ export default function Home() {
                   <div data-animate="fade-up" className="relative">
                     <div className="absolute -left-6.25 top-1.5 w-3 h-3 rounded-full bg-background border-2 border-border" />
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <span className="text-xs text-(--text-soft) font-mono">2023 — 2024</span>
+                      <span className="text-xs text-(--text-soft) font-mono">2025</span>
                       <Badge variant={'outline'} className="text-xs px-2 py-0.5 border-(--text-purple)/40 text-(--text-purple)">Capstone</Badge>
                     </div>
                     <p className="text-base font-bold tracking-wider text-(--foreground)] sm:text-lg">Revio: A Review Material Generator Using Natural Language Processing with Acronym Mnemonic, Leitner and Pomodoro Techniques</p>
