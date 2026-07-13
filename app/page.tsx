@@ -35,7 +35,7 @@ const SKIP_HOME_LOADER_KEY = "portfolio:skip-home-loader"
 import { onTransitionComplete } from "@/components/ui/nav-bar"
 
 export default function Home() {
-  const maintenanceMode = true;
+  const maintenanceMode = false;
   const contentRef = useRef<HTMLDivElement>(null)
   const [loading, setLoading] = useState(() => {
     if (typeof window === "undefined") return true
@@ -232,7 +232,7 @@ export default function Home() {
 
               <div data-animate="stagger" className="grid w-full grid-cols-1 gap-3 max-w-5xl md:grid-cols-2">
                 {/* card 1 */}
-                <Card className="relative w-full pt-0 bg-card border-2 border-ring md:col-span-2
+                <Card className="flex flex-row gap-1 align-middle justify-center relative w-full pt-0 p-2 bg-card border-2 border-ring md:col-span-2
                 transition-all
                 duration-300
                 hover:-translate-y-2
@@ -245,61 +245,117 @@ export default function Home() {
                     width={5000}
                     height={5000}
                   /> */}
-
-                  <div className="h-150 position relative flex justify-center p-2">
+                  <div className="flex justify-center">
                     <Carousel
-                      baseWidth={1000}
+                      baseWidth={400}
+                      baseHeight={750}
                       autoplay
-                      autoplayDelay={3000}
+                      autoplayDelay={4000}
                       loop
                       round={false}
                     />
                   </div>
-                  
-                  <CardHeader className="grid grid-cols-[1fr_auto] gap-3">
-                    <CardTitle className="font-bold text-pretty tracking-sm text-base sm:text-lg">Revio: A Review Material Generator Using Natural Language Processing with Acronym Mnemonic, Leitner, and Pomodoro Techniques </CardTitle>
-                    
-                    <CardAction>
-                      <Badge variant="secondary" className="bg-slate-600/30">2025</Badge>
-                    </CardAction>
-                    <p className="col-span-2 font-light text-sm text-secondary-foreground tracking-wider sm:text-base">Mobile App Developer | UI/UX Designer - Capstone Project</p>         
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription>
-                      A web and mobile application that generates study materials to flashcards and summaries.
-                    </CardDescription>
-                  </CardContent>
-                  
-                  <CardContent className="flex flex-wrap gap-1">
-                      <Badge variant="outline" className="bg-blue-600/30">React</Badge>
-                      <Badge variant="outline" className="bg-sky-500/30">React Native</Badge>
-                      <Badge variant="outline" className="bg-slate-100/20">OpenAI</Badge>
-                      <Badge variant="outline" className="bg-orange-500/30">Firebase</Badge>
-                      <Badge variant="outline" className="bg-cyan-300/30">Tailwind CSS</Badge>
-                  </CardContent>
-                  <CardFooter className="flex flex-col sm:flex-row gap-2 w-full">
-                    <Link
-                      href="https://drive.google.com/drive/folders/1YqXcD1w_3YGOGzaQY_na1gtyOo1f6amC"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full"
-                    >
-                      <Button variant={"outline"} className="w-full rounded-md bg-primary cursor-pointer hover:border hover:border-primary">
-                        Download the APK
-                      </Button>
-                    </Link>
+                  <div className="flex flex-col gap-3 h-full">
+                    <div className="flex flex-col w-full pt-3 pb-1">
+                      <CardHeader className="items-center">
+                        <CardTitle className="font-bold text-pretty tracking-sm text-base sm:text-lg">
+                          Revio: A Review Material Generator Using Natural Language Processing with
+                          Acronym Mnemonic, Leitner, and Pomodoro Techniques
+                        </CardTitle>
 
-                    <Link
-                      href="https://revio-web-ebon.vercel.app/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full"
-                    >
-                      <Button className="w-full rounded-md bg-primary cursor-pointer hover:border hover:border-primary">
-                        Website
-                      </Button>
-                    </Link>
-                  </CardFooter>
+                        <div className="flex justify-center align-middle">
+                          <CardAction>
+                            <Badge variant="secondary" className="bg-slate-600/30">
+                              2025
+                            </Badge>
+                          </CardAction>
+                        </div>
+
+                        <p className="pt-3 font-light text-sm text-secondary-foreground tracking-wide sm:text-base">
+                          Mobile App Developer | UI/UX Designer - Capstone Project
+                        </p>
+                      </CardHeader>
+                    </div>
+
+                    <div className="flex flex-col gap-5 justify-between justify-items-center">
+                      <CardContent className="flex flex-col gap-3">
+                        <CardDescription>
+                          <p  className="text-pretty text-sm tracking-wide">
+                          Revio is an AI-powered study platform available on both web and mobile, designed to help students study more efficiently through Natural Language Processing (NLP). The application transforms uploaded study materials into interactive learning resources by automatically generating AI summaries, simplified reviewers, flashcards, and acronym mnemonic aids. By reducing the time spent creating study materials manually, Revio allows students to focus on understanding concepts rather than organizing content.
+                          </p>
+                        </CardDescription>
+                        <CardDescription>
+                          <p  className="text-pretty text-sm tracking-wide">
+                          To create a more engaging learning experience, Revio incorporates research-based study techniques through gamification, interactive flashcard review modes, and a Focus Mode with customizable timers and binaural beats to improve concentration and memory retention. Built using React Native (Expo), Next.js, Firebase Authentication, Firestore, and the OpenAI API, the platform delivers a seamless cross-platform experience that makes studying more personalized, productive, and accessible.
+                          effective.
+                          </p>
+                        </CardDescription>
+                      </CardContent>
+                      
+                      <CardContent className=" flex flex-row flex-wrap gap-1">
+                          <Badge variant="outline" className="bg-blue-600/30">React</Badge>
+                          <Badge variant="outline" className="bg-sky-500/30">React Native</Badge>
+                          <Badge variant="outline" className="bg-slate-100/20">OpenAI</Badge>
+                          <Badge variant="outline" className="bg-orange-500/30">Firebase</Badge>
+                          <Badge variant="outline" className="bg-cyan-300/30">Tailwind CSS</Badge>
+                      </CardContent>
+                    </div>
+                    <div className="flex justify-center pt-3">
+                      <Separator className="data-horizontal:w-[50%]" />
+                    </div>
+
+                    <CardFooter className="flex justify-end align-bottom flex-col gap-3 w-full mt-auto pb-3">
+                      <div className="flex flex-col gap-3 w-full">
+                        <Link
+                          href="https://revio-web-ebon.vercel.app/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full"
+                        >
+                          <Button className="w-full rounded-md bg-primary cursor-pointer hover:border hover:border-primary">
+                            Website
+                          </Button>
+                        </Link>
+
+                        <Link
+                          href="https://drive.google.com/drive/folders/1YqXcD1w_3YGOGzaQY_na1gtyOo1f6amC"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full"
+                        >
+                          <Button className="w-full rounded-md bg-primary cursor-pointer hover:border hover:border-primary">
+                            Download the APK
+                          </Button>
+                          <p className="flex justify-end text-xs pt-1 pb-2 text-muted-foreground">*The mobile version only supports Android devices.</p>
+                        </Link>
+                      </div>
+
+                      <div className="flex flex-row gap-3 w-full">
+                        <Link
+                          href="https://drive.google.com/file/d/1ycm1HyLmIVWc8v3yh8Z3Gzn5pdu1Kq_L/view?usp=sharing"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full"
+                        >
+                          <Button variant={'outline'} className="w-full rounded-md bg-primary cursor-pointer hover:border hover:border-primary">
+                            Demo
+                          </Button>
+                        </Link>
+
+                        <Link
+                          href="https://drive.google.com/drive/folders/1YqXcD1w_3YGOGzaQY_na1gtyOo1f6amC"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full"
+                        >
+                          <Button variant={'outline'} disabled className="w-full rounded-md bg-primary cursor-pointer hover:border hover:border-primary">
+                            Paper
+                          </Button>
+                        </Link>
+                      </div>
+
+                    </CardFooter>
+                  </div>
                 </Card>
                 
                 {/* card 2 */}

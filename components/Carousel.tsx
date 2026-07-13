@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, PanInfo, useMotionValue, useTransform } from 'motion/react';
 import React, { JSX } from 'react';
+import Image from 'next/image';
 
 // replace icons with your own if needed
 import { FiCircle, FiCode, FiFileText, FiLayers, FiLayout } from 'react-icons/fi';
@@ -8,12 +9,14 @@ export interface CarouselItem {
   title: string;
   description: string;
   id: number;
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
+  image?: string;
 }
 
 export interface CarouselProps {
   items?: CarouselItem[];
   baseWidth?: number;
+  baseHeight?: number;
   autoplay?: boolean;
   autoplayDelay?: number;
   pauseOnHover?: boolean;
@@ -23,7 +26,7 @@ export interface CarouselProps {
 
 const DEFAULT_ITEMS: CarouselItem[] = [
   {
-    title: 'Text Animations',
+    title: 'Login',
     description: 'Cool text animations for your projects.',
     id: 1,
     icon: <FiFileText className="h-[16px] w-[16px] text-white" />
@@ -52,6 +55,69 @@ const DEFAULT_ITEMS: CarouselItem[] = [
     id: 5,
     icon: <FiCode className="h-[16px] w-[16px] text-white" />
   }
+];
+
+const revioItems: CarouselItem[] = [
+  {
+    id: 1,
+    title: 'Study Tools Tab',
+    description: 'This tab features the tools that Revio offers',
+    image: '/revio-ss/revio-1.jpg',
+  },
+  {
+    id: 2,
+    title: 'Focus Tab',
+    description: 'This tab features the 40Hz Binaural Beats for Revio',
+    image: '/revio-ss/revio-2.jpg',
+  },
+  {
+    id: 3,
+    title: 'Acronym Mnemonics Flashcards',
+    description: 'Features the generated acronym mnemonics flashcards',
+    image: '/revio-ss/revio-3.jpg',
+  },
+  {
+    id: 4,
+    title: 'Acronym Mnemonics Flashcards Game Mode',
+    description: 'A game mode where the user fills the correct word in the acronym',
+    image: '/revio-ss/revio-4.jpg',
+  },
+  {
+    id: 5,
+    title: 'Terms and Definitions Flashcards',
+    description: 'Features the generated terms and definitions flashcards',
+    image: '/revio-ss/revio-5.jpg',
+  },
+  {
+    id: 6,
+    title: 'Terms and Definitions Flashcards (Back Face)',
+    description: 'Features the generated terms and definitions flashcards',
+    image: '/revio-ss/revio-6.jpg',
+  },
+  {
+    id: 7,
+    title: 'Terms and Definitions Game Mode Settings',
+    description: 'This features the game mode settings for the Terms and Definition game mode. The user can choose wheather the choice will be terms or definitions, and choose how many cards they will answer',
+    image: '/revio-ss/revio-7.jpg',
+  },
+  {
+    id: 8,
+    title: 'Terms and Definitions Game Mode',
+    description: 'This features the terms and definitions game mode wherein the user will select the correct answer among the 4 choices.',
+    image: '/revio-ss/revio-8.jpg',
+  },
+  {
+    id: 9,
+    title: 'Standard Summarization',
+    description: 'This features the generated standard summarization.',
+    image: '/revio-ss/revio-9.jpg',
+  },
+  {
+    id: 10,
+    title: 'Summarization with AI Explanation',
+    description: 'This features the generated standard summarization with AI Explanation',
+    image: '/revio-ss/revio-10.jpg',
+  },
 ];
 
 const DRAG_BUFFER = 0;
@@ -90,12 +156,27 @@ function CarouselItem({ item, index, itemWidth, round, trackItemOffset, x, trans
       }}
       transition={transition}
     >
-      <div className={`${round ? 'p-0 m-0' : 'mb-4 p-5'}`}>
-        <span className="flex h-[28px] w-[28px] items-center justify-center rounded-full bg-[#120F17]">
+      {item.image && (
+        <Image
+          src={item.image}
+          alt={item.title || 'Revio screenshot'}
+          fill
+          className="object-cover"
+          sizes="400px"
+          priority={index <= 1}
+        />
+      )}
+
+      {item.image && (
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+      )}
+
+      <div className={`relative z-10 ${round ? 'p-0 m-0' : 'mb-4 p-5'}`}>
+        <span className="flex h-[28px] w-[28px] items-center justify-center rounded-full"> 
           {item.icon}
         </span>
       </div>
-      <div className="p-5">
+      <div className="relative z-10 p-5">
         <div className="mb-1 font-black text-lg text-white">{item.title}</div>
         <p className="text-sm text-white">{item.description}</p>
       </div>
@@ -104,8 +185,9 @@ function CarouselItem({ item, index, itemWidth, round, trackItemOffset, x, trans
 }
 
 export default function Carousel({
-  items = DEFAULT_ITEMS,
+  items = revioItems,
   baseWidth = 300,
+  baseHeight = 250,
   autoplay = false,
   autoplayDelay = 3000,
   pauseOnHover = false,
@@ -235,15 +317,15 @@ export default function Carousel({
   const activeIndex =
     items.length === 0 ? 0 : loop ? (position - 1 + items.length) % items.length : Math.min(position, items.length - 1);
 
-  return (
+return (
     <div
       ref={containerRef}
-      className={`relative overflow-hidden p-4 ${
+      className={`relative overflow-hidden p-3 ${
         round ? 'rounded-full border border-white' : 'rounded-[24px] border border-[#222]'
       }`}
       style={{
         width: `${baseWidth}px`,
-        ...(round && { height: `${baseWidth}px` })
+        height: round ? `${baseWidth}px` : `${baseHeight}px`, // CHANGED
       }}
     >
       <motion.div
@@ -252,6 +334,7 @@ export default function Carousel({
         {...dragProps}
         style={{
           width: itemWidth,
+          height: round ? undefined : itemWidth <= 0 ? '100%' : `${baseHeight - 24}px`,
           gap: `${GAP}px`,
           perspective: 1000,
           perspectiveOrigin: `${position * trackItemOffset + itemWidth / 2}px 50%`,
