@@ -22,20 +22,21 @@ import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import DotField from "@/components/DotField";
 import Carousel from "@/components/Carousel";
-
+import { ResponsiveCarouselWrapper } from "@/components/ResponsiveCarouselWrapper";
 import { Textarea } from "@/components/ui/textarea"
 import Image from "next/image";
 import Navbar from "@/components/ui/nav-bar";
 import gsap from "gsap";
 import LoadingScreen from "@/components/ui/loading-screen"
 import { useScrollAnimation } from "@/hooks/useScrollAnimation"
+import SpotlightCard from "@/components/SpotlightCard";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 const SKIP_HOME_LOADER_KEY = "portfolio:skip-home-loader"
 import { onTransitionComplete } from "@/components/ui/nav-bar"
 
 export default function Home() {
-  const maintenanceMode = true;
+  const maintenanceMode = false;
   const contentRef = useRef<HTMLDivElement>(null)
   const [loading, setLoading] = useState(() => {
     if (typeof window === "undefined") return true
@@ -145,7 +146,8 @@ export default function Home() {
           <main className="w-full max-w-6xl flex flex-col items-center justify-start px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-10 sm:items-start">
 
             <section className="min-h-[90vh] grid w-full grid-cols-1 items-center justify-center gap-10 mt-12 sm:mt-16 md:grid-cols-3 md:gap-8">
-              <div className="flex flex-col gap-5 text-center sm:gap-6 md:col-span-2 md:text-left">
+              {/* text block */}
+              <div className="order-2 md:order-none flex flex-col gap-5 text-center sm:gap-6 md:col-span-2 md:text-left">
                 <h1 ref={titleRef} className="text-4xl font-medium tracking-tight text-pretty leading-tight sm:text-5xl lg:text-6xl">
                   Hi, my name <br /> is{" "}
                   <span className="text-primary font-bold">Marianne</span>
@@ -155,65 +157,74 @@ export default function Home() {
                   Explore my projects, skills, and experience in web development.
                 </p>
 
-                <div className="flex flex-row justify-center w-full gap-2 md:justify-start">
-                  <Link href="https://github.com/marianne-yo" target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline" size="lg" className="rounded-md cursor-pointer" aria-label="GitHub">
-                      <IconBrandGithub />
-                    </Button>
-                  </Link>
-                  <Link href="https://www.linkedin.com/in/marianne-balen-066185264/" target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline" size="lg" className="rounded-md cursor-pointer" aria-label="LinkedIn">
-                      <IconBrandLinkedin />
-                    </Button>
-                  </Link>
+                <div className="flex flex-col items-center gap-3 w-full md:flex-row md:items-center md:justify-start md:gap-2">
+                  <div className="flex flex-row justify-center gap-2">
+                    <Link href="https://github.com/marianne-yo" target="_blank" rel="noopener noreferrer">
+                      <Button variant="outline" size="lg" className="rounded-md cursor-pointer" aria-label="GitHub">
+                        <IconBrandGithub />
+                      </Button>
+                    </Link>
+                    <Link href="https://www.linkedin.com/in/marianne-balen-066185264/" target="_blank" rel="noopener noreferrer">
+                      <Button variant="outline" size="lg" className="rounded-md cursor-pointer" aria-label="LinkedIn">
+                        <IconBrandLinkedin />
+                      </Button>
+                    </Link>
+                    <Link href="mailto:yourname@gmail.com?subject=Portfolio Inquiry&body=Hi Mari, I saw your portfolio...">
+                      <Button variant="outline" size="lg" className="rounded-md cursor-pointer" aria-label="Email">
+                        <MailIcon />
+                      </Button>
+                    </Link>
+                  </div>
+
                   <Link
-                    href="mailto:yourname@gmail.com?subject=Portfolio Inquiry&body=Hi Mari, I saw your portfolio..."
+                    href="/MARIANNE_BALEN_RESUME.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full md:w-auto"
                   >
-                    <Button variant="outline" size="lg" className="rounded-md cursor-pointer" aria-label="Email">
-                      <MailIcon/>
-                    </Button>
-                  </Link>
-                  <Link href="/RESUME_V2.pdf" target="_blank" rel="noopener noreferrer" className="w-full">
-                    <Button variant="default" size="lg" className="rounded-md cursor-pointer font-bold">
+                    <Button variant="default" size="lg" className="rounded-md cursor-pointer font-bold w-full md:w-auto">
                       Resume
                     </Button>
                   </Link>
                 </div>
               </div>
 
-                <div className="relative flex justify-center items-end md:justify-end">
-                  <div className="relative w-[220px] h-[220px] sm:w-[260px] sm:h-[260px] lg:w-[280px] lg:h-[280px]">
+              {/* image block */}
+              <div className="order-1 md:order-none relative flex justify-center items-end md:justify-end">
+                <div className="relative w-[220px] h-[220px] sm:w-[260px] sm:h-[260px] lg:w-[280px] lg:h-[280px]">
 
-                    <div className="absolute inset-0 rounded-full overflow-hidden">
-                      <div className="animate-border-spin absolute -inset-[100%] origin-center"
-                        style={{
-                          background: `conic-gradient(
-                            from 0deg,
-                            transparent 0deg,
-                            var(--primary) 60deg,
-                            var(--secondary) 120deg,
-                            var(--accent) 180deg,
-                            transparent 220deg
-                          )`
-                        }}
-                      />
-                    </div>
-
-                    <div className="absolute inset-[3px] rounded-full bg-background z-10" />
-
-                    <div className="relative z-20 rounded-full overflow-hidden m-[3px] w-[calc(100%-6px)] h-[calc(100%-6px)]">
-                      <Image
-                        src="/marianne_2.jpg"
-                        alt="Marianne"
-                        fill
-                        className="object-cover object-top"
-                        priority
-                      />
-                    </div>
-
+                  <div className="absolute inset-0 rounded-full overflow-hidden">
+                    <div className="animate-border-spin absolute -inset-[100%] origin-center"
+                      style={{
+                        background: `conic-gradient(
+                          from 0deg,
+                          transparent 0deg,
+                          var(--primary) 60deg,
+                          var(--secondary) 120deg,
+                          var(--accent) 180deg,
+                          transparent 220deg
+                        )`
+                      }}
+                    />
                   </div>
+
+                  <div className="absolute inset-[3px] rounded-full bg-background z-10" />
+
+                  <div className="relative z-20 rounded-full overflow-hidden m-[3px] w-[calc(100%-6px)] h-[calc(100%-6px)]">
+                    <Image
+                      src="/marianne_2.jpg"
+                      alt="Marianne"
+                      sizes="10"
+                      fill
+                      className="object-cover object-top"
+                      priority
+                    />
+                  </div>
+
                 </div>
-              <p className="text-xs tracking-widest text-(--text-soft) md:col-span-3">SCROLL</p>
+              </div>
+
+              <p className="text-xs tracking-widest text-(--text-soft) order-3 md:order-none md:col-span-3">SCROLL</p>
             </section>
 
             {/* my works */}
@@ -232,7 +243,7 @@ export default function Home() {
 
               <div data-animate="stagger" className="grid w-full grid-cols-1 gap-3 max-w-5xl md:grid-cols-2">
                 {/* card 1 */}
-                <Card className="relative w-full pt-0 bg-card border-2 border-ring md:col-span-2
+                <Card className="flex flex-col md:flex-row gap-1 align-middle justify-center relative w-full pt-0 p-2 bg-card border-2 border-ring md:col-span-2
                 transition-all
                 duration-300
                 hover:-translate-y-2
@@ -245,61 +256,119 @@ export default function Home() {
                     width={5000}
                     height={5000}
                   /> */}
-
-                  <div className="h-150 position relative flex justify-center p-2">
-                    <Carousel
-                      baseWidth={1000}
-                      autoplay
-                      autoplayDelay={3000}
-                      loop
-                      round={false}
-                    />
+                  <div className="flex justify-center w-full md:w-auto">
+                    <ResponsiveCarouselWrapper width={400} height={750}>
+                      <Carousel
+                        baseWidth={400}
+                        baseHeight={750}
+                        autoplay
+                        autoplayDelay={4000}
+                        loop
+                        round={false}
+                      />
+                    </ResponsiveCarouselWrapper>
                   </div>
-                  
-                  <CardHeader className="grid grid-cols-[1fr_auto] gap-3">
-                    <CardTitle className="font-bold text-pretty tracking-sm text-base sm:text-lg">Revio: A Review Material Generator Using Natural Language Processing with Acronym Mnemonic, Leitner, and Pomodoro Techniques </CardTitle>
-                    
-                    <CardAction>
-                      <Badge variant="secondary" className="bg-slate-600/30">2025</Badge>
-                    </CardAction>
-                    <p className="col-span-2 font-light text-sm text-secondary-foreground tracking-wider sm:text-base">Mobile App Developer | UI/UX Designer - Capstone Project</p>         
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription>
-                      A web and mobile application that generates study materials to flashcards and summaries.
-                    </CardDescription>
-                  </CardContent>
-                  
-                  <CardContent className="flex flex-wrap gap-1">
-                      <Badge variant="outline" className="bg-blue-600/30">React</Badge>
-                      <Badge variant="outline" className="bg-sky-500/30">React Native</Badge>
-                      <Badge variant="outline" className="bg-slate-100/20">OpenAI</Badge>
-                      <Badge variant="outline" className="bg-orange-500/30">Firebase</Badge>
-                      <Badge variant="outline" className="bg-cyan-300/30">Tailwind CSS</Badge>
-                  </CardContent>
-                  <CardFooter className="flex flex-col sm:flex-row gap-2 w-full">
-                    <Link
-                      href="https://drive.google.com/drive/folders/1YqXcD1w_3YGOGzaQY_na1gtyOo1f6amC"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full"
-                    >
-                      <Button variant={"outline"} className="w-full rounded-md bg-primary cursor-pointer hover:border hover:border-primary">
-                        Download the APK
-                      </Button>
-                    </Link>
+                  <div className="flex flex-col gap-3 h-full">
+                    <div className="flex flex-col w-full pt-3 pb-1">
+                      <CardHeader className="items-center">
+                        <CardTitle className="font-bold text-pretty tracking-sm text-base sm:text-lg">
+                          Revio: A Review Material Generator Using Natural Language Processing with
+                          Acronym Mnemonic, Leitner, and Pomodoro Techniques
+                        </CardTitle>
 
-                    <Link
-                      href="https://revio-web-ebon.vercel.app/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full"
-                    >
-                      <Button className="w-full rounded-md bg-primary cursor-pointer hover:border hover:border-primary">
-                        Website
-                      </Button>
-                    </Link>
-                  </CardFooter>
+                        <div className="flex justify-center align-middle">
+                          <CardAction>
+                            <Badge variant="secondary" className="bg-slate-600/30">
+                              2025
+                            </Badge>
+                          </CardAction>
+                        </div>
+
+                        <p className="pt-3 font-light text-sm text-secondary-foreground tracking-wide sm:text-base">
+                          Mobile App Developer | UI/UX Designer - Capstone Project
+                        </p>
+                      </CardHeader>
+                    </div>
+
+                    <div className="flex flex-col gap-5 justify-between justify-items-center">
+                      <CardContent className="flex flex-col gap-3">
+                        <CardDescription>
+                          <p  className="text-pretty text-sm tracking-wide">
+                          Revio is an AI-powered study platform available on both web and mobile, designed to help students study more efficiently through Natural Language Processing (NLP). The application transforms uploaded study materials into interactive learning resources by automatically generating AI summaries, simplified reviewers, flashcards, and acronym mnemonic aids. By reducing the time spent creating study materials manually, Revio allows students to focus on understanding concepts rather than organizing content.
+                          </p>
+                        </CardDescription>
+                        <CardDescription>
+                          <p  className="text-pretty text-sm tracking-wide">
+                          To create a more engaging learning experience, Revio incorporates research-based study techniques through gamification, interactive flashcard review modes, and a Focus Mode with customizable timers and binaural beats to improve concentration and memory retention. Built using React Native (Expo), Next.js, Firebase Authentication, Firestore, and the OpenAI API, the platform delivers a seamless cross-platform experience that makes studying more personalized, productive, and accessible.
+                          effective.
+                          </p>
+                        </CardDescription>
+                      </CardContent>
+                      
+                      <CardContent className=" flex flex-row flex-wrap gap-1">
+                          <Badge variant="outline" className="bg-blue-600/30">React</Badge>
+                          <Badge variant="outline" className="bg-sky-500/30">React Native</Badge>
+                          <Badge variant="outline" className="bg-slate-100/20">OpenAI</Badge>
+                          <Badge variant="outline" className="bg-orange-500/30">Firebase</Badge>
+                          <Badge variant="outline" className="bg-cyan-300/30">Tailwind CSS</Badge>
+                      </CardContent>
+                    </div>
+                    <div className="flex justify-center pt-3">
+                      <Separator className="data-horizontal:w-[50%]" />
+                    </div>
+
+                    <CardFooter className="flex justify-end align-bottom flex-col gap-3 w-full mt-auto pb-3">
+                      <div className="flex flex-col gap-3 w-full">
+                        <Link
+                          href="https://revio-web-ebon.vercel.app/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full"
+                        >
+                          <Button className="w-full rounded-md bg-primary cursor-pointer hover:border hover:border-primary">
+                            Website
+                          </Button>
+                        </Link>
+
+                        <Link
+                          href="https://drive.google.com/drive/folders/1YqXcD1w_3YGOGzaQY_na1gtyOo1f6amC"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full"
+                        >
+                          <Button className="w-full rounded-md bg-primary cursor-pointer hover:border hover:border-primary">
+                            Download the APK
+                          </Button>
+                          <p className="flex justify-end text-xs pt-1 pb-2 text-muted-foreground">*The mobile version only supports Android devices.</p>
+                        </Link>
+                      </div>
+
+                      <div className="flex flex-row gap-3 w-full">
+                        <Link
+                          href="https://drive.google.com/file/d/1ycm1HyLmIVWc8v3yh8Z3Gzn5pdu1Kq_L/view?usp=sharing"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full"
+                        >
+                          <Button variant={'outline'} className="w-full rounded-md bg-primary cursor-pointer hover:border hover:border-primary">
+                            Demo
+                          </Button>
+                        </Link>
+
+                        <Link
+                          href="https://drive.google.com/drive/folders/1YqXcD1w_3YGOGzaQY_na1gtyOo1f6amC"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full"
+                        >
+                          <Button variant={'outline'} disabled className="w-full rounded-md bg-primary cursor-pointer hover:border hover:border-primary">
+                            Paper
+                          </Button>
+                        </Link>
+                      </div>
+
+                    </CardFooter>
+                  </div>
                 </Card>
                 
                 {/* card 2 */}
@@ -698,7 +767,7 @@ export default function Home() {
                     <p className="text-base font-bold tracking-wider text-(--foreground)] sm:text-lg">Freelance Web Developer</p>
                     <p className="text-sm text-(--text-secondary) mb-2 sm:text-base">Self-employed</p>
                     <p className="text-sm text-(--text-muted) leading-relaxed text-pretty max-w-xl">
-                      Taking on digital art commissions — character art, portraits, and illustrations for clients online.
+                      Taking on commissions —UI/UX designs and web development for clients online.
                     </p>
                     <div className="flex flex-wrap gap-2 mt-3">
                       {["Web Development", "UI/UX Designer", "Figma"].map(s => (
@@ -710,7 +779,7 @@ export default function Home() {
                   <div className="relative">
                     <div className="absolute -left-6.25 top-1.5 w-3 h-3 rounded-full bg-foreground border-2 border-foreground" />
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <span className="text-xs text-(--text-soft) font-mono">2020 — Present</span>
+                      <span className="text-xs text-(--text-soft) font-mono">2020 - Present</span>
                       <Badge variant={'outline'} className="text-xs px-2 py-0.5 border-(--text-orange)/40 text-(--text-orange)">Freelance</Badge>
                       <Badge variant={'outline'} className="text-xs px-2 py-0.5 border-(--text-yellow)/40 text-(--text-yellow)">Now</Badge>
                     </div>
@@ -730,7 +799,7 @@ export default function Home() {
                   <div data-animate="fade-up" className="relative">
                     <div className="absolute -left-6.25 top-1.5 w-3 h-3 rounded-full bg-background border-2 border-border" />
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <span className="text-xs text-(--text-soft) font-mono">2024</span>
+                      <span className="text-xs text-(--text-soft) font-mono">2026</span>
                       <Badge variant={'outline'} className="text-xs px-2 py-0.5 border-(--text-pink)/40 text-(--text-pink)">Internship</Badge>
                     </div>
                     <p className="text-base font-bold tracking-wider text-(--foreground)] sm:text-lg">IT Intern / OJT</p>
@@ -749,7 +818,7 @@ export default function Home() {
                   <div data-animate="fade-up" className="relative">
                     <div className="absolute -left-6.25 top-1.5 w-3 h-3 rounded-full bg-background border-2 border-border" />
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <span className="text-xs text-(--text-soft) font-mono">2023 — 2024</span>
+                      <span className="text-xs text-(--text-soft) font-mono">2025</span>
                       <Badge variant={'outline'} className="text-xs px-2 py-0.5 border-(--text-purple)/40 text-(--text-purple)">Capstone</Badge>
                     </div>
                     <p className="text-base font-bold tracking-wider text-(--foreground)] sm:text-lg">Revio: A Review Material Generator Using Natural Language Processing with Acronym Mnemonic, Leitner and Pomodoro Techniques</p>
@@ -788,7 +857,7 @@ export default function Home() {
             </section>
 
             {/* certifications */}
-            <section className="flex flex-col justify-center mt-24 w-full sm:mt-32 lg:mt-56">
+            {/* <section className="flex flex-col justify-center mt-24 w-full sm:mt-32 lg:mt-56">
               <div className="w-full max-w-5xl">
                 <p ref={subtitleRef} data-animate="fade-up" className="font-light tracking-wider text-(--text-muted)">Gallery</p>
                 <h2 ref={titleRef} data-animate="fade-up" className="text-4xl font-bold tracking-tight text-pretty leading-tight sm:text-5xl lg:text-6xl">
@@ -814,7 +883,7 @@ export default function Home() {
                   glowColor="#373037"
               />
               </div>
-            </section>
+            </section> */}
 
             {/* Services */}
             <section className="flex flex-col justify-center mt-24 w-full sm:mt-32 lg:mt-56">
@@ -830,16 +899,18 @@ export default function Home() {
                 </p>
 
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+
+                  {/* spotlight cards */}
                   {services.map(c =>(
-                    <Card key={c.service} className={c.featured ? "border-2 border-primary rounded-md" : "rounded-md"}>
+                    <SpotlightCard className={c.featured ? "border-2 border-primary rounded-md custom-spotlight-card" : "rounded-md pt-8 pb-8 custom-spotlight-card "} spotlightColor="rgba(128, 113, 67, 0.5)" key={c.service}>
                       <CardHeader>
                         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                          <CardTitle className="text-base">{c.service}</CardTitle>
-                          <span className="text-xs px-2 py-0.5 rounded-full border border-border text-(--text-muted)">
+                          <CardTitle className="text-xl font-bold tracking-wide font-mono min-w-0">{c.service}</CardTitle>
+                          <span className="text-xs px-2 py-0.5 rounded-full border border-border text-(--text-muted) shrink-0 whitespace-nowrap self-start sm:self-auto">
                             {c.tag}
                           </span>
                         </div>
-                        <CardDescription>{c.desc}</CardDescription>
+                        <CardDescription className="text-sm">{c.desc}</CardDescription>
                       </CardHeader>
 
                       <CardContent>
@@ -857,7 +928,11 @@ export default function Home() {
                         <span className="text-xs text-(--text-soft) italic">
                           {c.cta}
                         </span>
-                        <Button asChild variant="ghost" className="text-xs text-(--text-secondary) flex items-center gap-1 hover:text-foreground transition-colors cursor-pointer">
+                        <Button
+                          asChild
+                          variant="ghost"
+                          className="text-xs text-(--text-secondary) flex items-center justify-center gap-1 hover:text-foreground transition-colors cursor-pointer w-full sm:w-auto"
+                        >
                           <a
                             href={`mailto:yourname@gmail.com?subject=${encodeURIComponent(
                               `Inquiry: ${c.service}`
@@ -869,9 +944,8 @@ export default function Home() {
                           </a>
                         </Button>
                       </CardFooter>
-                    </Card>
+                    </SpotlightCard>
                   ))}
-                  
                 </div>
               </div>
             </section>
