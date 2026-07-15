@@ -28,7 +28,8 @@ import gsap from "gsap";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation"
 import { onTransitionComplete } from "@/components/ui/nav-bar"
 const montserrat = Montserrat({ subsets: ["latin"] });
-
+import { MagicBentoRoot, MagicCard } from "@/components/MagicBento";
+import { ScribblePad } from "@/components/ScribblePad";
 export default function Personal() {
   const contentRef = useRef<HTMLDivElement>(null)
   useScrollAnimation(true)
@@ -263,7 +264,7 @@ export default function Personal() {
                 <h2 className="text-2xl font-medium text-(--text-secondary) sm:text-3xl lg:text-4xl">
                 I&apos;m born to{" "}
                 <Typewriter
-                    text={["experience", "dance", "love", "be alive", "create things", "explore"]}
+                    text={["experience", "love", "be alive", "create things", "explore"]}
                     speed={90}
                     deleteSpeed={50}
                     waitTime={3000}
@@ -329,19 +330,20 @@ export default function Personal() {
                 
                 <div className="absolute -top-3 -right-3 w-full h-full rounded-2xl bg-(--primary)/20 border border-(--primary)/30" />
                 
-                <div className="relative h-80 w-[min(18rem,calc(100vw-3rem))] rounded-2xl overflow-hidden border border-border">
+                <div className="relative h-100 w-[min(18rem,calc(100vw-3rem))] rounded-2xl overflow-hidden border border-border">
                 <Image
-                    src="/marianne_2.jpg"
+                    src="/marianne-pic.jpg"
                     alt="Marianne"
                     className="w-full h-full object-cover object-top"
-                    height={800}
-                    width={800}
+                    height={1000}
+                    width={1000}
+                    loading="eager"
                 />
                 </div>
 
                 <div className="absolute -bottom-4 -left-4 bg-card border border-border rounded-xl px-4 py-2 shadow-sm">
-                <p className="text-xs text-(--text-muted)">Fresh Graduate</p>
-                <p className="text-sm font-medium">Class of 2026 🎓</p>
+                  <p className="text-xs text-(--text-muted)">Fresh Graduate</p>
+                  <p className="text-sm font-medium">Class of 2026 🎓</p>
                 </div>
 
             </div>
@@ -408,148 +410,125 @@ export default function Personal() {
         <section className="flex flex-col justify-center align-middle gap-5 mt-24 w-full items-center sm:mt-32 lg:mt-100">
             <div data-animate="fade-up" className="w-full max-w-5xl flex flex-col items-start justify-start">
                 <p className="font-light tracking-wider text-pretty">THINGS I LOVE</p>
-
                 <h2 className="text-4xl font-bold tracking-tight text-pretty leading-tight sm:text-5xl lg:text-6xl">
-                MOOD BOARD
+                  MOOD BOARD
                 </h2>
-
-                <p className="font-normal tracking-wide text-pretty py-5">
-                Here are the things I love
-                </p>
+                <p className="font-normal tracking-wide text-pretty py-5">Here are the things I love</p>
             </div>
 
-            <div data-animate="stagger" className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 w-full max-w-5xl auto-rows-[minmax(120px,auto)] overflow-hidden">
-                {/* div1 — spans col 1-4, row 1-3 MY FAVORTIE PLAYLISTS*/}
-                <div className="min-w-0 bg-card border-2 border-muted col-span-2 md:col-span-4 lg:col-span-4 row-span-1 md:row-span-2 lg:row-span-3 rounded-lg p-4 sm:p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
-                  <div className="overflow-y-auto h-full">
-                    <h2 className="text-lg font-medium font-mono">MY FAVORITE ARTISTS</h2>
-                    <div className="grid grid-cols-1 gap-2 mt-2 sm:grid-cols-2">
-                      {fav_artists.map(artist => (
-                        <iframe
-                          key={artist.name}
-                          className="w-full min-w-0"
-                          style={{ borderRadius: "12px" }}
-                          src={artist.link}
-                          width="100%"
-                          height="152"
-                          frameBorder="0"
-                          allowFullScreen
-                          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                          loading="lazy"
-                        />
-                      ))}
-                    </div>
+            <MagicBentoRoot
+              className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 w-full max-w-5xl auto-rows-[minmax(120px,auto)] overflow-hidden"
+              enableStars
+              enableSpotlight
+              enableBorderGlow
+              enableMagnetism={false}
+              clickEffect
+              spotlightRadius={210}
+              particleCount={12}
+              glowColor="250, 219, 107"
+              disableAnimations={false}
+            >
+              {/* div1 — MY FAVORITE ARTISTS */}
+              <MagicCard className="border-2 border-muted min-w-0 bg-card col-span-2 md:col-span-4 lg:col-span-4 row-span-1 md:row-span-2 lg:row-span-3 rounded-lg p-4 sm:p-5">
+                <div className="overflow-y-auto h-full">
+                  <h2 className="text-lg font-medium font-mono">MY FAVORITE ARTISTS</h2>
+                  <div className="grid grid-cols-1 gap-2 mt-2 sm:grid-cols-2">
+                    {fav_artists.map(artist => (
+                      <iframe
+                        key={artist.name}
+                        className="w-full min-w-0"
+                        style={{ borderRadius: '12px' }}
+                        src={artist.link}
+                        width="100%"
+                        height="152"
+                        frameBorder="0"
+                        allowFullScreen
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                        loading="lazy"
+                      />
+                    ))}
                   </div>
                 </div>
+              </MagicCard>
 
-                {/* div5 — col 5, row 1 open meteo api, time and weather*/} 
-                <div className="min-w-0 bg-card border-2 border-muted 
-                col-span-2 md:col-span-2 lg:col-span-2 
-                lg:col-start-5 lg:row-start-1 
-                rounded-lg p-4 sm:p-5 flex flex-col justify-center transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
-                  <div className="flex justify-center items-center">
-                    <TimeWidget/>
-                  </div>
+              {/* div5 — time */}
+              <MagicCard className="border-2 border-muted min-w-0 bg-card col-span-2 md:col-span-2 lg:col-span-2 lg:col-start-5 lg:row-start-1 rounded-lg p-4 sm:p-5 flex flex-col justify-center">
+                <div className="flex justify-center items-center">
+                  <TimeWidget />
                 </div>
+              </MagicCard>
 
-                {/* div6 — col 5, row 2 */}
-                <div className="min-w-0 bg-card border-2 border-muted 
-                col-span-2 md:col-span-2 lg:col-span-2 
-                lg:col-start-5 lg:row-start-2 
-                rounded-lg p-4 sm:p-5 flex flex-col justify-center transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
-                  <div className="flex justify-center items-center">
-                    <WeatherWidget />
-                  </div>
+              {/* div6 — weather */}
+              <MagicCard className="border-2 border-muted min-w-0 bg-card col-span-2 md:col-span-2 lg:col-span-2 lg:col-start-5 lg:row-start-2 rounded-lg p-4 sm:p-5 flex flex-col justify-center">
+                <div className="flex justify-center items-center">
+                  <WeatherWidget />
                 </div>
+              </MagicCard>
 
-                {/* div7 — col 5, row 3-4 MY DAILY ROUTINE, THIS WILL BE A LIST*/}
-                <div className="min-w-0 bg-card border-2 border-muted col-span-2 md:col-span-2 lg:col-span-2 lg:col-start-5 lg:row-start-3 lg:row-span-2 rounded-lg p-4 sm:p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
-                  <div className="overflow-y-auto h-full">
-                    <h2 className="text-lg font-medium font-mono">Marianne&apos;s Daily Routine</h2>
-                      {dailyRoutine.map(dr => (
-                        <ul key={dr.num} className="list-none">
-                          <Separator />
-                          <li className="flex flex-row gap-2 p-2 rounded-sm font-light">
-                            {dr.num}.<span className="font-medium tracking-tight">{dr.routine}</span>
-                          </li>
-                        </ul>
-                      ))}
+              {/* div7 — daily routine */}
+              <MagicCard className="border-2 border-muted min-w-0 bg-card col-span-2 md:col-span-2 lg:col-span-2 lg:col-start-5 lg:row-start-3 lg:row-span-2 rounded-lg p-4 sm:p-5">
+                <div className="overflow-y-auto h-full">
+                  <h2 className="text-lg font-medium font-mono">Marianne&apos;s Daily Routine</h2>
+                  {dailyRoutine.map(dr => (
+                    <ul key={dr.num} className="list-none">
                       <Separator />
-                  </div>
+                      <li className="flex flex-row gap-2 p-2 rounded-sm font-light">
+                        {dr.num}.<span className="font-medium tracking-tight">{dr.routine}</span>
+                      </li>
+                    </ul>
+                  ))}
+                  <Separator />
                 </div>
+              </MagicCard>
 
-                {/* div2 — col 1-2, row 4 MY FAVORTIE COLORS*/}
-                <div className="min-w-0 bg-card border-2 border-muted 
-                col-span-2 md:col-span-2 lg:col-span-2 
-                lg:col-start-1 lg:row-start-4 
-                rounded-lg p-4 sm:p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
-                    <h2 className="text-lg font-medium font-mono">MY FAVORITE COLORS</h2>
-                    <div className="grid grid-cols-2 gap-2 mt-4 sm:gap-3">
-                      {favoriteColors.map((color) => (
-                        <div key={color.hex} className="rounded-md border border-border p-3">
-                          <div className="h-12 rounded-sm mb-2" style={{ backgroundColor: color.hex }} />
-                          <p className="text-xs font-medium">{color.name}</p>
-                          <p className="text-[11px] text-muted-foreground">{color.hex}</p>
-                        </div>
-                      ))}
+              {/* div2 — favorite colors */}
+              <MagicCard className="border-2 border-muted min-w-0 bg-card col-span-2 md:col-span-2 lg:col-span-2 lg:col-start-1 lg:row-start-4 rounded-lg p-4 sm:p-5">
+                <h2 className="text-lg font-medium font-mono">MY FAVORITE COLORS</h2>
+                <div className="grid grid-cols-2 gap-2 mt-4 sm:gap-3">
+                  {favoriteColors.map(color => (
+                    <div key={color.hex} className="rounded-md border border-border p-3">
+                      <div className="h-12 rounded-sm mb-2" style={{ backgroundColor: color.hex }} />
+                      <p className="text-xs font-medium">{color.name}</p>
+                      <p className="text-[11px] text-muted-foreground">{color.hex}</p>
                     </div>
+                  ))}
                 </div>
+              </MagicCard>
 
-                {/* div3 — col 3-4, row 4 MY FAVORITE GAMES */}
-                <div className="min-w-0 bg-card border-2 border-muted 
-                col-span-2 md:col-span-2 lg:col-span-2 
-                lg:col-start-3 lg:row-start-4 
-                rounded-lg p-4 sm:p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
-                  <h2 className="text-lg font-medium font-mono">MY FAVORITE GAMES</h2>
-                  <div className="flex flex-col gap-3 mt-3 pr-1">
-                      {fav_games.map(game => (
-                        <div key={game.name} className="flex items-center gap-3 py-1">
-                          <div className="w-9 h-9 rounded-lg overflow-hidden border border-border flex-shrink-0">
-                            <Image
-                              src={game.image}
-                              alt={game.name}
-                              className="w-full h-full object-cover"
-                              width={36}
-                              height={36}
-                            />
-                          </div>
-                          <div className="flex min-w-0 flex-col">
-                            <p className="text-sm font-medium leading-tight">{game.name}</p>
-                            <p className="text-xs text-(--text-muted)">{game.genre}</p>
-                          </div>
-                        </div>
-                      ))}
+              {/* div3 — favorite games */}
+              <MagicCard className="border-2 border-muted min-w-0 bg-card col-span-2 md:col-span-2 lg:col-span-2 lg:col-start-3 lg:row-start-4 rounded-lg p-4 sm:p-5">
+                <h2 className="text-lg font-medium font-mono">MY FAVORITE GAMES</h2>
+                <div className="flex flex-col gap-3 mt-3 pr-1">
+                  {fav_games.map(game => (
+                    <div key={game.name} className="flex items-center gap-3 py-1">
+                      <div className="w-9 h-9 rounded-lg overflow-hidden border border-border flex-shrink-0">
+                        <Image src={game.image} alt={game.name} className="w-full h-full object-cover" width={36} height={36} />
+                      </div>
+                      <div className="flex min-w-0 flex-col">
+                        <p className="text-sm font-medium leading-tight">{game.name}</p>
+                        <p className="text-xs text-(--text-muted)">{game.genre}</p>
+                      </div>
                     </div>
+                  ))}
                 </div>
+              </MagicCard>
 
-                {/* div4 — col 1-4, row 5 DOODLE*/}
-                <div
-                  className="min-w-0 bg-card border-2 border-muted 
-                  col-span-2 md:col-span-4 lg:col-span-4 
-                  lg:col-start-1 lg:row-start-5 
-                  rounded-lg p-4 sm:p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary"
-                >
-                  <div className="mt-4 flex items-center justify-center text-foreground">
-                    <Image
-                      src="/doodle.svg"
-                      alt="My doodle"
-                      width={200}
-                      height={100}
-                      className="w-full h-auto dark:invert"
-                    />
-                  </div>
+              {/* div4 — doodle */}
+              <MagicCard className="border-2 border-muted min-w-0 bg-card col-span-2 md:col-span-4 lg:col-span-4 lg:col-start-1 lg:row-start-5 rounded-lg p-4 sm:p-5">
+                <div className="mt-4 flex items-center justify-center text-foreground">
+                  <Image src="/doodle.svg" alt="My doodle" width={200} height={100} className="w-full h-auto dark:invert" loading="eager" />
                 </div>
+              </MagicCard>
 
-                {/* div8 — col 5, row 5 */}
-                <div className="min-w-0 bg-card border-2 border-muted 
-                col-span-2 md:col-span-2 lg:col-span-2 
-                lg:col-start-5 lg:row-start-5 
-                rounded-lg p-4 sm:p-5 transition-all duration-300 hover:-translate-y-2 hover:z-10 hover:shadow-lg hover:border-primary">
-                    <h2 className="text-lg font-medium font-mono">MY FAVORITE QUOTE</h2>
-                    <h2 className="font-serif italic p-2 font-medium tracking-wider sm:p-5">“If you get tired, learn to rest, not to quit.” <span className="font-light">- Banksy</span></h2>
-                </div>
-            </div>
-            
+              {/* div8 — favorite quote */}
+              <MagicCard
+                className="border-2 border-muted min-w-0 bg-card col-span-2 md:col-span-2 lg:col-span-2 lg:col-start-5 lg:row-start-5 rounded-lg p-4 sm:p-5"
+                disableTilt
+                disableMagnetism
+              >
+                <ScribblePad />
+              </MagicCard>
+            </MagicBentoRoot>
         </section>
 
         {/* Artworks */}
