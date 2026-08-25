@@ -702,9 +702,9 @@ export default function Home() {
                 </div>
               </div>
               
-              <br />
+              {/* <br /> */}
               {/* Output panel - OUTPUT THE LOGOS*/}
-              <div className="border border-muted rounded-lg p-4 bg-(--surface-secondary) sm:p-5">
+              {/* <div className="border border-muted rounded-lg p-4 bg-(--surface-secondary) sm:p-5">
                 <p className="text-xs text-[var(--text-soft)] font-mono mb-4"> Output</p>
 
                 <div className="flex flex-col gap-4">
@@ -733,10 +733,8 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* repeat for languages, frameworks, databases, tools */}
-
                 </div>
-              </div>
+              </div> */}
             </section>
 
             {/* experience and education section */}
