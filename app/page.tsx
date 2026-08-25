@@ -30,6 +30,7 @@ import gsap from "gsap";
 import LoadingScreen from "@/components/ui/loading-screen"
 import { useScrollAnimation } from "@/hooks/useScrollAnimation"
 import SpotlightCard from "@/components/SpotlightCard";
+import DomeGallery from "@/components/DomeGallery";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 const SKIP_HOME_LOADER_KEY = "portfolio:skip-home-loader"
@@ -852,6 +853,32 @@ export default function Home() {
                     </div>
                   </div>
 
+                </div>
+              </div>
+            </section>
+
+            {/* UI/UX Designs Section */}
+            <section className="flex flex-col justify-center mt-24 w-full sm:mt-32 lg:mt-56">
+              <div className="w-full max-w-5xl">
+                <p ref={subtitleRef} data-animate="fade-up" className="font-light tracking-wider text-(--text-muted)">MY UI/UX DESIGNS</p>
+                <h2 ref={titleRef} data-animate="fade-up" className="text-4xl font-bold tracking-tight text-pretty leading-tight sm:text-5xl lg:text-6xl">
+                  UI/UX Designs
+                </h2>
+                <p ref={subtitleRef} data-animate="fade-up" className="font-normal tracking-wide text-(--text-secondary) pb-10">
+                  Here are some of my user interface designs
+                </p>
+              </div>
+
+              <div className="flex flex-col w-full">
+                <div className="w-full h-[600px] sm:h-[700px] overflow-hidden">
+                  <DomeGallery
+                    fit={0.75}
+                    minRadius={400}
+                    maxVerticalRotationDeg={6}
+                    segments={30}
+                    dragDampening={2.8}
+                    grayscale={false}
+                  />
                 </div>
               </div>
             </section>
